@@ -15,7 +15,6 @@ HistorySaber is a tool for viewing historical data from ScoreSaber, the global B
 ## Website
 
 Visit the live site: https://historysaber.com  
-(*Replace this with the correct URL if different*)
 
 ## How It Works
 
