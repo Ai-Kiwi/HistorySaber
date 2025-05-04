@@ -1,0 +1,29 @@
+export interface UserType {
+    player_id: number,
+    snapshot_date: string,
+    name: string,
+    bio: String | null,
+    country: string,
+    pp: number,
+    rank: number,
+    country_rank: number,
+    badges: JSON,
+    banned: boolean,
+    inactive: boolean,
+    total_score: number,
+    total_ranked_score: number,
+    average_ranked_accuracy: number,
+    total_play_count: number,
+    ranked_play_count: number
+}
+
+export interface LeaderboardSelections {
+  country: String[],
+  date_moved_forward: number,
+  page: number,
+}
+
+export interface LeaderboardData { 
+  selection : LeaderboardSelections,
+  users : UserType[]
+}
