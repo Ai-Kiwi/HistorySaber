@@ -2,8 +2,9 @@
     <div class="footer-content">
       <p>&copy; 2025 History Saber. All rights reserved.</p>
       <div class="social-links">
-        <!--<a href="https://twitter.com" target="_blank" rel="noopener noreferrer">Twitter</a>
-        <a href="https://github.com" target="_blank" rel="noopener noreferrer">GitHub</a>-->
+        <!--<a href="https://twitter.com" target="_blank" rel="noopener noreferrer">Twitter</a>-->
+        <a href="https://github.com/Ai-Kiwi/HistorySaber" target="_blank" rel="noopener noreferrer">GitHub</a>
+        -
         <a href="/credits">Credits</a>
         -
         <a href="mailto:contact@aikiwi.dev">Contact</a>
