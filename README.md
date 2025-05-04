@@ -40,7 +40,3 @@ Contributions are welcome! To get started:
 5. Start the web server
 
 Feel free to open an issue or submit a pull request if you want anything changed.
-
-## License
-
-MIT License — see LICENSE for details.
