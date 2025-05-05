@@ -9,8 +9,8 @@
   import { formatDate, haveSameValues } from '$lib/utils';
   import { Circle } from 'svelte-loading-spinners';
   import Multiselect from 'svelte-multiselect';
-  import { writable } from 'svelte/store';
-    import { countries } from '$lib/userData';
+  import { countries } from '$lib/userData';
+  import DateSelect from '$lib/dateSelect.svelte';
 
   let selectable_countries = [];
   for (const key in countries) {
@@ -26,7 +26,7 @@
     date_moved_forward: 0,
   }
   let loading_new_data = $state(false);
-  let CurrentSelectedDaysSinceStart: number = $state(0);
+  let CurrentSelectedDaysSinceStart = $state(0);
   let current_page_selected: number = $state(1);
   
   function date_from_time_since_start(days: number) {
@@ -49,9 +49,7 @@
       date_moved_forward: CurrentSelectedDaysSinceStart,
     };
   });
-
-  // Set the reference start date
-  let dayRange: number = Math.floor((new Date().getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
+  
 
 
 
@@ -101,7 +99,10 @@
     }
   }
 
-  CurrentSelectedDaysSinceStart = dayRange;
+  function dateUpdate(new_date : number) {
+    CurrentSelectedDaysSinceStart = new_date;
+    fetchData()
+  }
 
   onMount(() => {
     fetchData()
@@ -113,8 +114,11 @@
 <main>
 
     <h1>Scoresaber past leaderboard</h1>
-    <span class="date_text">Date: {formatDate(currentDate)}</span>
-    <input type="range" min="0" max="{dayRange.toString()}" bind:value={CurrentSelectedDaysSinceStart} on:input={fetchData} class="date_slider">
+    <h2 class="date_text">{currentDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</h2>
+    <DateSelect 
+      startDate={startDate} 
+      valueUpdate={dateUpdate}
+    ></DateSelect>
     
     <div class="pagination">
       <button class="page-btn" id="prev-btn" on:click={()=>{current_page_selected -= 1; fetchData(); if (current_page_selected < 1) {current_page_selected = 1}}}>←</button>
@@ -124,6 +128,7 @@
         <Circle size="40" color="#F8F8F8" unit="px" duration="0.4s"/>
       {/if}
       <Multiselect --sms-options-bg="black"
+        on:change={fetchData}
         bind:value={selectedCountries}
         options={selectable_countries}
         placeholder="Choose countries"
@@ -219,38 +224,7 @@
     color: white;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
   }
-
-
-  .date_slider {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 100%;
-    height: 10px;
-    background: rgb(50, 50, 50);
-    border-radius: 10px;
-    max-width: calc(100% - 30px);
-    margin: 15px auto;
-    display: block;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-  }
-
-  .date_slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 25px;
-    height: 25px;
-    border-radius: 50%; 
-    background: rgb(125, 125, 125);
-    cursor: pointer;
-  }
-
-  .date_slider::-moz-range-thumb {
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    background: rgb(125, 125, 125);;
-    cursor: pointer;
-  }
+  
 
   .date_text {
     font-size: 20px;
@@ -258,7 +232,4 @@
     font-style: normal;
     font-weight: bold;
   }
-
-
-
 </style>
