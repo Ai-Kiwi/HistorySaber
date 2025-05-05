@@ -1,5 +1,5 @@
 import { DATABASE_URL } from '$env/static/private';
-import type { UserType } from '$lib/types';
+import type { Score, UserType } from '$lib/types';
 import { getDateWithoutTime } from '$lib/utils';
 import pg from 'pg'
 const { Client } = pg
@@ -263,6 +263,101 @@ export async function getTableInfo() {
     };
 }
 
+//work in progress code, don't currently know new curve or fomula
+//function interpolateCurve(curve: string | any[], accuracy: number) {
+//  // Clamp accuracy between 0 and 1
+//  accuracy = Math.max(0.0, Math.min(1.0, accuracy));
+//
+//  for (let i = 0; i < curve.length - 1; i++) {
+//    const [x1, y1] = curve[i];
+//    const [x2, y2] = curve[i + 1];
+//
+//    if (x2 <= accuracy && accuracy <= x1) {
+//      // Linear interpolation
+//      const t = (accuracy - x2) / (x1 - x2);
+//      return y2 + t * (y1 - y2);
+//    }
+//  }
+//
+//  return 0.0; // fallback, should not be hit due to clamping
+//}
+//
+//function calculatePP(star_rating : number, accuracy : number) {
+//    const curve = [
+//      [1, 7], [0.999, 6.24], [0.9975, 5.31], [0.995, 4.14],
+//      [0.9925, 3.31], [0.99, 2.73], [0.9875, 2.31], [0.985, 2.0],
+//      [0.9825, 1.775], [0.98, 1.625], [0.9775, 1.515], [0.975, 1.43],
+//      [0.9725, 1.36], [0.97, 1.3], [0.965, 1.195], [0.96, 1.115],
+//      [0.955, 1.05], [0.95, 1], [0.94, 0.94], [0.93, 0.885],
+//      [0.92, 0.835], [0.91, 0.79], [0.9, 0.75], [0.875, 0.655],
+//      [0.85, 0.57], [0.825, 0.51], [0.8, 0.47], [0.75, 0.4],
+//      [0.7, 0.34], [0.65, 0.29], [0.6, 0.25], [0.0, 0.0],
+//    ];
+//  
+//    const acc_multiplier = interpolateCurve(curve, accuracy / 100.0);
+//    return star_rating * acc_multiplier * 40.6945916862;
+//}
+
+
+//console.log(await calculatePP(10.73,86.69))
+//console.log(await calculatePP(11.79,85.54))
+
+
+export async function fetchPlayerRankedScores(player_id : number, date : Date): Promise<any[]> {
+    const query = {
+        name: 'fetch-player-ranked-scores-for-date',
+        text: `WITH latest_scores AS (
+                SELECT DISTINCT ON (s.leaderboard_id)
+                    s.*
+                FROM scores s
+                WHERE s.player_id = $1 AND s.time <= $2
+                ORDER BY s.leaderboard_id, s.time DESC
+            ),
+        latest_ratings AS (
+            SELECT DISTINCT ON (r.leaderboard_id)
+                r.leaderboard_id,
+                r.stars,
+                r.updated_at
+            FROM leaderboard_rating_update r
+            WHERE r.updated_at <= $2
+            ORDER BY r.leaderboard_id, r.updated_at DESC
+            )
+        SELECT 
+            s.id AS score_id,
+            s.leaderboard_id,
+            s.accuracy,
+            s.score,
+            s.modified_score,
+            s.time,
+            r.stars
+        FROM latest_scores s
+        JOIN latest_ratings r ON s.leaderboard_id = r.leaderboard_id
+        `,
+        values: [player_id,date,],
+    }
+    const res = await client.query(query);
+    const scores: Score[] = res.rows.map((row: any) => {
+        return row
+    })
+    return scores;
+}
+
+
+
+
+//export async function getPlayerTopPlays(player_id : number, date : Date) {
+//    let scores = await fetchPlayerRankedScores(player_id, date);//
+//
+//    scores.sort(function(score_a, score_b){
+//        return score_b.pp - score_a.pp;
+//    });
+//    return scores
+//}
+
+//console.log(await getPlayerTopPlays(1922350521131465,new Date("May 5, 2025 03:0:00")))
+
+//CREATE INDEX ON scores(player_id, leaderboard_id, time DESC);
+//CREATE INDEX ON leaderboard_rating_update(leaderboard_id, updated_at DESC);
 
 
 //console.log(await getTableInfo())

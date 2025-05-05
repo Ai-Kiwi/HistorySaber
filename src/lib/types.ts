@@ -27,3 +27,13 @@ export interface LeaderboardData {
   selection : LeaderboardSelections,
   users : UserType[]
 }
+
+export interface Score { 
+  score_id: number,
+  leaderboard_id: number,
+  accuracy: number,
+  score: number,
+  modified_score: number,
+  time: Date,
+  stars: number
+}
