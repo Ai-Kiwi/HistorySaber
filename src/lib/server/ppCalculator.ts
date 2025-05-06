@@ -73,5 +73,4 @@ export function calculatePP(star_rating : number, accuracy : number) {
 }
 
 
-console.log(await calculatePP(10.35,93.674))
 //console.log(await calculatePP(8.95,98.64))
