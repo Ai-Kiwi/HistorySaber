@@ -1,13 +1,8 @@
 <script lang="ts">    
-  import Navbar from '$lib/navbar.svelte';
-  import Footer from '$lib/footer.svelte'
   import UserBar from '$lib/userbar.svelte'
-  import { goto, invalidate } from '$app/navigation';
-  import { page } from '$app/state';
   import type { LeaderboardData, LeaderboardSelections, UserType } from '$lib/types';
   import { onMount } from 'svelte';
   import { formatDate, haveSameValues } from '$lib/utils';
-  import { Circle } from 'svelte-loading-spinners';
   import Multiselect from 'svelte-multiselect';
   import { countries } from '$lib/userData';
   import DateSelect from '$lib/dateSelect.svelte';
@@ -125,10 +120,6 @@
       current_page_selected={current_page_selected} 
       pageChanged={(page) => { current_page_selected = page; fetchData(); }}
     ></Pagination>
-
-      {#if loading_new_data == true}
-        <Circle size="40" color="#F8F8F8" unit="px" duration="0.4s"/>
-      {/if}
       <div class="country-select">
         <Multiselect style="--sms-options-bg: black; border-radius: 10px"
         on:change={fetchData}
@@ -138,7 +129,8 @@
       />
       </div>
 
-    {#if current_user_data.length > 0}
+    <div class="{loading_new_data ? 'shimmer' : ''}">
+      {#if current_user_data.length > 0}
       <div class="user-list">
         {#each current_user_data as user}
           <UserBar user={user}></UserBar>
@@ -149,6 +141,9 @@
       No users to display on this page
     </h2>
     {/if}
+    </div>
+
+
   
     <Pagination 
       current_page_selected={current_page_selected} 
@@ -178,7 +173,6 @@
     margin: 15px;
     border-radius: 15px;
   }
-  
 
   .date_text {
     font-size: 20px;
@@ -186,4 +180,36 @@
     font-style: normal;
     font-weight: bold;
   }
+
+  /*loading shimmer*/
+	@keyframes shimmer {
+		0% {
+			background-position: -200% 0;
+		}
+		100% {
+			background-position: 200% 0;
+		}
+	}
+
+	.shimmer {
+		position: relative;
+		overflow: hidden;
+    border-radius: 15px;
+	}
+
+	.shimmer::after {
+		content: "";
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(
+			120deg,
+			rgba(50, 50, 50, 0) 0%,
+			rgba(255, 255, 255, 0.1) 50%,
+			rgba(50, 50, 50, 0) 100%
+		);
+		background-size: 200% 100%;
+		animation: shimmer 1.8s infinite linear;
+		pointer-events: none;
+		border-radius: inherit;
+	}
 </style>
