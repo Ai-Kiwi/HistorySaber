@@ -4,6 +4,10 @@
   import { formatDate } from '$lib/utils';
   import Navbar from '$lib/navbar.svelte';
   import Footer from '$lib/footer.svelte'
+    import DateSelect from '$lib/dateSelect.svelte';
+    import Pagination from '$lib/pagination.svelte';
+    import type { Score } from '$lib/types';
+    import ScoreDisplay from '$lib/scoreDisplay.svelte';
   let { data }: PageProps = $props();
  
   const chartRender = (node: any, options: any) => {
@@ -128,6 +132,68 @@
 //    : 'background-color: black;'
 //}`}>
 
+
+  const validEntries = formatedDates
+    .map((date, i) => ({ date: new Date(ppDataset[i].x), value: ppDataset[i].y }))
+    .filter(entry => entry.value !== null);
+
+  // Step 2: Find the entry with the earliest date
+  const earliest = validEntries.reduce((min, curr) => (
+    curr.date < min.date ? curr : min
+  ), validEntries[0]);
+  let score_tracking_started = new Date("2025-05-03")
+
+  if (earliest.date.getTime() > score_tracking_started.getTime()) {
+    score_tracking_started = new Date(earliest.date)
+  }
+  score_tracking_started.setTime(score_tracking_started.getTime() + (24 * 60 * 60 * 1000))
+
+  let loading_scores = $state(false)
+  let loading_outdated = false
+  let selected_score_date = $state(new Date(score_tracking_started))
+  let score_page_selected = $state(1)
+  let player_scores: Score[]  = $state([])
+
+  async function fetch_scores() {
+    if (loading_scores == true) {
+      loading_outdated = true
+      return
+    }
+    loading_scores = true;
+
+    try{
+      const params = new URLSearchParams({ page: score_page_selected.toString(), date : formatDate(selected_score_date), player : data.playerData.player_id });
+      const res = await fetch(`/api/player_scores?${params.toString()}`);
+      if (!res.ok) {
+        console.error('Failed to fetch player score data:', res.statusText);
+        loading_scores = false;
+        return;
+      }
+
+      const score_data = await res.json();
+      player_scores = score_data
+      console.log(score_data)
+
+    }catch(e){
+      console.log(`failed fetching data ${e}`)
+    }
+
+
+    loading_scores = false
+    if (loading_outdated == true) {
+      loading_outdated = false
+      setTimeout(fetch_scores, 100);
+    }
+  }
+
+  function update_score_date(offset: number) {
+    selected_score_date.setTime(score_tracking_started.getTime() + (offset * 24 * 60 * 60 * 1000 ))
+    selected_score_date = new Date(selected_score_date);
+    fetch_scores()
+  }
+
+  fetch_scores()
+
 </script>
   
 <main>
@@ -138,11 +204,33 @@
   </div>
 
 
-    <canvas use:chartRender={config}></canvas>
+  <canvas class="graph" use:chartRender={config}></canvas>
 
 
 
-  <slot name="below" />
+
+  <h1>Past Scores</h1>
+  <h2 class="date_text">{selected_score_date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</h2>
+  <DateSelect startDate={score_tracking_started} valueUpdate={update_score_date}></DateSelect>
+
+  <Pagination current_page_selected={score_page_selected} pageChanged={(page: number) => {score_page_selected = page; fetch_scores()}}></Pagination>
+
+
+  <div class="{loading_scores ? 'shimmer' : ''}">
+    {#if player_scores.length > 0}
+    <div class="score-list">
+      {#each player_scores as score}
+        <ScoreDisplay data={score}></ScoreDisplay>
+      {/each}
+    </div>
+  {:else}
+  <h2>
+    No scores to display on this page
+  </h2>
+  {/if}
+  </div>
+
+  <Pagination current_page_selected={score_page_selected} pageChanged={(page: number) => {score_page_selected = page; fetch_scores()}}></Pagination>
 
 
 </main>
@@ -155,12 +243,27 @@
     font-size: 0px;
   }
 
+  h2, h1 {
+    text-align: center;
+  }
+
+  .score-list{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
   .basic-info-row {
     height: 128px;
     display: flex;
     flex-direction: row;
     margin-bottom: 15px;
 
+  }
+
+  .graph {
+    min-height: 400px;
+    margin-bottom: 15px;
   }
 
   .username {
@@ -170,7 +273,48 @@
     align-self: center;
   }
 
+  .date_text {
+    font-size: 20px;
+    margin: 15px;
+    font-style: normal;
+    font-weight: bold;
+  }
 
+  /*loading shimmer*/
+	@keyframes shimmer {
+		0% {
+			background-position: -200% 0;
+		}
+		100% {
+			background-position: 200% 0;
+		}
+	}
+
+	.shimmer {
+		position: relative;
+		overflow: hidden;
+    border-radius: 15px;
+	}
+
+	.shimmer::after {
+		content: "";
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(
+			120deg,
+			rgba(50, 50, 50, 0) 0%,
+			rgba(255, 255, 255, 0.1) 50%,
+			rgba(50, 50, 50, 0) 100%
+		);
+		background-size: 200% 100%;
+		animation: shimmer 1.8s infinite linear;
+		pointer-events: none;
+		border-radius: inherit;
+	}
+
+  a {
+      text-decoration: none;
+  }
 </style>
 
 
