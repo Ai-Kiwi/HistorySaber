@@ -35,5 +35,14 @@ export interface Score {
   score: number,
   modified_score: number,
   time: Date,
-  stars: number
+  stars: number,
+  pp: number,
+  map_hash: string,
+  difficulty: number,
+  difficultyraw: string,
+  maxscore: number,
+  song_name: string,
+  song_sub_name: string,
+  song_author_name: string,
+  level_author_name: string
 }
