@@ -1,5 +1,5 @@
 export interface UserType {
-    player_id: number,
+    player_id: string,
     snapshot_date: string,
     name: string,
     bio: String | null,

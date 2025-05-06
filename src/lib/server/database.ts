@@ -12,7 +12,7 @@ console.log("created postgresql connection")
 
 function clean_user(input_user: UserType) {
     let user = input_user
-    if (user.player_id == 76561198392945548 && user.name == "Floffy") {
+    if (user.player_id == "76561198392945548" && user.name == "Floffy") {
         user.name = "Fluffy"
     }
     return user
@@ -267,6 +267,12 @@ export async function getTableInfo() {
 
 
 export async function fetchPlayerRankedScores(player_id : string, date : Date): Promise<any[]> {
+    //set date to 3 as thats when leaderboards are collected
+    let timed_date = new Date(date)
+    date.setHours(3)
+    date.setMinutes(0)
+    date.setSeconds(0)
+    date.setMilliseconds(0)
     const query = {
         name: 'fetch-player-ranked-scores-for-date',
         text: `
@@ -307,7 +313,7 @@ export async function fetchPlayerRankedScores(player_id : string, date : Date): 
         JOIN map_leaderboard ml ON s.leaderboard_id = ml.leaderboard_id
         JOIN map m ON ml.map_hash = m.map_hash
         `,
-        values: [player_id,date,],
+        values: [player_id,timed_date,],
     }
     const res = await client.query(query);
     const scores: Score[] = res.rows.map((row: any) => {
@@ -356,9 +362,6 @@ export async function getPlayerTopPlays(player_id : string, date : Date, page : 
 }
 
 //console.log(await getPlayerTopPlays("76561198424686859",new Date("May 5, 2025 03:0:00"), 1, 3))
-
-//CREATE INDEX ON scores(player_id, leaderboard_id, time DESC);
-//CREATE INDEX ON leaderboard_rating_update(leaderboard_id, updated_at DESC);
 
 
 //console.log(await getTableInfo())
