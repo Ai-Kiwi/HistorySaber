@@ -20,24 +20,28 @@
       History Saber is your go-to platform for exploring historical Beat Saber rankings and player stats from
       <strong>ScoreSaber</strong>.
     </p>
-
+  
     <p>
-      We currently track player rankings starting from <strong>March 10, 2025</strong>. Score tracking is in development and may be added soon.
+      Player rankings are tracked starting from <strong>March 10, 2025</strong>. Score tracking is now active, but only for <strong>active players</strong>. Note that we do not have historical scores from before tracking began. If a player had scores that were later overwritten or deleted, that older data is lost. Because of this, only the <strong>list of top plays on each day since tracking started</strong> (and since the player became active) can be considered accurate.
     </p>
-
+  
+    <p>
+      <strong>Inactive players</strong> currently have no score data downloaded at all. I'm looking into whether this can be improved in the future.
+    </p>
+  
     <p>
       Got older data or want to help improve the site? Feel free to reach out!
     </p>
-
+  
     <p>
       For data downloads or feature requests, contact us at
       <a href="mailto:contact@aikiwi.dev">contact@aikiwi.dev</a>.
     </p>
-
+  
     <p>
       Happy browsing!
     </p>
-  <div/>
+  </div>
 
   <div class="info-container">
     <div class="info-box">
