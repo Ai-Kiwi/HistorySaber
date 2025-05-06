@@ -11,9 +11,6 @@
   let { data }: PageProps = $props();
  
   const chartRender = (node: any, options: any) => {
-    console.log('Action')
-    console.log(node)
-    console.log(options)
 
     new Chart (node, options)
   }
@@ -172,7 +169,6 @@
 
       const score_data = await res.json();
       player_scores = score_data
-      console.log(score_data)
 
     }catch(e){
       console.log(`failed fetching data ${e}`)
