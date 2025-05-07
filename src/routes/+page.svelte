@@ -13,7 +13,7 @@
 
   <!--<div class="logo">History Saber</div>-->
 
-  <img src="big-logo.png" alt="Logo of the History Saber website" class="logo">
+  <img src="big-logo.png" alt="HistorySaber website logo" class="logo">
   
   <div class="description">
     <p>
