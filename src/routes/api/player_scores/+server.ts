@@ -1,4 +1,4 @@
-import { getCountryLeaderboardPage, getLeaderboardPage, getPlayerHardestPlays, getPlayerHighestRankedAccuracyPlays, getPlayerRecentPlays, getPlayerRecentRankedPlays, getPlayerTopPlays } from '$lib/server/database'
+import { getCountryLeaderboardPage, getLeaderboardPage, getPlayerHardestPlays, getPlayerHighestAccuracyPlays, getPlayerHighestRankedAccuracyPlays, getPlayerRecentPlays, getPlayerRecentRankedPlays, getPlayerTopPlays } from '$lib/server/database'
 
 
 export async function GET({ url }) {
@@ -33,8 +33,12 @@ export async function GET({ url }) {
           headers: { 'Content-Type': 'application/json' },
           status: 200
       });
-    }else if (sort == "accuracy-unranked") {
-
+    }else if (sort == "accuracy-all") {
+      let scores = await getPlayerHighestAccuracyPlays(player,new Date(date),page,8)
+      return new Response(JSON.stringify(scores), {
+          headers: { 'Content-Type': 'application/json' },
+          status: 200
+      });
     }else{
       let scores = await getPlayerTopPlays(player,new Date(date),page,8)
       return new Response(JSON.stringify(scores), {
