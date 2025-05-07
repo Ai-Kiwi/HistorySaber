@@ -51,7 +51,9 @@
             </div>
 
             <div class="placement-text">
-                <span class="score-pp">~{ Math.floor(data.pp * 100) / 100}pp </span>
+                {#if data.stars != null}
+                    <span class="score-pp">~{ Math.floor(data.pp * 100) / 100}pp </span>
+                {/if}
                 <span class="score-accuracy">{ Math.floor(data.accuracy * 100) / 100}%</span>
                 <div style="height:100%"></div>
                 <span class="score-time">{ date_formatter.format( new Date(data.time) )}</span>
