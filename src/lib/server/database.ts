@@ -317,7 +317,7 @@ export async function fetchPlayerRankedScores(player_id : string, date : Date): 
     }
     const res = await client.query(query);
     const scores: Score[] = res.rows.map((row: any) => {
-        let accuracy = (row.modified_score / row.maxscore) * 100.0
+        let accuracy = (row.score / row.maxscore) * 100.0
         //accuracy = Math.round(accuracy * 100) / 100
         let pp = calculatePP(row.stars,accuracy)
         //pp = Math.round(pp * 100) / 100
