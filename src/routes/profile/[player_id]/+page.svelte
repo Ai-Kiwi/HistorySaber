@@ -150,6 +150,7 @@
   let selected_score_date = $state(new Date(score_tracking_started))
   let score_page_selected = $state(1)
   let player_scores: Score[]  = $state([])
+  let player_scores_sort: string  = $state("top")
 
   async function fetch_scores() {
     if (loading_scores == true) {
@@ -159,7 +160,7 @@
     loading_scores = true;
 
     try{
-      const params = new URLSearchParams({ page: score_page_selected.toString(), date : formatDate(selected_score_date), player : data.playerData.player_id });
+      const params = new URLSearchParams({ page: score_page_selected.toString(), date : formatDate(selected_score_date), player : data.playerData.player_id, sort : player_scores_sort });
       const res = await fetch(`/api/player_scores?${params.toString()}`);
       if (!res.ok) {
         console.error('Failed to fetch player score data:', res.statusText);
@@ -190,6 +191,11 @@
 
   fetch_scores()
 
+  function changeScoreSort(sort : string) {
+    player_scores_sort = sort
+    fetch_scores()
+  }
+
 </script>
   
 <main>
@@ -204,13 +210,20 @@
 
 
 
-
   <h1>Past Scores</h1>
   <h2 class="date_text">{selected_score_date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</h2>
   <DateSelect startDate={score_tracking_started} valueUpdate={update_score_date}></DateSelect>
 
   <Pagination current_page_selected={score_page_selected} pageChanged={(page: number) => {score_page_selected = page; fetch_scores()}}></Pagination>
 
+  <div class="sort-select-section">
+    <button class="{player_scores_sort == "top" ? "sort-select-selected" : "sort-select"}" on:click={()=>changeScoreSort("top")}>Performance Points</button>
+    <button class="{player_scores_sort == "hardest" ? "sort-select-selected" : "sort-select"}" on:click={()=>changeScoreSort("hardest")}>Stars</button>
+    <button class="{player_scores_sort == "accuracy-ranked" ? "sort-select-selected" : "sort-select"}" on:click={()=>changeScoreSort("accuracy-ranked")}>Ranked Accuracy</button>
+    <button class="{player_scores_sort == "recent-all" ? "sort-select-selected" : "sort-select"}" on:click={()=>changeScoreSort("recent-all")}>Recent</button>
+    <button class="{player_scores_sort == "recent-ranked" ? "sort-select-selected" : "sort-select"}" on:click={()=>changeScoreSort("recent-ranked")}>Recent Ranked</button>
+  </div>
+  
 
   <div class="{loading_scores ? 'shimmer' : ''}">
     {#if player_scores.length > 0}
@@ -232,6 +245,40 @@
 </main>
 
 <style>
+  .sort-select {
+    padding: 5px 7.5px;
+    border-radius: 15px;
+    font-family: sans-serif;
+    background-color: rgb(50, 50, 50);
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    border-width: 0px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .sort-select-selected {
+    padding: 5px 7.5px;
+    border-radius: 15px;
+    font-family: sans-serif;
+    background-color: rgb(100, 100, 100);
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    border-width: 0px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .sort-select-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 25px;
+    gap: 5px
+  }
+
   .profile-picture{
     height: 128px;
     border-radius: 9999px;
