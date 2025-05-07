@@ -219,6 +219,7 @@
   <div class="sort-select-section">
     <button class="{player_scores_sort == "top" ? "sort-select-selected" : "sort-select"}" on:click={()=>changeScoreSort("top")}>Performance Points</button>
     <button class="{player_scores_sort == "hardest" ? "sort-select-selected" : "sort-select"}" on:click={()=>changeScoreSort("hardest")}>Stars</button>
+    <button class="{player_scores_sort == "accuracy-all" ? "sort-select-selected" : "sort-select"}" on:click={()=>changeScoreSort("accuracy-all")}>Accuracy</button>
     <button class="{player_scores_sort == "accuracy-ranked" ? "sort-select-selected" : "sort-select"}" on:click={()=>changeScoreSort("accuracy-ranked")}>Ranked Accuracy</button>
     <button class="{player_scores_sort == "recent-all" ? "sort-select-selected" : "sort-select"}" on:click={()=>changeScoreSort("recent-all")}>Recent</button>
     <button class="{player_scores_sort == "recent-ranked" ? "sort-select-selected" : "sort-select"}" on:click={()=>changeScoreSort("recent-ranked")}>Recent Ranked</button>

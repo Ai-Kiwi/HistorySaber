@@ -495,7 +495,19 @@ export async function getPlayerRecentPlays(player_id : string, date : Date, page
     return scores
 }
 
+export async function getPlayerHighestAccuracyPlays(player_id : string, date : Date, page : number, page_size : number) {
+    let scores = await fetchAllPlayerScores(player_id, date);//
 
+    scores.sort(function(score_a, score_b){
+        return score_b.accuracy - score_a.accuracy;
+    });
+    if (page > 1){
+        scores = scores.slice((page - 1) * page_size, page * page_size);
+    }else{
+        scores = scores.slice(0,page_size);
+    }
+    return scores
+}
 
 
 
