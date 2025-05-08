@@ -7,6 +7,7 @@
   import { countries } from '$lib/userData';
   import DateSelect from '$lib/dateSelect.svelte';
   import Pagination from '$lib/pagination.svelte'
+  import { page } from '$app/stores';
 
   let selectable_countries = [];
   for (const key in countries) {
@@ -39,6 +40,14 @@
   let current_user_data : UserType[] = $state([]);
 
   let new_selections: LeaderboardSelections = $derived.by(() => {
+    //const params = new URLSearchParams(window.location.search);
+    //params.set("page", current_page_selected.toString());
+    //if (selectedCountries.length > 0) {
+    //  params.set("countries", selectedCountries.toString());
+    //}
+    //params.set("date", date_from_time_since_start(CurrentSelectedDaysSinceStart).toString());
+    //const newUrl = `${window.location.pathname}?${params.toString()}`;
+    //window.history.pushState({}, '', newUrl);
     return { 
       country: [...selectedCountries],
       page: current_page_selected,
