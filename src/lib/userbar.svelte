@@ -53,6 +53,8 @@
     .rank-display {
         display: flex;
         flex-direction: row;
+        justify-content: baseline;
+        width: 150px;
         margin-right: 5px;
     }
 
@@ -70,7 +72,6 @@
     }
     .country-rank{
         height: 25px;
-        width: 75px;
         text-align: center;
         border-radius: 5px;
         font-size: 15px;
@@ -80,6 +81,8 @@
         color: white;
         font-style: normal;
         text-decoration: none;
+        flex-direction: row;
+        justify-content: center;
     }
     a {
         text-decoration: none;
