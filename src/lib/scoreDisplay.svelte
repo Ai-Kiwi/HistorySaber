@@ -70,8 +70,6 @@
         display: flex;
         align-items: center;
         flex-direction: row;
-        height: 100px;
-        width: 100%;
         background-color: rgb(50, 50, 50);
         border-radius: 10px;
         padding: 5px;
