@@ -4,9 +4,9 @@
       <div class="social-links">
         <!--<a href="https://twitter.com" target="_blank" rel="noopener noreferrer">Twitter</a>-->
         <a href="https://github.com/Ai-Kiwi/HistorySaber" target="_blank" rel="noopener noreferrer">GitHub</a>
-        -
+        <div>-</div>
         <a href="/credits">Credits</a>
-        -
+        <div>-</div>
         <a href="mailto:contact@aikiwi.dev">Contact</a>
       </div>
     </div>
@@ -28,6 +28,9 @@
   
     .social-links {
       margin-top: 10px;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
     }
   
     .social-links a {
@@ -40,17 +43,5 @@
   
     .social-links a:hover {
       color: #16a085;
-    }
-  
-    @media (max-width: 600px) {
-      .social-links {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      }
-  
-      .social-links a {
-        margin: 5px 0;
-      }
     }
   </style>

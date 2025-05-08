@@ -6,9 +6,9 @@
     ];
   </script>
   
-<div class="spaced-area">
+  <div class="spaced-area">
 
-</div>
+  </div>
 
   <nav>
     <div class="nav-container">
@@ -28,10 +28,6 @@
     /* Ensure all elements inside the nav don't exceed screen width */
     *, *::before, *::after {
       box-sizing: border-box;
-    }
-
-    .spaced-area {
-      height: 70px;
     }
   
     nav {
@@ -92,7 +88,11 @@
     li a:hover {
       color: #1abc9c;
     }
-  
+
+    .spaced-area {
+      height: 70px;
+    }  
+    
     @media (max-width: 600px) {
       ul {
         flex-direction: column;
@@ -106,6 +106,12 @@
         flex-direction: column;
         align-items: flex-start;
       }
+
+      .spaced-area {
+        height: 140px;
+      }
     }
+
+
   </style>
   

@@ -96,6 +96,7 @@
     data: chart_data,
     options: {
       responsive: true,
+      maintainAspectRatio: false,
       plugins: {
         tooltip: {
           mode: 'index',
@@ -205,8 +206,9 @@
     <div class="username">{user_data.name}</div>
   </div>
 
-
-  <canvas class="graph" use:chartRender={config}></canvas>
+  <div class="graph">
+    <canvas  use:chartRender={config}></canvas>
+  </div>
 
 
 
@@ -247,8 +249,7 @@
 
 <style>
   .sort-select {
-    padding: 5px 7.5px;
-    border-radius: 15px;
+    padding: 7.5px 10px;
     font-family: sans-serif;
     background-color: rgb(50, 50, 50);
     border-radius: 10px;
@@ -260,8 +261,7 @@
   }
 
   .sort-select-selected {
-    padding: 5px 7.5px;
-    border-radius: 15px;
+    padding: 7.5px 10px;
     font-family: sans-serif;
     background-color: rgb(100, 100, 100);
     border-radius: 10px;
@@ -277,7 +277,8 @@
     flex-direction: row;
     justify-content: center;
     margin: 25px;
-    gap: 5px
+    gap: 5px;
+    flex-wrap: wrap;
   }
 
   .profile-picture{
@@ -306,7 +307,7 @@
   }
 
   .graph {
-    min-height: 400px;
+    height: 500px;
     margin-bottom: 15px;
   }
 
