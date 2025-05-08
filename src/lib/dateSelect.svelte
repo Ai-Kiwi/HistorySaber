@@ -2,7 +2,7 @@
     const { startDate, valueUpdate } = $props<{ startDate: Date, valueUpdate: (value: number) => void; }>()
     let dayRange: number = Math.floor((new Date().getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
 
-    let value: number = $state(0);
+    let value: number = $state(dayRange);
     
     function onChange() {
         valueUpdate(value)
