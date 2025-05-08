@@ -43,6 +43,7 @@
     }
 
     .username-and-pfp{
+        flex: 1 1 100px;
         display: flex;
         flex-direction: row;
         width: 100%;
