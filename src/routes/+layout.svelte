@@ -44,16 +44,4 @@
       flex: 1;  /* Takes up remaining space */
       min-height: calc(100vh - 70px);
     }
-  
-    .logo {
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: #1abc9c;
-      white-space: nowrap;
-      text-align: center;
-      margin-bottom: 35px;
-      font-size: 100px;
-    }
-  
-  
   </style>
