@@ -142,7 +142,9 @@
       {#if current_user_data.length > 0}
       <div class="user-list">
         {#each current_user_data as user}
-          <UserBar user={user}></UserBar>
+          {#key user.player_id}
+            <UserBar user={user}></UserBar>
+          {/key}
         {/each}
       </div>
     {:else}

@@ -232,7 +232,9 @@
     {#if player_scores.length > 0}
     <div class="score-list">
       {#each player_scores as score}
-        <ScoreDisplay data={score}></ScoreDisplay>
+        {#key score.score_id}
+          <ScoreDisplay data={score}></ScoreDisplay>
+        {/key}
       {/each}
     </div>
   {:else}
