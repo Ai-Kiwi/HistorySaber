@@ -5,8 +5,10 @@
     let value: number = $state(dayRange);
     
     function onChange() {
-        valueUpdate(value)
+      valueUpdate(value)
     }
+
+    onChange()
 
 </script>
 
