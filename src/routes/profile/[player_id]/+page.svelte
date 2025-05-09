@@ -39,7 +39,7 @@
           label: 'Performance Points',
           data: ppDataset,
           borderColor: 'rgba(255, 165, 0, 1)', // Orange
-          tension: 0.1
+          tension: 0.1,
         },
         {
           label: 'World Wide Rank',
@@ -118,9 +118,7 @@
           },
         },
         y: {
-          beginAtZero: false, // automatically scales based on data
-          reverse: true,
-          position: 'right',
+          type: 'linear',
         }
       }
     }
@@ -360,10 +358,6 @@
 		pointer-events: none;
 		border-radius: inherit;
 	}
-
-  a {
-      text-decoration: none;
-  }
 </style>
 
 
