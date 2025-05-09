@@ -68,6 +68,7 @@
     .feedback-people {
         display: flex;
         margin: 0px 15px 50px 15px;
+        flex-wrap: wrap;
     }
 
     .person-name {
