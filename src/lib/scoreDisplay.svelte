@@ -1,5 +1,6 @@
 <script lang="ts">
-    import type { Score } from "./types";
+    import Tooltip from "./tooltip.svelte";
+import type { Score } from "./types";
 
     export let data: Score;
     let dif_name = "unknown"
@@ -51,18 +52,42 @@
             </a>
 
             <div class="placement-text">
-                {#if data.stars != null}
-                    <span class="score-pp">~{ Math.floor(data.pp * 100) / 100}pp </span>
-                {/if}
-                <span class="score-accuracy">{ Math.floor(data.accuracy * 100) / 100}%</span>
+                <div class="score-stat-row">
+                    <Tooltip title="Played on {data.device_hmd} with left controller {data.device_controller_left} and right controller {data.device_controller_right}">
+                        <span class="score-headset">{data.device_hmd}</span>
+                    </Tooltip>
+                    <Tooltip title="{data.accuracy}%">
+                        <span class="score-accuracy">{ Math.floor(data.accuracy * 100) / 100}%</span>
+                    </Tooltip>
+                    {#if data.stars != null}
+                        <span class="score-pp">~{ Math.floor(data.pp * 100) / 100}pp </span>
+                    {/if}
+                </div>
+                <div class="score-stat-row">
+                    {#if data.mods.length > 0}
+                        <Tooltip title="Mods that were enabled">
+                            <span class="score-mods">{data.mods}</span>
+                        </Tooltip>
+                    {/if}
+                    <Tooltip title="scored {data.score.toLocaleString()} with max of {data.maxscore.toLocaleString()}. (modifed score would be {data.modified_score.toLocaleString()})">
+                        <span class="score-score">{data.score} ✖️</span>
+                    </Tooltip>
+                    <Tooltip title="{data.missed_notes} misses and {data.bad_cuts} bad cuts. Max combo of {data.max_combo}">
+                        {#if data.missed_notes + data.bad_cuts == 0}
+                            <span class="score-misses" style="background-color: green;">{data.missed_notes + data.bad_cuts} ✔️</span>
+                        {:else}
+                            <span class="score-misses">{data.missed_notes + data.bad_cuts} ✖️</span>
+                        {/if}
+                    </Tooltip>
+                </div>
+
                 <div style="height:100%"></div>
                 <span class="score-time">{ date_formatter.format( new Date(data.time) )}</span>
             </div>
 
         </div>
-   
-
 </main>
+
 
 <style>
     .main-score {
@@ -115,17 +140,66 @@
     }
 
     .score-pp {
-        margin: 5px;
-        font-size: 15px;
+        text-align: center;
+        padding: 5px;
         color: rgb(250, 250, 250);
         background-color: rgb(50, 0,250);
         border-radius: 15px;
+        font-weight: bolder;
+    }
+
+    .score-score {
+        text-align: center;
+        padding: 5px;
+        color: rgb(250, 250, 250);
+        background-color: rgb(75, 75, 75);
+        border-radius: 15px;
+        font-weight: bolder;
+    }
+
+    .score-mods {
+        text-align: center;
+        padding: 5px;
+        color: rgb(250, 250, 250);
+        background-color: rgb(30, 150, 200);
+        border-radius: 15px;
+        font-weight: bolder;
+    }
+
+    .score-misses {
+        text-align: center;
+        padding: 5px;
+        font-size: 15px;
+        color: rgb(250, 250, 250);
+        background-color: red;
+        border-radius: 15px;
         font-size: 15px;
         font-weight: bolder;
-        padding: 4px 8px;
     }
-    .score-accuracy {
+
+    .score-headset {
+        text-align: center;
+        text-wrap-mode: nowrap;
+        padding: 5px;
+        font-size: 15px;
+        color: rgb(250, 250, 250);
+        background-color: rgb(75, 75, 75);
+        border-radius: 15px;
+        font-size: 15px;
+        font-weight: bolder;
+    }
+
+    .score-stat-row {
         margin: 5px;
+        display: flex;
+        flex-direction: row;;
+        align-items: center;
+        justify-content: end;
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+
+    .score-accuracy {
         font-size: 15px;
         color: rgb(250, 250, 250);
         background-color: rgb(110, 110, 110);
