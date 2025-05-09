@@ -28,9 +28,9 @@
 </script>
 
 <main>
-    <a href="https://scoresaber.com/leaderboard/{data.leaderboard_id}">
+    
         <div class="main-score">
-            <div class="score-icon-parent">
+            <a href="https://scoresaber.com/leaderboard/{data.leaderboard_id}" class="score-icon-parent">
                 <img class="score-icon" src="https://cdn.scoresaber.com/covers/{data.map_hash}.png" alt="">
                 <div class="score-star-text">
                     {#if data.stars != null}
@@ -40,15 +40,15 @@
                     {/if}
 
                 </div>
-            </div>
-            
-            <div class="score-text">
+            </a>
+
+            <a href="https://scoresaber.com/leaderboard/{data.leaderboard_id}" class="score-text">
                 <span class="song-name">{data.song_name}</span>
                 <span class="sub-song-name">{data.song_sub_name}</span>
                 <div style="height:100%"></div>
                 <span class="song-author-name">Song by {data.song_author_name}</span>
                 <span class="level-author-name">Mapped by {data.level_author_name}</span>
-            </div>
+            </a>
 
             <div class="placement-text">
                 {#if data.stars != null}
@@ -60,7 +60,7 @@
             </div>
 
         </div>
-    </a>
+   
 
 </main>
 
@@ -85,10 +85,12 @@
         height: 100%;
         display: flex;
         flex-direction: column;
+        text-decoration: none;
     }
 
     .song-name {
         font-weight: bold;
+        color: rgb(255, 255, 255);
     }
     .sub-song-name {
         font-size: 15px;
@@ -144,6 +146,7 @@
         width: 90px;
         height: 90px;
         position: relative;
+        text-decoration: none;
     }
 
     .score-star-text {
@@ -156,10 +159,7 @@
         left: 0px;
         z-index: 10;
         background-color: blue;
-    }
-    
-    a {
-        text-decoration: none !important;
+        color: rgb(255, 255, 255);
     }
 
 </style>
