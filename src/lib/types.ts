@@ -44,5 +44,15 @@ export interface Score {
   song_name: string,
   song_sub_name: string,
   song_author_name: string,
-  level_author_name: string
+  level_author_name: string,
+  player_id: string,
+  max_combo: number,
+  full_combo: boolean,
+  bad_cuts: number,
+  missed_notes: number,
+  mods: string,
+  hmd: number
+  device_hmd: string,
+  device_controller_left: string,
+  device_controller_right : string,
 }

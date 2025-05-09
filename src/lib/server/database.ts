@@ -299,6 +299,16 @@ export async function fetchPlayerRankedScores(player_id : string, date : Date): 
             s.score,
             s.modified_score,
             s.time,
+            s.player_id,
+            s.max_combo,
+            s.full_combo,
+            s.bad_cuts,
+            s.missed_notes,
+            s.mods,
+            s.hmd,
+            s.device_hmd,
+            s.device_controller_left,
+            s.device_controller_right,
             r.stars,
             ml.map_hash,
             ml.difficulty,
@@ -338,7 +348,17 @@ export async function fetchPlayerRankedScores(player_id : string, date : Date): 
             song_name: row.song_name,
             song_sub_name: row.song_sub_name,
             song_author_name: row.song_author_name,
-            level_author_name: row.level_author_name
+            level_author_name: row.level_author_name,
+            player_id: row.player_id,
+            max_combo: row.max_combo,
+            full_combo: row.full_combo,
+            bad_cuts: row.bad_cuts,
+            missed_notes: row.missed_notes,
+            mods: row.mods,
+            hmd: row.hmd,
+            device_hmd: row.device_hmd,
+            device_controller_left: row.device_controller_left,
+            device_controller_right: row.device_controller_right,
         }
     })
     return scores;
@@ -436,6 +456,16 @@ export async function fetchAllPlayerScores(player_id : string, date : Date): Pro
             s.score,
             s.modified_score,
             s.time,
+            s.player_id,
+            s.max_combo,
+            s.full_combo,
+            s.bad_cuts,
+            s.missed_notes,
+            s.mods,
+            s.hmd,
+            s.device_hmd,
+            s.device_controller_left,
+            s.device_controller_right,
             r.stars,
             ml.map_hash,
             ml.difficulty,
@@ -452,6 +482,11 @@ export async function fetchAllPlayerScores(player_id : string, date : Date): Pro
         `,
         values: [player_id,timed_date,],
     }
+
+    
+
+
+
     const res = await client.query(query);
     const scores: Score[] = res.rows.map((row: any) => {
         let accuracy = (row.score / row.maxscore) * 100.0
@@ -475,7 +510,17 @@ export async function fetchAllPlayerScores(player_id : string, date : Date): Pro
             song_name: row.song_name,
             song_sub_name: row.song_sub_name,
             song_author_name: row.song_author_name,
-            level_author_name: row.level_author_name
+            level_author_name: row.level_author_name,
+            player_id: row.player_id,
+            max_combo: row.max_combo,
+            full_combo: row.full_combo,
+            bad_cuts: row.bad_cuts,
+            missed_notes: row.missed_notes,
+            mods: row.mods,
+            hmd: row.hmd,
+            device_hmd: row.device_hmd,
+            device_controller_left: row.device_controller_left,
+            device_controller_right: row.device_controller_right,
         }
     })
     return scores;
