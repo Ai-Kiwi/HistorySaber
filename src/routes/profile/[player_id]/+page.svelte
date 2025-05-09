@@ -45,13 +45,15 @@
           label: 'World Wide Rank',
           data: rankDataset,
           borderColor: 'rgba(30, 144, 255, 1)', // Dodger Blue
-          tension: 0.1
+          tension: 0.1,
+          hidden: true
         },
         {
           label: 'Country Rank',
           data: countryDataset,
           borderColor: 'rgba(34, 139, 34, 1)', // Forest Green
-          tension: 0.1
+          tension: 0.1,
+          hidden: true
         },
         {
           label: 'Total Score',
