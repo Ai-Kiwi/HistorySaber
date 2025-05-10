@@ -8,7 +8,7 @@
     //    <a href="/country-ranks/{formattedDte}/{user.country}/1">
 </script>
 
-<div class="user-bar">
+<a href="/profile/{user.player_id}" class="user-bar">
     <div class="rank-display">
         <div class="rank">
             #{user.rank}
@@ -22,17 +22,15 @@
     <div class="username-and-pfp">
         <img src="https://cdn.scoresaber.com/avatars/{user.player_id}.jpg" alt="Profile picture of {user.name}" class="profile-picture" aria-hidden="true" style="margin: auto 0px;">
 
-        <a href="/profile/{user.player_id}">
-            <div class=username>
-                {user.name}
-            </div>
-        </a>
+        <div class=username>
+            {user.name}
+        </div>
     </div>
 
     <div class=point-score>
         {user.pp}pp
     </div>
-</div>
+</a>
 
 <style>
     .profile-picture{
