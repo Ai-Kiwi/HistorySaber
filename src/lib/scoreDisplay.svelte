@@ -29,7 +29,6 @@ import type { Score } from "./types";
 </script>
 
 <main>
-    
         <div class="main-score">
             <a href="https://scoresaber.com/leaderboard/{data.leaderboard_id}" class="score-icon-parent">
                 <img class="score-icon" src="https://cdn.scoresaber.com/covers/{data.map_hash}.png" alt="">
@@ -51,7 +50,7 @@ import type { Score } from "./types";
                 <span class="level-author-name">Mapped by {data.level_author_name}</span>
             </a>
 
-            <div class="placement-text">
+            <a href="/profile/{data.player_id}/score-improvement/{data.leaderboard_id}" class="placement-text">
                 <div class="score-stat-row">
                     <Tooltip title="Played on {data.device_hmd} with left controller {data.device_controller_left} and right controller {data.device_controller_right}">
                         <span class="score-headset">{data.device_hmd}</span>
@@ -83,7 +82,7 @@ import type { Score } from "./types";
 
                 <div style="height:100%"></div>
                 <span class="score-time">{ date_formatter.format( new Date(data.time) )}</span>
-            </div>
+            </a>    
 
         </div>
 </main>
@@ -137,6 +136,8 @@ import type { Score } from "./types";
         flex-direction: column;
         align-items: flex-end;
         justify-content: flex-start;
+        text-decoration: none;
+        color: white;
     }
 
     .score-pp {
