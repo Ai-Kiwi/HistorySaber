@@ -2,12 +2,13 @@
   import UserBar from '$lib/userbar.svelte'
   import type { LeaderboardData, LeaderboardSelections, UserType } from '$lib/types';
   import { onMount } from 'svelte';
-  import { formatDate, haveSameValues } from '$lib/utils';
+  import { formatDate, haveSameValues, sleep } from '$lib/utils';
   import Multiselect from 'svelte-multiselect';
   import { countries } from '$lib/userData';
   import DateSelect from '$lib/dateSelect.svelte';
   import Pagination from '$lib/pagination.svelte'
   import { page } from '$app/stores';
+    import { flip } from 'svelte/animate';
 
   let selectable_countries = [];
   for (const key in countries) {
@@ -96,7 +97,7 @@
     }catch(e){
       console.log(`failed fetching data ${e}`)
     }
-  
+    
     loading_new_data = false;
     if (current_data_selection.date_moved_forward != new_selections.date_moved_forward || current_data_selection.page != new_selections.page || !haveSameValues(current_data_selection.country, new_selections.country)) {
       console.log("already updated leaderboards, refetching data")
@@ -141,10 +142,10 @@
     <div class="{loading_new_data ? 'shimmer' : ''}">
       {#if current_user_data.length > 0}
       <div class="user-list">
-        {#each current_user_data as user}
-          {#key user.player_id}
-            <UserBar user={user}></UserBar>
-          {/key}
+        {#each current_user_data as user (user.player_id)}
+          <label animate:flip={{ duration: 150 }}>
+            <UserBar user={user} ></UserBar>
+          </label>
         {/each}
       </div>
     {:else}
