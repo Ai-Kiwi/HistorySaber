@@ -30,7 +30,7 @@ export interface LeaderboardData {
 
 export interface Score { 
   score_id: number,
-  leaderboard_id: number,
+  leaderboard_id: string,
   accuracy: number,
   score: number,
   modified_score: number,
@@ -55,4 +55,17 @@ export interface Score {
   device_hmd: string,
   device_controller_left: string,
   device_controller_right : string,
+}
+
+export interface MapLeaderboard {
+  leaderboard_id: string,
+  stars: number,
+  map_hash: string,
+  difficulty: number,
+  difficultyraw: string,
+  maxscore: number,
+  song_name: string,
+  song_sub_name: string,
+  song_author_name: string,
+  level_author_name: string,
 }

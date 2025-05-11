@@ -1,5 +1,6 @@
 <script lang="ts">
     import ScoreDisplay from '$lib/scoreDisplay.svelte';
+    import type { Score } from '$lib/types.js';
     import pkg from 'chart.js';
     const {Chart} = pkg
     const { data } = $props()
@@ -29,7 +30,7 @@
         year: "numeric",
     });
 
-    data.scores.reverse().forEach((score) => {
+    data.scores.forEach((score : Score) => {
       scoreDates.push(date_formatter.format(score.time))
       scoreAccuracy.push({y: score.accuracy, x : score.time})
       scoreScore.push({y: score.score, x : score.time})
@@ -143,17 +144,25 @@
 </script>
 
 <main>
-    <h1>{data.player_data.name} progress of improvement</h1>
+    <h1><span class="name">{data.map_data.song_name}</span> on <span class="name">{data.map_data.difficultyraw}</span> top score history</h1>
 
   <div class="graph">
     <canvas use:chartRender={config}></canvas>
   </div>
 
-  <h2>Scores</h2>
+  <h1>Scores</h1>
 
     {#if data.scores.length > 0}
     <div class="score-list">
-      {#each data.scores as score}
+      {#each [...data.scores].reverse() as score, i}
+        {#if i > 0}
+          {#if data.usernames[(data.scores.length-1)-i] != data.usernames[(data.scores.length-1)-i+1]}
+            <h3>{data.usernames[(data.scores.length-1)-i]}</h3>
+          {/if}
+        {:else}
+          <h3>{data.usernames[(data.scores.length-1)-i]}</h3>
+        {/if}
+        
         {#key score.score_id}
           <ScoreDisplay data={score}></ScoreDisplay>
         {/key}
@@ -173,8 +182,15 @@
     margin-bottom: 15px;
   }
 
-  h2 {
+  h1, h2, h3 {
     text-align: center;
+  }
+  h3 {
+    margin-bottom: 0px;
+  }
+
+  .name {
+    color: lightblue;
   }
 
 .score-list{

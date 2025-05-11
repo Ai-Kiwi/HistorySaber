@@ -30,7 +30,7 @@ import type { Score } from "./types";
 
 <main>
         <div class="main-score">
-            <a href="https://scoresaber.com/leaderboard/{data.leaderboard_id}" class="score-icon-parent">
+            <a href="/score-improvement/{data.leaderboard_id}" class="score-icon-parent">
                 <img class="score-icon" src="https://cdn.scoresaber.com/covers/{data.map_hash}.png" alt="">
                 <div class="score-star-text">
                     {#if data.stars != null}
@@ -42,7 +42,7 @@ import type { Score } from "./types";
                 </div>
             </a>
 
-            <a href="https://scoresaber.com/leaderboard/{data.leaderboard_id}" class="score-text">
+            <a href="/score-improvement/{data.leaderboard_id}" class="score-text">
                 <span class="song-name">{data.song_name}</span>
                 <span class="sub-song-name">{data.song_sub_name}</span>
                 <div style="height:100%"></div>
@@ -50,7 +50,7 @@ import type { Score } from "./types";
                 <span class="level-author-name">Mapped by {data.level_author_name}</span>
             </a>
 
-            <a href="/profile/{data.player_id}/score-improvement/{data.leaderboard_id}" class="placement-text">
+            <a href="/score-improvement/{data.leaderboard_id}/{data.player_id}" class="placement-text">
                 <div class="score-stat-row">
                     <Tooltip title="Played on {data.device_hmd} with left controller {data.device_controller_left} and right controller {data.device_controller_right}">
                         <span class="score-headset">{data.device_hmd}</span>
@@ -130,7 +130,7 @@ import type { Score } from "./types";
     }
 
     .placement-text {
-        width: 100%;
+        flex: auto;
         height: 100%;
         display: flex;
         flex-direction: column;
