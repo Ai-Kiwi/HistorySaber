@@ -8,6 +8,7 @@
     import Pagination from '$lib/pagination.svelte';
     import type { Score } from '$lib/types';
     import ScoreDisplay from '$lib/scoreDisplay.svelte';
+    import { flip } from 'svelte/animate';
   let { data }: PageProps = $props();
  
   const chartRender = (node: any, options: any) => {
@@ -231,10 +232,10 @@
   <div class="{loading_scores ? 'shimmer' : ''}">
     {#if player_scores.length > 0}
     <div class="score-list">
-      {#each player_scores as score}
-        {#key score.score_id}
+      {#each player_scores as score (score.score_id)}
+        <label animate:flip={{ duration: 500 }}>
           <ScoreDisplay data={score}></ScoreDisplay>
-        {/key}
+        </label>
       {/each}
     </div>
   {:else}
