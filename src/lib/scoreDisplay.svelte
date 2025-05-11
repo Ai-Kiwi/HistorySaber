@@ -69,7 +69,7 @@ import type { Score } from "./types";
                         </Tooltip>
                     {/if}
                     <Tooltip title="scored {data.score.toLocaleString()} with max of {data.maxscore.toLocaleString()}. (modifed score would be {data.modified_score.toLocaleString()})">
-                        <span class="score-score">{data.score} ✖️</span>
+                        <span class="score-score">{data.score}</span>
                     </Tooltip>
                     <Tooltip title="{data.missed_notes} misses and {data.bad_cuts} bad cuts. Max combo of {data.max_combo}">
                         {#if data.missed_notes + data.bad_cuts == 0}
