@@ -808,8 +808,6 @@ export async function fetchPastTopScoresOnMap(leaderboard_id : string): Promise<
     return scores;
 }
 
-console.log(await fetchPastTopScoresOnMap("649590"))
-
 
 //console.log(await getPlayerTopPlays("76561198424686859",new Date("May 5, 2025 03:0:00"), 1, 3))
 
