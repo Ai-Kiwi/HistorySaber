@@ -11,7 +11,6 @@
     if (window.innerWidth >= 768) {
       showVideo = true;
     }
-    console.log(window.innerWidth)
   });
 
   </script>
