@@ -254,7 +254,7 @@
   .sort-select {
     padding: 7.5px 10px;
     font-family: sans-serif;
-    background-color: rgb(50, 50, 50);
+    background-color: rgba(50, 50, 50, 0.25);
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
     border-width: 0px;
@@ -266,7 +266,7 @@
   .sort-select-selected {
     padding: 7.5px 10px;
     font-family: sans-serif;
-    background-color: rgb(100, 100, 100);
+    background-color: rgba(100, 100, 100, 0.5);
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
     border-width: 0px;

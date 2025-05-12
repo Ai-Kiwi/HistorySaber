@@ -31,7 +31,8 @@
     }
   
     nav {
-      background-color: #1e1e1e; /* Dark gray */
+      background-color: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(25px);
       color: #fff;
       padding: 15px 20px;
       position: fixed;
