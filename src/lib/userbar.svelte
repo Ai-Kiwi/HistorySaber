@@ -111,7 +111,7 @@
         flex-direction: row;
         min-height: 35px;
         width: 100%;
-        background-color: rgb(50, 50, 50);
+        background-color: rgba(50, 50, 50, 0.25);
         border-radius: 10px;
         width: 100%;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);

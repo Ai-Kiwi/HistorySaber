@@ -94,7 +94,7 @@ import type { Score } from "./types";
         display: flex;
         align-items: center;
         flex-direction: row;
-        background-color: rgb(50, 50, 50);
+        background-color: rgba(50, 50, 50, 0.25);
         border-radius: 10px;
         padding: 5px;
         width: 100%;
