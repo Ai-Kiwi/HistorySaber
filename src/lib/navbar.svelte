@@ -14,7 +14,7 @@
     <div class="nav-container">
       <a href="/">
         <!--<div class="logo">History Saber</div>-->
-        <img src="/small-logo.png" alt="HistorySaber logo" class="logo">
+        <img src="/images/small-logo.png" alt="HistorySaber logo" class="logo">
       </a>
       <ul>
         {#each links as link}
