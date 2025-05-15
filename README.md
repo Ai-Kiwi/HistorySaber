@@ -4,8 +4,13 @@ Track historical ScoreSaber rankings, player data, and performance over time.
 
 HistorySaber is a tool for viewing historical data from ScoreSaber, the global Beat Saber ranking platform. It lets you explore how players' rankings and performance points (pp) have changed over time — something ScoreSaber itself doesn’t currently offer in depth.
 
-![image](https://github.com/user-attachments/assets/adfa656e-a8ec-4d27-a051-d63ad63d1dd5)
-![image](https://github.com/user-attachments/assets/23dc1039-7fba-4b07-b39c-ccd901d5c096)
+<p float="left">
+  <img src="https://github.com/user-attachments/assets/35d08ae6-236e-4652-93f4-2127a8f1562a" width="200" />
+  <img src="https://github.com/user-attachments/assets/b9719e7f-0596-4748-8a14-57ddbbb0a75f" width="200" />
+  <img src="https://github.com/user-attachments/assets/594b16c5-e86a-40f4-99c3-385285e7ee5c" width="200" />
+  <img src="https://github.com/user-attachments/assets/094a1751-432a-4793-b8b0-cd9966a28275" width="200" />
+  <img src="https://github.com/user-attachments/assets/8365b6ee-9bae-4a9b-8efd-08d447b73416" width="200" />
+</p>
 
 ## Features
 
@@ -14,9 +19,6 @@ HistorySaber is a tool for viewing historical data from ScoreSaber, the global B
 - Stores and organizes historical data for long-term access  
 - Country-based filters to view regional performance trends  
 - Built with Python and PostgreSQL for efficient data handling
-
-![image](https://github.com/user-attachments/assets/ae082843-d703-415c-90ae-9082be0c6d00)
-![image](https://github.com/user-attachments/assets/af9b96f8-1dc8-45c5-b9bf-a87992ec39bf)
 
 ## Website
 
