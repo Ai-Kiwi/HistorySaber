@@ -7,13 +7,35 @@
   
 </script>
 
+<svelte:head>
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "HistorySaber",
+      "url": "https://historysaber.com",
+      "logo": "https://historysaber.com/images/big-mini-logo.png",
+      "sameAs": [
+        "https://github.com/Ai-Kiwi/HistorySaber"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "Contact Developer",
+        "email": "contact@aikiwi.dev"
+      }
+    }
+  </script>
+</svelte:head>
+
+
 <main>
 
   
 
   <!--<div class="logo">History Saber</div>-->
 
-  <img src="big-logo.png" alt="HistorySaber website logo" class="logo">
+  <img src="/images/medium-logo.png" alt="HistorySaber website logo" class="logo">
   
   <div class="description">
     <p>
