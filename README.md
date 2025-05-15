@@ -1,4 +1,4 @@
-[# HistorySaber](http://localhost:5173/images/medium-logo.png)
+http://localhost:5173/images/medium-logo.png
 
 Track historical ScoreSaber rankings, player data, and performance over time.
 
