@@ -1,4 +1,4 @@
-http://historysaber.com/images/medium-logo.png
+![Website Logo](http://historysaber.com/images/medium-logo.png)
 
 Track historical ScoreSaber rankings, player data, and performance over time.
 
