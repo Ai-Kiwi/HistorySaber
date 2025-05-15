@@ -826,6 +826,21 @@ export async function fetchPastTopScoresOnMap(leaderboard_id : string): Promise<
         }
     })
 
+    let oldest_date = new Date("2021-5-5")
+    for(var i = 0; i < scores.length; i++) {
+        var score = scores[i];
+        if (score.time.getTime() < new Date("2025-5-5").getTime()) {
+            oldest_date = score.time
+            break
+        }
+    }
+
+    console.log(oldest_date)
+    scores = scores.filter(score => {
+        console.log(`${score.time.getTime()} ${oldest_date.getTime()}`)
+        return score.time.getTime() >= oldest_date.getTime()
+    })
+
     return scores;
 }
 

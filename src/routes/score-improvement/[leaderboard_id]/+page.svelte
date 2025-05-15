@@ -146,7 +146,7 @@
 <main>
     <h1><span class="name">{data.map_data.song_name}</span> on <span class="name">{data.map_data.difficultyraw}</span> top score history</h1>
 
-  <div class="old-data-warning">Please note data before collecting of scores started (3rd of May, 2025) doesn't factor in scores which have been overridden, meaning a fair amount of data is missing. Please only trust data after this date.</div>
+  <!--<div class="old-data-warning">Please note data before collecting of scores started (3rd of May, 2025) doesn't factor in scores which have been overridden, meaning a fair amount of data is missing. Please only trust data after this date.</div>-->
 
   <div class="graph">
     <canvas use:chartRender={config}></canvas>
