@@ -40,55 +40,63 @@
           label: 'Performance Points',
           data: ppDataset,
           borderColor: 'rgba(255, 165, 0, 1)', // Orange
-          tension: 0.1,
+          tension: 0.5,
+          cubicInterpolationMode: 'monotone',
         },
         {
           label: 'World Wide Rank',
           data: rankDataset,
           borderColor: 'rgba(30, 144, 255, 1)', // Dodger Blue
-          tension: 0.1,
+          tension: 0.5,
+          cubicInterpolationMode: 'monotone',
           hidden: true
         },
         {
           label: 'Country Rank',
           data: countryDataset,
           borderColor: 'rgba(34, 139, 34, 1)', // Forest Green
-          tension: 0.1,
+          tension: 0.5,
+          cubicInterpolationMode: 'monotone',
           hidden: true
         },
         {
           label: 'Total Score',
           data: pastTotalScoreDataset,
           borderColor: 'rgba(128, 0, 128, 1)', // Purple
-          tension: 0.1,
+          tension: 0.5,
+          cubicInterpolationMode: 'monotone',
           hidden: true
         },
         {
           label: 'Total Ranked Score',
           data: pastTotalRankedScoreDataset,
           borderColor: 'rgba(220, 20, 60, 1)', // Crimson
-          tension: 0.1,
+          tension: 0.5,
+          cubicInterpolationMode: 'monotone',
           hidden: true
         },
         {
           label: 'Total Play Count',
           data: pastTotalPlayCountDataset,
           borderColor: 'rgba(255, 99, 71, 1)', // Tomato
-          tension: 0.1,
+          tension: 0.5,
+          cubicInterpolationMode: 'monotone',
           hidden: true
         },
         {
           label: 'Ranked Play Count',
           data: pastRankedPlayCountDataset,
           borderColor: 'rgba(100, 149, 237, 1)', // Cornflower Blue
-          tension: 0.1,
+          tension: 0.5,
+          cubicInterpolationMode: 'monotone',
           hidden: true
         },
         {
           label: 'Average Ranked Accuracy',
           data: pastAverageRankedAccuracyDataset,
           borderColor: 'rgba(255, 215, 0, 1)', // Gold
-          tension: 0.1,
+          tension: 0.5,
+          cubicInterpolationMode: 'monotone',
           hidden: true
         }
       ]

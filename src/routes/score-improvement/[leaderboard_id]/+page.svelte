@@ -50,48 +50,56 @@
           label: 'Acc',
           data: scoreAccuracy,
           borderColor: 'rgba(0, 123, 255, 1)', // Orange
-          tension: 0.1,
+          tension: 0.5,
+          cubicInterpolationMode: 'monotone',
         },{
           label: 'Score',
           data: scoreScore,
           borderColor: 'rgba(40, 167, 69, 1)',
-          tension: 0.1,
+          tension: 0.5,
+          cubicInterpolationMode: 'monotone',
           hidden: true
         },{
           label: 'Modified Score',
           data: scoreModifiedScore,
           borderColor: 'rgba(255, 193, 7, 1)',
-          tension: 0.1,
+          tension: 0.5,
+          cubicInterpolationMode: 'monotone',
           hidden: true
         },{
           label: 'Performance Points (current)',
           data: scorePP,
           borderColor: 'rgba(220, 53, 69, 1)',
-          tension: 0.1,
+          tension: 0.5,
+          cubicInterpolationMode: 'monotone',
           hidden: true
         },{
           label: 'Combo',
           data: scoreCombo,
           borderColor: 'rgba(255, 16, 242, 1)',
-          tension: 0.1,
+          tension: 0.5,
+          cubicInterpolationMode: 'monotone',
           hidden: true
         },{
           label: 'Bad Cuts',
           data: scoreBadCuts,
           borderColor: 'rgba(255, 87, 34, 1)',
-          tension: 0.1,
+          tension: 0.5,
+          cubicInterpolationMode: 'monotone',
           hidden: true
         },{
           label: 'Missed Notes',
           data: scoreMissedNotes,
           borderColor: 'rgba(23, 162, 184, 1)',
-          tension: 0.1,
+          tension: 0.5,
+          cubicInterpolationMode: 'monotone',
           hidden: true
         },{
           label: 'Bad Cuts Or Missed Notes',
           data: scoreBadCutsOrMissedNotes,
           borderColor: 'rgba(108, 117, 125, 1)',
-          tension: 0.1,
+          tension: 0.5,
+          cubicInterpolationMode: 'monotone',
           hidden: true
         }
       ]
