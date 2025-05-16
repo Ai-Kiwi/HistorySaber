@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 
   <!-- Homepage -->
   <url>
@@ -20,6 +20,19 @@
     <loc>https://historysaber.com/credits</loc>
     <changefreq>monthly</changefreq>
     <priority>0.2</priority>
+  </url>
+
+  <!-- Assets Page-->
+  <url>
+    <loc>https://historysaber.com/assets</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.2</priority>
+    <image:image>
+      <image:loc>https://historysaber.com/images/big-mini-logo.png</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://historysaber.com/images/big-logo.png</image:loc>
+    </image:image>
   </url>
 
 </urlset>
