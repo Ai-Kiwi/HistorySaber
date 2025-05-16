@@ -24,12 +24,14 @@
     </span>
     
     {#if showVideo}
-      <video preload="none" autoplay muted loop playsinline id="bg-video">
+      <video preload="none" autoplay muted loop playsinline id="bg-video" style="filter: blur(15px);">
         <!--surprisingly winded up looking worse-->
         <!--<source src="background_av1.webm" type="video/webm; codecs=av01">
         <source src="background_vp9.webm" type="video/webm; codecs=vp9">-->
         <source src="/background_h264.mp4" type="video/mp4">
       </video>
+    {:else}
+      <img src="/images/background_image.png" id="bg-video">
     {/if}
 
     <Footer />
@@ -43,7 +45,6 @@
 
     #bg-video {
       position: fixed;
-      filter: blur(15px);
       top: 0;
       left: 0;
       width: 100vw;
@@ -56,7 +57,6 @@
     .hero {
       padding: 25px 25px;
       background-color: rgba(0, 0, 0, 0.55);
-      backdrop-filter: blur(20px);
       border-radius: 15px;
       margin: 20px auto;
       max-width: 1000px;
