@@ -7,6 +7,8 @@
         <div>-</div>
         <a href="/credits">Credits</a>
         <div>-</div>
+        <a href="/assets">Assets</a>
+        <div>-</div>
         <a href="mailto:contact@aikiwi.dev">Contact</a>
       </div>
     </div>
