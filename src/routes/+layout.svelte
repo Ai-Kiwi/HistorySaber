@@ -28,7 +28,7 @@
         <!--surprisingly winded up looking worse-->
         <!--<source src="background_av1.webm" type="video/webm; codecs=av01">
         <source src="background_vp9.webm" type="video/webm; codecs=vp9">-->
-        <source src="background_h264.mp4" type="video/mp4">
+        <source src="/background_h264.mp4" type="video/mp4">
       </video>
     {/if}
 
