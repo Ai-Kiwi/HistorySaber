@@ -24,7 +24,7 @@
     </span>
     
     {#if showVideo}
-      <video preload="none" autoplay muted loop playsinline id="bg-video" style="filter: blur(15px);">
+      <video preload="none" autoplay muted loop playsinline id="bg-video" style="filter: blur(15px);" poster="/images/background_image.png">
         <!--surprisingly winded up looking worse-->
         <!--<source src="background_av1.webm" type="video/webm; codecs=av01">
         <source src="background_vp9.webm" type="video/webm; codecs=vp9">-->
