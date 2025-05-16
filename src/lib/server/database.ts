@@ -835,9 +835,9 @@ export async function fetchPastTopScoresOnMap(leaderboard_id : string): Promise<
         }
     }
 
-    console.log(oldest_date)
+    //console.log(oldest_date)
     scores = scores.filter(score => {
-        console.log(`${score.time.getTime()} ${oldest_date.getTime()}`)
+        //console.log(`${score.time.getTime()} ${oldest_date.getTime()}`)
         return score.time.getTime() >= oldest_date.getTime()
     })
 
