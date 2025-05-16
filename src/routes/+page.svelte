@@ -134,6 +134,7 @@
     text-align: center;
     margin-bottom: 35px;
     font-size: clamp(2rem, 12vw, 8rem);
+    aspect-ratio: 3240 / 512;
   }
 
 
