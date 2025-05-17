@@ -239,8 +239,8 @@
   <div class="sort-select-section">
     <button class="{player_scores_sort == "top" ? "sort-select-selected" : "sort-select"}" on:click={()=>changeScoreSort("top")}>Performance Points</button>
     <button class="{player_scores_sort == "hardest" ? "sort-select-selected" : "sort-select"}" on:click={()=>changeScoreSort("hardest")}>Stars</button>
-    <button class="{player_scores_sort == "accuracy" ? "sort-select-selected" : "sort-select"}" on:click={()=>changeScoreSort("accuracy")}>Ranked Accuracy</button>
-    <button class="{player_scores_sort == "recent" ? "sort-select-selected" : "sort-select"}" on:click={()=>changeScoreSort("recent")}>Recent Ranked</button>
+    <button class="{player_scores_sort == "accuracy" ? "sort-select-selected" : "sort-select"}" on:click={()=>changeScoreSort("accuracy")}>Accuracy</button>
+    <button class="{player_scores_sort == "recent" ? "sort-select-selected" : "sort-select"}" on:click={()=>changeScoreSort("recent")}>Recent</button>
     <button class="{player_scores_sort == "score" ? "sort-select-selected" : "sort-select"}" on:click={()=>changeScoreSort("score")}>Score</button>
     <button class="{player_scores_sort == "max_combo" ? "sort-select-selected" : "sort-select"}" on:click={()=>changeScoreSort("max_combo")}>Combo</button>
     <button class="{player_scores_sort == "bad_cuts_or_misses" ? "sort-select-selected" : "sort-select"}" on:click={()=>changeScoreSort("bad_cuts_or_misses")}>Bad Cuts/Misses</button>
