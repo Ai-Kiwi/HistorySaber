@@ -24,6 +24,7 @@ import type { Score } from "./types";
         day: "numeric",
         month: "short",
         year: "numeric",
+        timeZoneName: 'short'
     });
 
 </script>
