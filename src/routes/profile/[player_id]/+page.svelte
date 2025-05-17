@@ -240,10 +240,11 @@
     <button class="{player_scores_sort == "top" ? "sort-select-selected" : "sort-select"}" on:click={()=>changeScoreSort("top")}>Performance Points</button>
     <button class="{player_scores_sort == "hardest" ? "sort-select-selected" : "sort-select"}" on:click={()=>changeScoreSort("hardest")}>Stars</button>
     <button class="{player_scores_sort == "accuracy" ? "sort-select-selected" : "sort-select"}" on:click={()=>changeScoreSort("accuracy")}>Accuracy</button>
-    <button class="{player_scores_sort == "recent" ? "sort-select-selected" : "sort-select"}" on:click={()=>changeScoreSort("recent")}>Recent</button>
-    <button class="{player_scores_sort == "score" ? "sort-select-selected" : "sort-select"}" on:click={()=>changeScoreSort("score")}>Score</button>
     <button class="{player_scores_sort == "max_combo" ? "sort-select-selected" : "sort-select"}" on:click={()=>changeScoreSort("max_combo")}>Combo</button>
     <button class="{player_scores_sort == "bad_cuts_or_misses" ? "sort-select-selected" : "sort-select"}" on:click={()=>changeScoreSort("bad_cuts_or_misses")}>Bad Cuts/Misses</button>
+    <button class="{player_scores_sort == "score" ? "sort-select-selected" : "sort-select"}" on:click={()=>changeScoreSort("score")}>Score</button>
+    <button class="{player_scores_sort == "recent" ? "sort-select-selected" : "sort-select"}" on:click={()=>changeScoreSort("recent")}>Recent</button>
+
     <div style="width: 100%;"></div>
     <button class="sort-toggle" style="background-color: {limit_score_ranked ? 'rgba(100, 100, 100, 0.5)' : ''};" on:click={()=>{ limit_score_ranked = !limit_score_ranked; fetch_scores() }}>Only Ranked</button>
     <button class="sort-toggle" style="background-color: {reverse_score_order ? 'rgba(100, 100, 100, 0.5)' : ''};" on:click={()=>{ reverse_score_order = !reverse_score_order; fetch_scores() }}>Reverse Order</button>
