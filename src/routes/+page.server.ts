@@ -1,4 +1,4 @@
-import { getTableInfo } from '$lib/server/database'
+import { getTableInfo } from '$lib/server/database/main'
 import type { PageServerLoad } from './$types';
 
 
