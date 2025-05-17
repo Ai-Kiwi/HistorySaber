@@ -1,4 +1,4 @@
-import { getCountryLeaderboardPage, getPlayerInfo, getPlayerPastPpValues } from '$lib/server/database'
+import { getPlayerInfo, getPlayerPastPpValues } from '$lib/server/database/users';
 import { daysSinceRankCollectStart } from '$lib/utils';
 import type { PageServerLoad } from './$types';
 

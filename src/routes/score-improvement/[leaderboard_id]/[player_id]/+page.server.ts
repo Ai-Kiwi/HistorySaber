@@ -1,6 +1,8 @@
-import { fetchPlayerScoresOnMap, getLeaderboardInfo, getPlayerInfo } from '$lib/server/database'
+import { getLeaderboardInfo } from '$lib/server/database/map';
+import { fetchPlayerScoresOnMap, getPlayerInfo } from '$lib/server/database/users';
 import type { MapLeaderboard, Score, UserType } from '$lib/types';
 import { daysSinceRankCollectStart } from '$lib/utils';
+import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ params }) => {
@@ -15,7 +17,12 @@ export const load: PageServerLoad = async ({ params }) => {
 
     const scores : Score[] = (await fetchPlayerScoresOnMap(player_id,leaderboard_id)).reverse()
     const player_data: UserType = await await getPlayerInfo(player_id)
-    const map_data: MapLeaderboard = await await getLeaderboardInfo(leaderboard_id, new Date("2100-1-1"))
+    const map_data = await getLeaderboardInfo(leaderboard_id, new Date("2100-1-1"));
+    if (!map_data) {
+        error(404, {
+            message: 'No data found for leaderboard'
+        });    
+    }
 
 
     return {

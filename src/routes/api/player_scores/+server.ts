@@ -1,5 +1,4 @@
-import { getCountryLeaderboardPage, getLeaderboardPage, getPlayerHardestPlays, getPlayerHighestAccuracyPlays, getPlayerHighestRankedAccuracyPlays, getPlayerRecentPlays, getPlayerRecentRankedPlays, getPlayerTopPlays } from '$lib/server/database'
-
+import { getPlayerScoresFiltered } from '$lib/server/database/user_scores.js';
 
 export async function GET({ url }) {
   try {
@@ -10,37 +9,37 @@ export async function GET({ url }) {
 
 
     if (sort == "hardest") {
-      let scores = await getPlayerHardestPlays(player,new Date(date),page,8)
+      let scores = await getPlayerScoresFiltered(player,new Date(date),page,8,"stars",false,true)
       return new Response(JSON.stringify(scores), {
           headers: { 'Content-Type': 'application/json' },
           status: 200
       });
     }else if (sort == "recent-all") {
-      let scores = await getPlayerRecentPlays(player,new Date(date),page,8)
+      let scores = await getPlayerScoresFiltered(player,new Date(date),page,8,"time",false,false)
       return new Response(JSON.stringify(scores), {
           headers: { 'Content-Type': 'application/json' },
           status: 200
       });
     }else if (sort == "recent-ranked") {
-      let scores = await getPlayerRecentRankedPlays(player,new Date(date),page,8)
+      let scores = await getPlayerScoresFiltered(player,new Date(date),page,8,"time",false,true)
       return new Response(JSON.stringify(scores), {
           headers: { 'Content-Type': 'application/json' },
           status: 200
       });
     }else if (sort == "accuracy-ranked") {
-      let scores = await getPlayerHighestRankedAccuracyPlays(player,new Date(date),page,8)
+      let scores = await await getPlayerScoresFiltered(player,new Date(date),page,8,"accuracy",false,true)
       return new Response(JSON.stringify(scores), {
           headers: { 'Content-Type': 'application/json' },
           status: 200
       });
     }else if (sort == "accuracy-all") {
-      let scores = await getPlayerHighestAccuracyPlays(player,new Date(date),page,8)
+      let scores = await await getPlayerScoresFiltered(player,new Date(date),page,8,"pp",false,false)
       return new Response(JSON.stringify(scores), {
           headers: { 'Content-Type': 'application/json' },
           status: 200
       });
     }else{
-      let scores = await getPlayerTopPlays(player,new Date(date),page,8)
+      let scores = await await getPlayerScoresFiltered(player,new Date(date),page,8,"pp",false,true)
       return new Response(JSON.stringify(scores), {
           headers: { 'Content-Type': 'application/json' },
           status: 200
