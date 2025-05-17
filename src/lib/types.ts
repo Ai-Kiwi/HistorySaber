@@ -50,6 +50,7 @@ export interface Score {
   full_combo: boolean,
   bad_cuts: number,
   missed_notes: number,
+  bad_cuts_and_misses: number,
   mods: string,
   hmd: number
   device_hmd: string,

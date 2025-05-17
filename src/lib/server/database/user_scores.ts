@@ -70,7 +70,6 @@ export async function fetchPlayerRankedScores(player_id : string, date : Date): 
         //accuracy = Math.round(accuracy * 100) / 100
         let pp = calculatePP(row.stars,accuracy)
         //pp = Math.round(pp * 100) / 100
-        console.log(row.time)
         return {
             score_id: row.score_id,
             leaderboard_id: row.leaderboard_id,
@@ -95,6 +94,7 @@ export async function fetchPlayerRankedScores(player_id : string, date : Date): 
             missed_notes: row.missed_notes,
             mods: row.mods,
             hmd: row.hmd,
+            bad_cuts_and_misses : row.bad_cuts + row.missed_notes,
             device_hmd: row.device_hmd,
             device_controller_left: row.device_controller_left,
             device_controller_right: row.device_controller_right,
@@ -195,6 +195,7 @@ export async function fetchAllPlayerScores(player_id : string, date : Date): Pro
             full_combo: row.full_combo,
             bad_cuts: row.bad_cuts,
             missed_notes: row.missed_notes,
+            bad_cuts_and_misses : row.bad_cuts + row.missed_notes,
             mods: row.mods,
             hmd: row.hmd,
             device_hmd: row.device_hmd,
@@ -206,7 +207,7 @@ export async function fetchAllPlayerScores(player_id : string, date : Date): Pro
 }
 
 export async function getPlayerScoresFiltered(player_id : string, date : Date, page : number, page_size : number, sort_by : keyof Score, reverse : boolean, only_ranked : boolean) {
-    let scores = only_ranked == true ? await fetchAllPlayerScores(player_id, date) : await fetchPlayerRankedScores(player_id, date)
+    let scores = only_ranked == true ? await fetchPlayerRankedScores(player_id, date) : await fetchAllPlayerScores(player_id, date)
 
     scores.sort((a, b) => {
         const aVal = sort_by === "time" ? a.time.getTime() : a[sort_by];

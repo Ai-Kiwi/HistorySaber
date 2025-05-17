@@ -7,45 +7,52 @@ export async function GET({ url }) {
     const date = url.searchParams.get('date') || '2025-03-10';
     const sort = url.searchParams.get('sort') || '2025-03-10';
 
+    const reverse = url.searchParams.get('reverse') || 'false';
+    const only_ranked = url.searchParams.get('only_ranked') || 'true';
 
     if (sort == "hardest") {
-      let scores = await getPlayerScoresFiltered(player,new Date(date),page,8,"stars",false,true)
+      let scores = await getPlayerScoresFiltered(player,new Date(date),page,8,"stars",reverse == "true",only_ranked == "true")
       return new Response(JSON.stringify(scores), {
           headers: { 'Content-Type': 'application/json' },
           status: 200
       });
-    }else if (sort == "recent-all") {
-      let scores = await getPlayerScoresFiltered(player,new Date(date),page,8,"time",false,false)
+    }else if (sort == "recent") {
+      let scores = await getPlayerScoresFiltered(player,new Date(date),page,8,"time",reverse == "true",only_ranked == "true")
       return new Response(JSON.stringify(scores), {
           headers: { 'Content-Type': 'application/json' },
           status: 200
       });
-    }else if (sort == "recent-ranked") {
-      let scores = await getPlayerScoresFiltered(player,new Date(date),page,8,"time",false,true)
+    }else if (sort == "accuracy") {
+      let scores = await getPlayerScoresFiltered(player,new Date(date),page,8,"accuracy",reverse == "true",only_ranked == "true")
       return new Response(JSON.stringify(scores), {
           headers: { 'Content-Type': 'application/json' },
           status: 200
       });
-    }else if (sort == "accuracy-ranked") {
-      let scores = await await getPlayerScoresFiltered(player,new Date(date),page,8,"accuracy",false,true)
+    }else if (sort == "max_combo") {
+      let scores = await getPlayerScoresFiltered(player,new Date(date),page,8,"max_combo",reverse == "true",only_ranked == "true")
       return new Response(JSON.stringify(scores), {
           headers: { 'Content-Type': 'application/json' },
           status: 200
       });
-    }else if (sort == "accuracy-all") {
-      let scores = await await getPlayerScoresFiltered(player,new Date(date),page,8,"pp",false,false)
+    }else if (sort == "bad_cuts_or_misses") {
+      let scores = await getPlayerScoresFiltered(player, new Date(date), page, 8, "bad_cuts_and_misses", reverse == "true", only_ranked == "true")
+      return new Response(JSON.stringify(scores), {
+          headers: { 'Content-Type': 'application/json' },
+          status: 200
+      });
+    }else if (sort == "score") {
+      let scores = await getPlayerScoresFiltered(player,new Date(date),page,8,"score",reverse == "true",only_ranked == "true")
       return new Response(JSON.stringify(scores), {
           headers: { 'Content-Type': 'application/json' },
           status: 200
       });
     }else{
-      let scores = await await getPlayerScoresFiltered(player,new Date(date),page,8,"pp",false,true)
+      let scores = await getPlayerScoresFiltered(player,new Date(date),page,8,"pp",reverse == "true",only_ranked == "true")
       return new Response(JSON.stringify(scores), {
           headers: { 'Content-Type': 'application/json' },
           status: 200
       });
     }
-
     
   } catch (err) {
     console.error(err);
