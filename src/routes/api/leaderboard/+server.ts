@@ -1,5 +1,4 @@
-import { getCountryLeaderboardPage, getLeaderboardPage } from '$lib/server/database'
-
+import { getCountryLeaderboardPage, getLeaderboardPage } from '$lib/server/database/leaderboards';
 
 export async function GET({ url }) {
   try {
