@@ -161,6 +161,8 @@
   let score_page_selected = $state(1)
   let player_scores: Score[]  = $state([])
   let player_scores_sort: string  = $state("top")
+  let reverse_score_order = $state(false)
+  let limit_score_ranked = $state(true)
 
   async function fetch_scores() {
     if (loading_scores == true) {
@@ -170,7 +172,14 @@
     loading_scores = true;
 
     try{
-      const params = new URLSearchParams({ page: score_page_selected.toString(), date : formatDate(selected_score_date), player : data.playerData.player_id, sort : player_scores_sort });
+      const params = new URLSearchParams({ 
+        page: score_page_selected.toString(), 
+        date: formatDate(selected_score_date), 
+        player: data.playerData.player_id, 
+        sort: player_scores_sort, 
+        reverse: reverse_score_order.toString(), 
+        only_ranked: limit_score_ranked.toString() 
+      });
       const res = await fetch(`/api/player_scores?${params.toString()}`);
       if (!res.ok) {
         console.error('Failed to fetch player score data:', res.statusText);
@@ -230,12 +239,19 @@
   <div class="sort-select-section">
     <button class="{player_scores_sort == "top" ? "sort-select-selected" : "sort-select"}" on:click={()=>changeScoreSort("top")}>Performance Points</button>
     <button class="{player_scores_sort == "hardest" ? "sort-select-selected" : "sort-select"}" on:click={()=>changeScoreSort("hardest")}>Stars</button>
-    <button class="{player_scores_sort == "accuracy-all" ? "sort-select-selected" : "sort-select"}" on:click={()=>changeScoreSort("accuracy-all")}>Accuracy</button>
-    <button class="{player_scores_sort == "accuracy-ranked" ? "sort-select-selected" : "sort-select"}" on:click={()=>changeScoreSort("accuracy-ranked")}>Ranked Accuracy</button>
-    <button class="{player_scores_sort == "recent-all" ? "sort-select-selected" : "sort-select"}" on:click={()=>changeScoreSort("recent-all")}>Recent</button>
-    <button class="{player_scores_sort == "recent-ranked" ? "sort-select-selected" : "sort-select"}" on:click={()=>changeScoreSort("recent-ranked")}>Recent Ranked</button>
+    <button class="{player_scores_sort == "accuracy" ? "sort-select-selected" : "sort-select"}" on:click={()=>changeScoreSort("accuracy")}>Ranked Accuracy</button>
+    <button class="{player_scores_sort == "recent" ? "sort-select-selected" : "sort-select"}" on:click={()=>changeScoreSort("recent")}>Recent Ranked</button>
+    <button class="{player_scores_sort == "score" ? "sort-select-selected" : "sort-select"}" on:click={()=>changeScoreSort("score")}>Score</button>
+    <button class="{player_scores_sort == "max_combo" ? "sort-select-selected" : "sort-select"}" on:click={()=>changeScoreSort("max_combo")}>Combo</button>
+    <button class="{player_scores_sort == "bad_cuts_or_misses" ? "sort-select-selected" : "sort-select"}" on:click={()=>changeScoreSort("bad_cuts_or_misses")}>Bad Cuts/Misses</button>
+    <div style="width: 100%;"></div>
+    <button class="sort-toggle" style="background-color: {limit_score_ranked ? 'rgba(100, 100, 100, 0.5)' : ''};" on:click={()=>{ limit_score_ranked = !limit_score_ranked; fetch_scores() }}>Only Ranked</button>
+    <button class="sort-toggle" style="background-color: {reverse_score_order ? 'rgba(100, 100, 100, 0.5)' : ''};" on:click={()=>{ reverse_score_order = !reverse_score_order; fetch_scores() }}>Reverse Order</button>
   </div>
   
+  <div class="sort-select-section">
+    
+  </div>
 
   <div class="{loading_scores ? 'shimmer' : ''}">
     {#if player_scores.length > 0}
@@ -259,6 +275,18 @@
 </main>
 
 <style>
+  .sort-toggle {
+    padding: 7.5px 10px;
+    font-family: sans-serif;
+    background-color: rgba(50, 50, 50, 0.25);
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    border-width: 0px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
   .sort-select {
     padding: 7.5px 10px;
     font-family: sans-serif;
