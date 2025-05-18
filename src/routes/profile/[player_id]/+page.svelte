@@ -42,6 +42,7 @@
           borderColor: 'rgba(255, 165, 0, 1)', // Orange
           tension: 0.5,
           cubicInterpolationMode: 'monotone',
+          yAxisID: 'ppAxis',
         },
         {
           label: 'World Wide Rank',
@@ -49,7 +50,7 @@
           borderColor: 'rgba(30, 144, 255, 1)', // Dodger Blue
           tension: 0.5,
           cubicInterpolationMode: 'monotone',
-          hidden: true
+          yAxisID: 'globalRankAxis',
         },
         {
           label: 'Country Rank',
@@ -57,38 +58,7 @@
           borderColor: 'rgba(34, 139, 34, 1)', // Forest Green
           tension: 0.5,
           cubicInterpolationMode: 'monotone',
-          hidden: true
-        },
-        {
-          label: 'Total Score',
-          data: pastTotalScoreDataset,
-          borderColor: 'rgba(128, 0, 128, 1)', // Purple
-          tension: 0.5,
-          cubicInterpolationMode: 'monotone',
-          hidden: true
-        },
-        {
-          label: 'Total Ranked Score',
-          data: pastTotalRankedScoreDataset,
-          borderColor: 'rgba(220, 20, 60, 1)', // Crimson
-          tension: 0.5,
-          cubicInterpolationMode: 'monotone',
-          hidden: true
-        },
-        {
-          label: 'Total Play Count',
-          data: pastTotalPlayCountDataset,
-          borderColor: 'rgba(255, 99, 71, 1)', // Tomato
-          tension: 0.5,
-          cubicInterpolationMode: 'monotone',
-          hidden: true
-        },
-        {
-          label: 'Ranked Play Count',
-          data: pastRankedPlayCountDataset,
-          borderColor: 'rgba(100, 149, 237, 1)', // Cornflower Blue
-          tension: 0.5,
-          cubicInterpolationMode: 'monotone',
+          yAxisID: 'countryRankAxis',
           hidden: true
         },
         {
@@ -97,6 +67,43 @@
           borderColor: 'rgba(255, 215, 0, 1)', // Gold
           tension: 0.5,
           cubicInterpolationMode: 'monotone',
+          yAxisID: 'rankedAccuracyAxis',
+          hidden: true
+        },
+        {
+          label: 'Total Score',
+          data: pastTotalScoreDataset,
+          borderColor: 'rgba(128, 0, 128, 1)', // Purple
+          tension: 0.5,
+          cubicInterpolationMode: 'monotone',
+          yAxisID: 'totalScoreAxis',
+          hidden: true
+        },
+        {
+          label: 'Total Ranked Score',
+          data: pastTotalRankedScoreDataset,
+          borderColor: 'rgba(220, 20, 60, 1)', // Crimson
+          tension: 0.5,
+          cubicInterpolationMode: 'monotone',
+          yAxisID: 'totalRankedAxis',
+          hidden: true
+        },
+        {
+          label: 'Total Play Count',
+          data: pastTotalPlayCountDataset,
+          borderColor: 'rgba(255, 99, 71, 1)', // Tomato
+          tension: 0.5,
+          cubicInterpolationMode: 'monotone',
+          yAxisID: 'totalPlayCountAxis',
+          hidden: true
+        },
+        {
+          label: 'Ranked Play Count',
+          data: pastRankedPlayCountDataset,
+          borderColor: 'rgba(100, 149, 237, 1)', // Cornflower Blue
+          tension: 0.5,
+          cubicInterpolationMode: 'monotone',
+          yAxisID: 'rankedPlayCountAxis',
           hidden: true
         }
       ]
@@ -112,7 +119,7 @@
         tooltip: {
           mode: 'index',
           intersect: false
-        }
+        },
       },
       interaction: {
         mode: 'nearest',
@@ -126,9 +133,105 @@
             tooltipFormat: 'MMM dd, yyyy'
           },
         },
-        y: {
+        yAxes:[{
+          id: 'ppAxis',
           type: 'linear',
-        }
+          title: { display: true, text: 'Performance Points' },
+          grid: { drawTicks: false, drawOnChartArea: false },
+          ticks: {
+            callback: function(value: string, index: any, ticks: any) {
+              //@ts-ignore
+              const chartData = this.chart;
+              if (chartData.isDatasetVisible(0)) {
+                return value + "pp";
+              }else{
+                return null
+              }
+            }
+          },
+        },
+        {
+          id: 'globalRankAxis',
+          type: 'linear',
+          position: "right",
+          ticks: {
+            reverse: true,
+            callback: function(value: string, index: any, ticks: any) {
+              //@ts-ignore
+              const chartData = this.chart;
+              if (chartData.isDatasetVisible(1)) {
+                return value;
+              }else{
+                return null
+              }
+            }
+          },
+          grid: {
+            drawTicks: false // optional: hides tick lines
+          },
+          
+        },
+        {
+          id: 'countryRankAxis',
+          type: 'linear',
+          position: "right",
+          ticks: {
+            reverse: true,
+            callback: function(value: string, index: any, ticks: any) {
+              //@ts-ignore
+              const chartData = this.chart;
+              if (chartData.isDatasetVisible(2)) {
+                return value;
+              }else{
+                return null
+              }
+            }
+          },
+          title: { display: true, text: 'Country Rank' },
+        },
+        {
+          id: 'rankedAccuracyAxis',
+          type: 'linear',
+          title: { display: true, text: 'Ranked Accuracy' },
+          position: "right",
+          ticks: {
+            callback: function(value: string, index: any, ticks: any) {
+              //@ts-ignore
+              const chartData = this.chart;
+              if (chartData.isDatasetVisible(3)) {
+                return value + "%";
+              }else{
+                return null
+              }
+            }
+          },
+        },
+        {
+          id: 'totalScoreAxis',
+          type: 'linear',
+          title: { display: true, text: 'Total Score' },
+          ticks: {
+            display: false
+          },
+        },
+        {
+          id: 'totalRankedAxis',
+          type: 'linear',
+          title: { display: true, text: 'Total Ranked Score' },
+          display: false
+        },
+        {
+          id: 'totalPlayCountAxis',
+          type: 'linear',
+          title: { display: true, text: 'Total Play Count' },
+          display: false
+        },
+        {
+          id: 'rankedPlayCountAxis',
+          type: 'linear',
+          title: { display: false, text: 'Total Ranked Play Count' },
+          display: false
+        }],
       }
     }
   };
