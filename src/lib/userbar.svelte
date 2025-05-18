@@ -27,6 +27,11 @@
         </div>
     </div>
 
+    <div class="extra-text-info">{ Math.round(user.average_ranked_accuracy * 1000) / 1000 }</div>    
+    <div class="extra-text-info">{user.total_play_count}</div>    
+    <div class="extra-text-info">{user.ranked_play_count}</div>
+
+
     <div class=point-score>
         {user.pp}pp
     </div>
@@ -97,11 +102,14 @@
     }
     .point-score{
         height: 25px;
+        width: 90px;
+        text-align: center;
         border-radius: 5px;
         font-size: 15px;
         background-color: rgb(54, 101, 212);     
         padding: 0px 5px 0px 5px;
         margin: 5px;
+        margin-left: auto;
         color: rgb(250, 250, 250);
     }
     .user-bar{
@@ -113,12 +121,44 @@
         width: 100%;
         background-color: rgba(50, 50, 50, 0.25);
         border-radius: 10px;
-        width: 100%;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
         cursor: pointer;
         gap: 5px;
         justify-items: start;
         flex-wrap: wrap;
     }
+
+    .extra-text-info {
+        display: none;
+    }
+
+    @media (min-width: 725px) {
+        .user-bar {
+            display: flex;
+            flex-grow: wrap;
+            justify-content: space-between
+        }
+        .point-score{
+            margin-left: 0px;
+        }
+        .extra-text-info {
+            display: block;
+            width: 50px;
+            height: 25px;
+            border-radius: 5px;
+            font-size: 15px;
+            background-color: rgb(75, 75, 75);     
+            padding: 0px 5px 0px 5px;
+            margin: 5px;
+            color: rgb(250, 250, 250);
+            text-align: center;
+        }
+        .username-and-pfp {
+            width: 150px;
+            min-width: 150px;
+        }
+    }
+
+
 </style>
 
