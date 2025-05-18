@@ -1,5 +1,6 @@
 <script lang="ts">    
   import UserBar from '$lib/userbar.svelte'
+  import UserBarLabels from '$lib/userBarLabels.svelte'
   import type { LeaderboardData, LeaderboardSelections, UserType } from '$lib/types';
   import { onMount } from 'svelte';
   import { formatDate, haveSameValues, sleep } from '$lib/utils';
@@ -8,7 +9,7 @@
   import DateSelect from '$lib/dateSelect.svelte';
   import Pagination from '$lib/pagination.svelte'
   import { page } from '$app/stores';
-    import { flip } from 'svelte/animate';
+  import { flip } from 'svelte/animate';
 
   let selectable_countries = [];
   for (const key in countries) {
@@ -142,6 +143,7 @@
     <div class="{loading_new_data ? 'shimmer' : ''}">
       {#if current_user_data.length > 0}
       <div class="user-list">
+        <UserBarLabels></UserBarLabels>
         {#each current_user_data as user (user.player_id)}
           <label animate:flip={{ duration: 150 }}>
             <UserBar user={user} ></UserBar>
