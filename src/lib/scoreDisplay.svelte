@@ -1,8 +1,7 @@
 <script lang="ts">
     import Tooltip from "./tooltip.svelte";
 import type { Score } from "./types";
-
-    export let data: Score;
+    const { data }: { data: Score } = $props();
     let dif_name = "unknown"
     if (data.difficulty == 1) {
         dif_name = "Easy"
@@ -27,70 +26,86 @@ import type { Score } from "./types";
         timeZoneName: 'short'
     });
 
+    let extra_info = $state(false)
 </script>
 
 <main>
-        <div class="main-score">
-            <a href="/score-improvement/{data.leaderboard_id}" class="score-icon-parent">
-                <img class="score-icon" src="https://cdn.scoresaber.com/covers/{data.map_hash}.png" alt="">
-                <div class="score-star-text">
-                    {#if data.stars != null}
-                        {data.stars}☆
-                    {:else}
-                        {dif_name}
-                    {/if}
+    <button class="main-score" on:click={extra_info = !extra_info}>
+        <div class="score-icon-parent">
+            <img class="score-icon" src="https://cdn.scoresaber.com/covers/{data.map_hash}.png" alt="">
+            <div class="score-star-text">
+                {#if data.stars != null}
+                    {data.stars}☆
+                {:else}
+                    {dif_name}
+                {/if}
 
-                </div>
-            </a>
-
-            <a href="/score-improvement/{data.leaderboard_id}" class="score-text">
-                <span class="song-name">{data.song_name}</span>
-                <span class="sub-song-name">{data.song_sub_name}</span>
-                <div style="height:100%"></div>
-                <span class="song-author-name">Song by {data.song_author_name}</span>
-                <span class="level-author-name">Mapped by {data.level_author_name}</span>
-            </a>
-
-            <a href="/score-improvement/{data.leaderboard_id}/{data.player_id}" class="placement-text">
-                <div class="score-stat-row">
-                    <Tooltip title="Played on {data.device_hmd} with left controller {data.device_controller_left} and right controller {data.device_controller_right}">
-                        <span class="score-headset">{data.device_hmd}</span>
-                    </Tooltip>
-                    <Tooltip title="{data.accuracy}%">
-                        <span class="score-accuracy">{ Math.floor(data.accuracy * 100) / 100}%</span>
-                    </Tooltip>
-                    {#if data.stars != null}
-                        <span class="score-pp">~{ Math.floor(data.pp * 100) / 100}pp </span>
-                    {/if}
-                </div>
-                <div class="score-stat-row">
-                    {#if data.mods.length > 0}
-                        <Tooltip title="Mods that were enabled">
-                            <span class="score-mods">{data.mods}</span>
-                        </Tooltip>
-                    {/if}
-                    <Tooltip title="scored {data.score.toLocaleString()} with max of {data.maxscore.toLocaleString()}. (modifed score would be {data.modified_score.toLocaleString()})">
-                        <span class="score-score">{data.score}</span>
-                    </Tooltip>
-                    <Tooltip title="{data.missed_notes} misses and {data.bad_cuts} bad cuts. Max combo of {data.max_combo}">
-                        {#if data.missed_notes + data.bad_cuts == 0}
-                            <span class="score-misses" style="background-color: green;">{data.missed_notes + data.bad_cuts} ✔️</span>
-                        {:else}
-                            <span class="score-misses">{data.missed_notes + data.bad_cuts} ✖️</span>
-                        {/if}
-                    </Tooltip>
-                </div>
-
-                <div style="height:100%"></div>
-                <span class="score-time">{ date_formatter.format( new Date(data.time) )}</span>
-            </a>    
-
+            </div>
         </div>
+
+        <div class="score-text">
+            <span class="song-name">{data.song_name}</span>
+            <span class="sub-song-name">{data.song_sub_name}</span>
+            <div style="height:100%"></div>
+            <span class="song-author-name">Song by {data.song_author_name}</span>
+            <span class="level-author-name">Mapped by {data.level_author_name}</span>
+        </div>
+
+        <div class="placement-text">
+            <div class="score-stat-row">
+                <Tooltip title="Played on {data.device_hmd} with left controller {data.device_controller_left} and right controller {data.device_controller_right}">
+                    <span class="score-headset">{data.device_hmd}</span>
+                </Tooltip>
+                <Tooltip title="{data.accuracy}%">
+                    <span class="score-accuracy">{ Math.floor(data.accuracy * 100) / 100}%</span>
+                </Tooltip>
+                {#if data.stars != null}
+                    <span class="score-pp">~{ Math.floor(data.pp * 100) / 100}pp </span>
+                {/if}
+            </div>
+            <div class="score-stat-row">
+                {#if data.mods.length > 0}
+                    <Tooltip title="Mods that were enabled">
+                        <span class="score-mods">{data.mods}</span>
+                    </Tooltip>
+                {/if}
+                <Tooltip title="scored {data.score.toLocaleString()} with max of {data.maxscore.toLocaleString()}. (modifed score would be {data.modified_score.toLocaleString()})">
+                    <span class="score-score">{data.score}</span>
+                </Tooltip>
+                <Tooltip title="{data.missed_notes} misses and {data.bad_cuts} bad cuts. Max combo of {data.max_combo}">
+                    {#if data.missed_notes + data.bad_cuts == 0}
+                        <span class="score-misses" style="background-color: green;">{data.missed_notes + data.bad_cuts} ✔️</span>
+                    {:else}
+                        <span class="score-misses">{data.missed_notes + data.bad_cuts} ✖️</span>
+                    {/if}
+                </Tooltip>
+            </div>
+
+            <div style="height:100%"></div>
+            <span class="score-time">{ date_formatter.format( new Date(data.time) )}</span>
+        </div>    
+    </button>
+
+    {#if extra_info == true}
+        <div class="clickable-buttons">
+            <a href="/score-improvement/{data.leaderboard_id}/{data.player_id}" target="_blank" class="clickable-button">
+                Player Score Improvement
+            </a>
+            <a href="/score-improvement/{data.leaderboard_id}" target="_blank" class="clickable-button">
+                Map Score Improvement
+            </a>
+            <a href="https://scoresaber.com/leaderboard/{data.leaderboard_id}" target="_blank" class="clickable-button">
+                ScoreSaber Page
+            </a>
+        </div>
+    {/if}
+
 </main>
 
 
 <style>
     .main-score {
+        border: none;
         font-family: sans-serif;
         display: flex;
         align-items: center;
@@ -103,6 +118,25 @@ import type { Score } from "./types";
         font-family: sans-serif;
         color: white;
         cursor: pointer;
+
+    }
+
+    .clickable-button {
+        background-color: rgba(50, 50, 50, 0.25);
+        border-radius: 10px;
+        padding: 10px;
+        width: 100%;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        text-align: center;
+        text-decoration: none;
+        font-size: 15px;
+        color: white;
+        font-weight: bold;
+        margin: 5px 2.5px;
+    }
+
+    .clickable-buttons {
+        display: flex;
     }
 
     .score-text {
@@ -110,7 +144,7 @@ import type { Score } from "./types";
         height: 100%;
         display: flex;
         flex-direction: column;
-        text-decoration: none;
+        text-align: left;
     }
 
     .song-name {
@@ -137,7 +171,7 @@ import type { Score } from "./types";
         flex-direction: column;
         align-items: flex-end;
         justify-content: flex-start;
-        text-decoration: none;
+        padding: 5px;
         color: white;
     }
 
