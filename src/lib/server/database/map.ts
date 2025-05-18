@@ -146,6 +146,7 @@ export async function fetchPastTopScoresOnMap(leaderboard_id : string): Promise<
             full_combo: row.full_combo,
             bad_cuts: row.bad_cuts,
             missed_notes: row.missed_notes,
+            bad_cuts_and_misses: row.missed_notes + row.bad_cuts,
             mods: row.mods,
             hmd: row.hmd,
             device_hmd: row.device_hmd,
