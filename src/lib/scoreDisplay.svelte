@@ -127,7 +127,6 @@ import type { Score } from "./types";
         width: 100%;
         height: 500px;
         border-radius: 10px;
-        padding: 5px;
     }
 
     .clickable-button {
