@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { page } from '$app/state';
     import ScoreDisplay from '$lib/scoreDisplay.svelte';
     import type { Score } from '$lib/types.js';
     import pkg from 'chart.js';
@@ -8,6 +9,8 @@
     const chartRender = (node: any, options: any) => {
         new Chart (node, options)
     }
+
+    let compact = page.url.searchParams.get('compact') === 'true';
 
     let scoreDates: string[] = []
     let scoreAccuracy: { y: number; x: Date; }[] = []
@@ -200,6 +203,11 @@
 
 </script>
 
+{#if compact == true}
+    <div class="graph-expanded">
+      <canvas use:chartRender={config}></canvas>
+    </div>
+{:else}
 <main>
     <h1><span class="name">{data.player_data.name}</span> playing <span class="name">{data.map_data.song_name}</span> on <span class="name">{data.map_data.difficultyraw}</span> top score history</h1>
   {#if data.scores.length > 1}
@@ -225,11 +233,17 @@
   {/if}
 
 </main>
+{/if}
 
 <style>
   .graph {
     height: 500px;
     margin-bottom: 15px;
+  }
+
+  .graph-expanded {
+    width: 100vw;
+    height: 100vh;
   }
 
   h1, h2, h3 {
