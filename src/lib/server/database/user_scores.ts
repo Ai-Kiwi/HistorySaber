@@ -5,6 +5,7 @@ import { client } from "./main"
 export async function fetchPlayerRankedScores(player_id : string, date : Date): Promise<any[]> {
     //set date to 3 as thats when leaderboards are collected
     let timed_date = new Date(date)
+    timed_date.setTime(timed_date.getTime() + (1000 * 60 * 60 * 24)) //move forward a day
     date.setHours(3)
     date.setMinutes(0)
     date.setSeconds(0)
@@ -106,6 +107,7 @@ export async function fetchPlayerRankedScores(player_id : string, date : Date): 
 export async function fetchAllPlayerScores(player_id : string, date : Date): Promise<any[]> {
     //set date to 3 as thats when leaderboards are collected
     let timed_date = new Date(date)
+    timed_date.setTime(timed_date.getTime() + (1000 * 60 * 60 * 24)) //move forward a day
     date.setHours(3)
     date.setMinutes(0)
     date.setSeconds(0)
