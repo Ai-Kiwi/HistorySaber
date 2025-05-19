@@ -42,7 +42,6 @@
       scoreMissedNotes.push({y: score.missed_notes, x : score.time})
       scoreBadCutsOrMissedNotes.push({y: score.missed_notes + score.bad_cuts, x : score.time})
     })
-
   const chart_data = {
       labels: scoreDates,
       datasets: [
@@ -50,21 +49,16 @@
           label: 'Acc',
           data: scoreAccuracy,
           borderColor: 'rgba(0, 123, 255, 1)', // Orange
-          tension: 0.5,
           cubicInterpolationMode: 'monotone',
+          yAxisID: 'AccAxis',
+          tension: 0.5,
         },{
           label: 'Score',
           data: scoreScore,
           borderColor: 'rgba(40, 167, 69, 1)',
           tension: 0.5,
           cubicInterpolationMode: 'monotone',
-          hidden: true
-        },{
-          label: 'Modified Score',
-          data: scoreModifiedScore,
-          borderColor: 'rgba(255, 193, 7, 1)',
-          tension: 0.5,
-          cubicInterpolationMode: 'monotone',
+          yAxisID: 'ScoreAxis',
           hidden: true
         },{
           label: 'Performance Points (current)',
@@ -72,6 +66,7 @@
           borderColor: 'rgba(220, 53, 69, 1)',
           tension: 0.5,
           cubicInterpolationMode: 'monotone',
+          yAxisID: 'PerformancePointsAxis',
           hidden: true
         },{
           label: 'Combo',
@@ -79,20 +74,7 @@
           borderColor: 'rgba(255, 16, 242, 1)',
           tension: 0.5,
           cubicInterpolationMode: 'monotone',
-          hidden: true
-        },{
-          label: 'Bad Cuts',
-          data: scoreBadCuts,
-          borderColor: 'rgba(255, 87, 34, 1)',
-          tension: 0.5,
-          cubicInterpolationMode: 'monotone',
-          hidden: true
-        },{
-          label: 'Missed Notes',
-          data: scoreMissedNotes,
-          borderColor: 'rgba(23, 162, 184, 1)',
-          tension: 0.5,
-          cubicInterpolationMode: 'monotone',
+          yAxisID: 'ComboAxis',
           hidden: true
         },{
           label: 'Bad Cuts Or Missed Notes',
@@ -100,6 +82,7 @@
           borderColor: 'rgba(108, 117, 125, 1)',
           tension: 0.5,
           cubicInterpolationMode: 'monotone',
+          yAxisID: 'BadCutsOrMissesAxis',
           hidden: true
         }
       ]
@@ -139,12 +122,77 @@
             text: 'Date'
           }        
         },
-        y: {
-            title: {
-                display: true,
-                text: 'Y Axis 1'
+        yAxes:[{
+          id: 'AccAxis',
+          type: 'linear',
+          position: "left",
+          title: { display: true, text: 'Accuracy' },
+          grid: { drawTicks: false, drawOnChartArea: false },
+          ticks: {
+            callback: function(value: string, index: any, ticks: any) {
+              //@ts-ignore
+              const chartData = this.chart;
+              if (chartData.isDatasetVisible(0)) {
+                return value + "%";
+              }else{
+                return null
+              }
             }
+          },
         },
+        {
+          id: 'ScoreAxis',
+          type: 'linear',
+          position: "right",
+          ticks: {
+            callback: function(value: string, index: any, ticks: any) {
+              //@ts-ignore
+              const chartData = this.chart;
+              if (chartData.isDatasetVisible(1)) {
+                return value;
+              }else{
+                return null
+              }
+            }
+          },
+          grid: {
+            drawTicks: false // optional: hides tick lines
+          },
+          
+        },
+        {
+          id: 'PerformancePointsAxis',
+          type: 'linear',
+          position: "right",
+          ticks: {
+            callback: function(value: string, index: any, ticks: any) {
+              //@ts-ignore
+              const chartData = this.chart;
+              if (chartData.isDatasetVisible(2)) {
+                return value + "pp";
+              }else{
+                return null
+              }
+            }
+          },
+          title: { display: true, text: 'Country Rank' },
+        },
+        {
+          id: 'ComboAxis',
+          type: 'linear',
+          title: { display: false, text: 'Ranked Accuracy' },
+          ticks: {
+            display: false
+          },
+        },
+        {
+          id: 'BadCutsOrMissesAxis',
+          type: 'linear',
+          title: { display: false, text: 'Bad Cuts Or Misses' },
+          ticks: {
+            display: false
+          },
+        }],
       }
     }
   };
