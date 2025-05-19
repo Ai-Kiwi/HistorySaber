@@ -205,6 +205,7 @@ export async function fetchPlayerScoresOnMap(player_id : string, leaderboard_id 
             full_combo: row.full_combo,
             bad_cuts: row.bad_cuts,
             missed_notes: row.missed_notes,
+            bad_cuts_and_misses: row.missed_notes + row.bad_cuts,
             mods: row.mods,
             hmd: row.hmd,
             device_hmd: row.device_hmd,
