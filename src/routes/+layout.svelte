@@ -3,6 +3,7 @@
     import Navbar from '$lib/navbar.svelte';
     import Footer from '$lib/footer.svelte'
     import { onMount } from 'svelte';
+    import { page } from '$app/state';
     let { children }  = $props();
     let showVideo = $state(false);
 
@@ -12,12 +13,13 @@
       showVideo = true;
     }
   });
-
-  </script>
+  const compact = page.url.searchParams.get('compact') === 'true';
+</script>
   
+{#if compact == false}
+
   <main class="layout">
-    <Navbar />
-    
+    <Navbar />    
 
     <span class="hero">
         {@render children()}
@@ -35,8 +37,10 @@
     {/if}
 
     <Footer />
-  </main>
-  
+</main>
+{:else}
+  {@render children()}
+{/if}
   
   
   

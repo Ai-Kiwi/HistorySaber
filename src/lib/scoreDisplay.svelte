@@ -98,6 +98,8 @@ import type { Score } from "./types";
                 ScoreSaber Page
             </a>
         </div>
+
+        <iframe class="improvement-graph" src="/score-improvement/{data.leaderboard_id}/{data.player_id}?compact=true" frameborder="0"></iframe>
     {/if}
 
 </main>
@@ -119,6 +121,13 @@ import type { Score } from "./types";
         color: white;
         cursor: pointer;
 
+    }
+
+    .improvement-graph {
+        width: 100%;
+        height: 500px;
+        border-radius: 10px;
+        padding: 5px;
     }
 
     .clickable-button {
