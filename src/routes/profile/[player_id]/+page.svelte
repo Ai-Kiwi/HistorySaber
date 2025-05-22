@@ -9,6 +9,7 @@
     import type { Score } from '$lib/types';
     import ScoreDisplay from '$lib/scoreDisplay.svelte';
     import { flip } from 'svelte/animate';
+    import { onMount } from 'svelte';
   let { data }: PageProps = $props();
  
   const chartRender = (node: any, options: any) => {
@@ -311,8 +312,9 @@
     fetch_scores()
   }
 
-  fetch_scores()
-
+  onMount(() => {
+    fetch_scores()
+  })
   function changeScoreSort(sort : string) {
     player_scores_sort = sort
     fetch_scores()
