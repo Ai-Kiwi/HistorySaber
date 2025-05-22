@@ -10,7 +10,14 @@
     import ScoreDisplay from '$lib/scoreDisplay.svelte';
     import { flip } from 'svelte/animate';
     import { onMount } from 'svelte';
+    import { page } from '$app/state';
   let { data }: PageProps = $props();
+
+  //compact mode settings
+  const compact_mode = page.url.searchParams.get('compact') === 'true';
+  const compact_display_scores = page.url.searchParams.get('scores') === 'true';
+  const compact_display_graph = page.url.searchParams.get('graph') === 'true';
+  const compact_settings = page.url.searchParams.get('settings') === 'true';
  
   const chartRender = (node: any, options: any) => {
 
@@ -264,9 +271,10 @@
   let selected_score_date = $state(new Date(score_tracking_started))
   let score_page_selected = $state(1)
   let player_scores: Score[]  = $state([])
-  let player_scores_sort: string  = $state("top")
+  let player_scores_sort: string  = $state(page.url.searchParams.get('scores_sort') || "top")
   let reverse_score_order = $state(false)
-  let limit_score_ranked = $state(true)
+  let limit_score_ranked = $state(!(page.url.searchParams.get('only_ranked') === "false"))
+  let score_page_size = Number(page.url.searchParams.get('score_count')) || 12
 
   async function fetch_scores() {
     if (loading_scores == true) {
@@ -282,7 +290,8 @@
         player: data.playerData.player_id, 
         sort: player_scores_sort, 
         reverse: reverse_score_order.toString(), 
-        only_ranked: limit_score_ranked.toString() 
+        only_ranked: limit_score_ranked.toString(),
+        page_size: score_page_size.toString(),
       });
       const res = await fetch(`/api/player_scores?${params.toString()}`);
       if (!res.ok) {
@@ -323,56 +332,70 @@
 </script>
   
 <main>
-  <div class="basic-info-row">
-    <img src="https://cdn.scoresaber.com/avatars/{data.playerData.player_id}.jpg" alt="Profile picture of {data.playerData.name}" class="profile-picture" aria-hidden="true">
-
-    <div class="username">{user_data.name}</div>
-  </div>
-
-  <div class="graph">
-    <canvas  use:chartRender={config}></canvas>
-  </div>
 
 
+  {#if compact_mode == false}
+    <div class="basic-info-row">
+      <img src="https://cdn.scoresaber.com/avatars/{data.playerData.player_id}.jpg" alt="Profile picture of {data.playerData.name}" class="profile-picture" aria-hidden="true">
 
-  <h1>Past Scores</h1>
-  <h2 class="date_text">{selected_score_date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</h2>
-  <DateSelect startDate={score_tracking_started} valueUpdate={update_score_date}></DateSelect>
-
-  <Pagination current_page_selected={score_page_selected} pageChanged={(page: number) => {score_page_selected = page; fetch_scores()}}></Pagination>
-  <div class="sort-select-section">
-    <button class="{player_scores_sort == "top" ? "sort-select-selected" : "sort-select"}" on:click={()=>changeScoreSort("top")}>Performance Points</button>
-    <button class="{player_scores_sort == "hardest" ? "sort-select-selected" : "sort-select"}" on:click={()=>changeScoreSort("hardest")}>Stars</button>
-    <button class="{player_scores_sort == "accuracy" ? "sort-select-selected" : "sort-select"}" on:click={()=>changeScoreSort("accuracy")}>Accuracy</button>
-    <button class="{player_scores_sort == "max_combo" ? "sort-select-selected" : "sort-select"}" on:click={()=>changeScoreSort("max_combo")}>Combo</button>
-    <button class="{player_scores_sort == "bad_cuts_or_misses" ? "sort-select-selected" : "sort-select"}" on:click={()=>changeScoreSort("bad_cuts_or_misses")}>Bad Cuts/Misses</button>
-    <button class="{player_scores_sort == "score" ? "sort-select-selected" : "sort-select"}" on:click={()=>changeScoreSort("score")}>Score</button>
-    <button class="{player_scores_sort == "recent" ? "sort-select-selected" : "sort-select"}" on:click={()=>changeScoreSort("recent")}>Recent</button>
-    <div style="flex-basis: 100%;">
-      <div style="width: 300px; background-color: rgba(25,25,25,0.5); height: 2px; border-radius: 15px; margin: auto;"></div>
+      <div class="username">{user_data.name}</div>
     </div>
-    <button class="sort-toggle" style="background-color: {limit_score_ranked ? 'rgba(100, 100, 100, 0.5)' : ''};" on:click={()=>{ limit_score_ranked = !limit_score_ranked; fetch_scores() }}>Only Ranked</button>
-    <button class="sort-toggle" style="background-color: {reverse_score_order ? 'rgba(100, 100, 100, 0.5)' : ''};" on:click={()=>{ reverse_score_order = !reverse_score_order; fetch_scores() }}>Reverse Order</button>
-  </div>
-
-  <div class="{loading_scores ? 'shimmer' : ''}">
-    {#if player_scores.length > 0}
-    <div class="score-list">
-      {#each player_scores as score (score.score_id)}
-        <label animate:flip={{ duration: 500 }}>
-          <ScoreDisplay data={score}></ScoreDisplay>
-        </label>
-      {/each}
-    </div>
-  {:else}
-  <h2>
-    No scores to display on this page
-  </h2>
   {/if}
-  </div>
 
-  <Pagination current_page_selected={score_page_selected} pageChanged={(page: number) => {score_page_selected = page; fetch_scores()}}></Pagination>
+  {#if compact_mode == false || compact_display_graph == true}
+    <div class="graph">
+      <canvas  use:chartRender={config}></canvas>
+    </div>
+  {/if}
 
+  {#if compact_mode == false}
+    <h1>Past Scores</h1>
+  {/if}
+
+  {#if compact_mode == false || (compact_settings == true && compact_display_scores == true)}
+    
+    <h2 class="date_text">{selected_score_date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</h2>
+    <DateSelect startDate={score_tracking_started} valueUpdate={update_score_date}></DateSelect>
+
+    <Pagination current_page_selected={score_page_selected} pageChanged={(page: number) => {score_page_selected = page; fetch_scores()}}></Pagination>
+    <div class="sort-select-section">
+      <button class="{player_scores_sort == "top" ? "sort-select-selected" : "sort-select"}" on:click={()=>changeScoreSort("top")}>Performance Points</button>
+      <button class="{player_scores_sort == "hardest" ? "sort-select-selected" : "sort-select"}" on:click={()=>changeScoreSort("hardest")}>Stars</button>
+      <button class="{player_scores_sort == "accuracy" ? "sort-select-selected" : "sort-select"}" on:click={()=>changeScoreSort("accuracy")}>Accuracy</button>
+      <button class="{player_scores_sort == "max_combo" ? "sort-select-selected" : "sort-select"}" on:click={()=>changeScoreSort("max_combo")}>Combo</button>
+      <button class="{player_scores_sort == "bad_cuts_or_misses" ? "sort-select-selected" : "sort-select"}" on:click={()=>changeScoreSort("bad_cuts_or_misses")}>Bad Cuts/Misses</button>
+      <button class="{player_scores_sort == "score" ? "sort-select-selected" : "sort-select"}" on:click={()=>changeScoreSort("score")}>Score</button>
+      <button class="{player_scores_sort == "recent" ? "sort-select-selected" : "sort-select"}" on:click={()=>changeScoreSort("recent")}>Recent</button>
+      <div style="flex-basis: 100%;">
+        <div style="width: 300px; background-color: rgba(25,25,25,0.5); height: 2px; border-radius: 15px; margin: auto;"></div>
+      </div>
+      <button class="sort-toggle" style="background-color: {limit_score_ranked ? 'rgba(100, 100, 100, 0.5)' : ''};" on:click={()=>{ limit_score_ranked = !limit_score_ranked; fetch_scores() }}>Only Ranked</button>
+      <button class="sort-toggle" style="background-color: {reverse_score_order ? 'rgba(100, 100, 100, 0.5)' : ''};" on:click={()=>{ reverse_score_order = !reverse_score_order; fetch_scores() }}>Reverse Order</button>
+    </div>
+  {/if}
+
+  {#if compact_mode == false || compact_display_scores == true}
+    <div class="{loading_scores ? 'shimmer' : ''}">
+      {#if player_scores.length > 0}
+      <div class="score-list">
+        {#each player_scores as score (score.score_id)}
+          <label animate:flip={{ duration: 500 }}>
+            <ScoreDisplay data={score}></ScoreDisplay>
+          </label>
+        {/each}
+      </div>
+    {:else}
+    <h2>
+      No scores to display on this page
+    </h2>
+    {/if}
+    </div>
+  {/if}
+
+
+  {#if compact_mode == false || (compact_settings == true && compact_display_scores == true)}
+    <Pagination current_page_selected={score_page_selected} pageChanged={(page: number) => {score_page_selected = page; fetch_scores()}}></Pagination>
+  {/if}
 
 </main>
 
