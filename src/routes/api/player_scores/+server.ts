@@ -9,45 +9,49 @@ export async function GET({ url }) {
 
     const reverse = url.searchParams.get('reverse') || 'false';
     const only_ranked = url.searchParams.get('only_ranked') || 'true';
+    let page_size = Number(url.searchParams.get('page_size')) || 8;
+    if (page_size < 1 || page_size > 100) {
+      page_size = 8
+    }
 
     if (sort == "hardest") {
-      let scores = await getPlayerScoresFiltered(player,new Date(date),page,8,"stars",reverse == "true",only_ranked == "true")
+      let scores = await getPlayerScoresFiltered(player,new Date(date),page,page_size,"stars",reverse == "true",only_ranked == "true")
       return new Response(JSON.stringify(scores), {
           headers: { 'Content-Type': 'application/json' },
           status: 200
       });
     }else if (sort == "recent") {
-      let scores = await getPlayerScoresFiltered(player,new Date(date),page,8,"time",reverse == "true",only_ranked == "true")
+      let scores = await getPlayerScoresFiltered(player,new Date(date),page,page_size,"time",reverse == "true",only_ranked == "true")
       return new Response(JSON.stringify(scores), {
           headers: { 'Content-Type': 'application/json' },
           status: 200
       });
     }else if (sort == "accuracy") {
-      let scores = await getPlayerScoresFiltered(player,new Date(date),page,8,"accuracy",reverse == "true",only_ranked == "true")
+      let scores = await getPlayerScoresFiltered(player,new Date(date),page,page_size,"accuracy",reverse == "true",only_ranked == "true")
       return new Response(JSON.stringify(scores), {
           headers: { 'Content-Type': 'application/json' },
           status: 200
       });
     }else if (sort == "max_combo") {
-      let scores = await getPlayerScoresFiltered(player,new Date(date),page,8,"max_combo",reverse == "true",only_ranked == "true")
+      let scores = await getPlayerScoresFiltered(player,new Date(date),page,page_size,"max_combo",reverse == "true",only_ranked == "true")
       return new Response(JSON.stringify(scores), {
           headers: { 'Content-Type': 'application/json' },
           status: 200
       });
     }else if (sort == "bad_cuts_or_misses") {
-      let scores = await getPlayerScoresFiltered(player, new Date(date), page, 8, "bad_cuts_and_misses", reverse == "true", only_ranked == "true")
+      let scores = await getPlayerScoresFiltered(player, new Date(date), page, page_size, "bad_cuts_and_misses", reverse == "true", only_ranked == "true")
       return new Response(JSON.stringify(scores), {
           headers: { 'Content-Type': 'application/json' },
           status: 200
       });
     }else if (sort == "score") {
-      let scores = await getPlayerScoresFiltered(player,new Date(date),page,8,"score",reverse == "true",only_ranked == "true")
+      let scores = await getPlayerScoresFiltered(player,new Date(date),page,page_size,"score",reverse == "true",only_ranked == "true")
       return new Response(JSON.stringify(scores), {
           headers: { 'Content-Type': 'application/json' },
           status: 200
       });
     }else{
-      let scores = await getPlayerScoresFiltered(player,new Date(date),page,8,"pp",reverse == "true",only_ranked == "true")
+      let scores = await getPlayerScoresFiltered(player,new Date(date),page,page_size,"pp",reverse == "true",only_ranked == "true")
       return new Response(JSON.stringify(scores), {
           headers: { 'Content-Type': 'application/json' },
           status: 200

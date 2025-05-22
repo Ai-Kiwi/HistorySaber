@@ -5,8 +5,12 @@ import { daysSinceRankCollectStart } from '$lib/utils';
 import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 
-export const load: PageServerLoad = async ({ params }) => {
-
+export const load: PageServerLoad = async ({ params, setHeaders }) => {
+    setHeaders({
+        'Content-Security-Policy': "frame-ancestors *", // or specify allowed domains
+        'X-Frame-Options': 'ALLOWALL',
+        'Referrer-Policy': 'no-referrer'
+    });
     //const response = await fetch('https://api.example.com/data');
     //const data = await response.json();
 

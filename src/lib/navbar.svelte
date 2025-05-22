@@ -1,6 +1,7 @@
 <script>
     const links = [
       { name: 'Home', href: '/' },
+      { name: 'Api', href: '/api' },
       { name: 'Search', href: '/search' },
       { name: 'Leaderboard', href: '/leaderboard' },
       //{ name: 'Stats', href: '/stats' },
