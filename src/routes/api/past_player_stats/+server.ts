@@ -1,27 +1,19 @@
+import { getPlayerScoresFiltered } from '$lib/server/database/user_scores.js';
 import { getPlayerInfo, getPlayerPastPpValues } from '$lib/server/database/users';
 import { daysSinceRankCollectStart } from '$lib/utils';
-import type { PageServerLoad } from './$types';
 
-export const load: PageServerLoad = async ({ params, setHeaders }) => {
-    setHeaders({
-        'Content-Security-Policy': "frame-ancestors *", // or specify allowed domains
-        'X-Frame-Options': 'ALLOWALL',
-        'Referrer-Policy': 'no-referrer'
-    });
-
-    //const response = await fetch('https://api.example.com/data');
-    //const data = await response.json();
-
-    let player_id = params.player_id
+export async function GET({ url }) {
+  try {
+    const player = url.searchParams.get('player') || '';
   
     const days = daysSinceRankCollectStart()
 
-    const pastPp = await getPlayerPastPpValues(player_id, days + 1)
-    const playerData = await getPlayerInfo(player_id)
+    const pastPp = await getPlayerPastPpValues(player, days + 1)
+    const playerData = await getPlayerInfo(player)
 
 
 
-    return {
+    const player_data = {
         pastPp: pastPp.pp_values,
         pastRank : pastPp.rank_values,
         pastCountryRank : pastPp.country_values,
@@ -34,4 +26,14 @@ export const load: PageServerLoad = async ({ params, setHeaders }) => {
         pastTotalPlayCount : pastPp.total_play_count_value,
         pastRankedPlayCount : pastPp.ranked_play_count_value,
     };
+
+    return new Response(JSON.stringify(player_data), {
+      headers: { 'Content-Type': 'application/json' },
+      status: 200
+    });
+    
+  } catch (err) {
+    console.error(err);
+    return new Response(JSON.stringify({ error: 'Database error' }), { status: 500 });
+  }
 }

@@ -1,7 +1,7 @@
 import type { UserType } from "$lib/types";
 import { client } from "./main";
 
-export async function getLeaderboardPage(page : number,date : String) {
+export async function getLeaderboardPage(page : number,date : String, page_size : number) {
     //console.log(`getting database leaderboard data page ${page}, date ${date}`)
     const query = {
         // give the query a unique name
@@ -10,10 +10,10 @@ export async function getLeaderboardPage(page : number,date : String) {
             FROM player_history
             WHERE inactive = FALSE AND CAST(snapshot_date AS DATE) = $1
             ORDER BY rank ASC
-            LIMIT 50
+            LIMIT $3
             OFFSET $2;
         `,
-        values: [date,(page - 1) * 50],
+        values: [date,(page - 1) * 50, page_size],
         //`SELECT * 
         //    FROM player_history
         //    WHERE rank BETWEEN 50 AND 100
@@ -48,7 +48,7 @@ export async function getLeaderboardPage(page : number,date : String) {
 }
 
 
-export async function getCountryLeaderboardPage(page : number,date : String,countrys: String[]) {
+export async function getCountryLeaderboardPage(page : number,date : String,countrys: String[], page_size : number) {
 
     const query = {
         // give the query a unique name
@@ -57,10 +57,10 @@ export async function getCountryLeaderboardPage(page : number,date : String,coun
             FROM player_history
             WHERE inactive = FALSE AND CAST(snapshot_date AS DATE) = $1 AND country = ANY ($2)
             ORDER BY rank ASC
-            LIMIT 50
+            LIMIT $3
             OFFSET $3;
         `,
-        values: [date,countrys,(page - 1) * 50],
+        values: [date,countrys,(page - 1) * 50, page_size],
         //`SELECT * 
         //    FROM player_history
         //    WHERE rank BETWEEN 50 AND 100
