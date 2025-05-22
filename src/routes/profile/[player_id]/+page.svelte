@@ -340,7 +340,6 @@
   <DateSelect startDate={score_tracking_started} valueUpdate={update_score_date}></DateSelect>
 
   <Pagination current_page_selected={score_page_selected} pageChanged={(page: number) => {score_page_selected = page; fetch_scores()}}></Pagination>
-
   <div class="sort-select-section">
     <button class="{player_scores_sort == "top" ? "sort-select-selected" : "sort-select"}" on:click={()=>changeScoreSort("top")}>Performance Points</button>
     <button class="{player_scores_sort == "hardest" ? "sort-select-selected" : "sort-select"}" on:click={()=>changeScoreSort("hardest")}>Stars</button>
@@ -349,14 +348,11 @@
     <button class="{player_scores_sort == "bad_cuts_or_misses" ? "sort-select-selected" : "sort-select"}" on:click={()=>changeScoreSort("bad_cuts_or_misses")}>Bad Cuts/Misses</button>
     <button class="{player_scores_sort == "score" ? "sort-select-selected" : "sort-select"}" on:click={()=>changeScoreSort("score")}>Score</button>
     <button class="{player_scores_sort == "recent" ? "sort-select-selected" : "sort-select"}" on:click={()=>changeScoreSort("recent")}>Recent</button>
-
-    <div style="width: 100%;"></div>
+    <div style="flex-basis: 100%;">
+      <div style="width: 300px; background-color: rgba(25,25,25,0.5); height: 2px; border-radius: 15px; margin: auto;"></div>
+    </div>
     <button class="sort-toggle" style="background-color: {limit_score_ranked ? 'rgba(100, 100, 100, 0.5)' : ''};" on:click={()=>{ limit_score_ranked = !limit_score_ranked; fetch_scores() }}>Only Ranked</button>
     <button class="sort-toggle" style="background-color: {reverse_score_order ? 'rgba(100, 100, 100, 0.5)' : ''};" on:click={()=>{ reverse_score_order = !reverse_score_order; fetch_scores() }}>Reverse Order</button>
-  </div>
-  
-  <div class="sort-select-section">
-    
   </div>
 
   <div class="{loading_scores ? 'shimmer' : ''}">
@@ -385,7 +381,7 @@
     padding: 7.5px 10px;
     font-family: sans-serif;
     background-color: rgba(50, 50, 50, 0.25);
-    border-radius: 10px;
+    border-radius: 2.5px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
     border-width: 0px;
     color: white;
@@ -418,10 +414,10 @@
   }
 
   .sort-select-section {
+    margin: 25px 50px;
     display: flex;
     flex-direction: row;
     justify-content: center;
-    margin: 25px;
     gap: 5px;
     flex-wrap: wrap;
   }
