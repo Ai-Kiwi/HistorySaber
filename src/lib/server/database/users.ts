@@ -216,3 +216,50 @@ export async function fetchPlayerScoresOnMap(player_id : string, leaderboard_id 
 
     return scores;
 }
+
+export async function searchForUser(text : string, page : number, page_size : number) {
+    const offset = (page - 1) * page_size;
+
+    const query = {
+        name: 'fetch-player-latest-matching-page',
+        text: `
+            SELECT *, similarity(name, $1) AS score
+            FROM (
+                SELECT DISTINCT ON (player_id) *
+                FROM player_history
+                WHERE name % $1
+                ORDER BY player_id, snapshot_date DESC
+            ) latest
+            ORDER BY score DESC, rank ASC
+            OFFSET $3
+            LIMIT $2;
+        `,
+        values: [`%${text}%`, page_size, offset],
+    };
+
+    const res = await client.query(query);
+    const rows = res.rows;
+
+    let users: UserType[] = res.rows.map((row: any) => {
+        return {
+            player_id: row.player_id,
+            snapshot_date: row.snapshot_date,
+            name: row.name,
+            bio: row.bio,
+            country: row.country,
+            pp: row.pp,
+            rank: row.rank,
+            country_rank: row.country_rank,
+            badges: row.badges,
+            banned: row.banned,
+            inactive: row.inactive,
+            total_score: row.total_score,
+            total_ranked_score: row.total_ranked_score,
+            average_ranked_accuracy: row.average_ranked_accuracy,
+            total_play_count: row.total_play_count,
+            ranked_play_count: row.total_play_count,
+        }
+    })
+
+    return users
+}
