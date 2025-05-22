@@ -5,7 +5,7 @@ export async function GET({ request }) {
     const url = new URL(request.url);
     const hostname = url.hostname;
 
-    const ignoredHostnames = [
+    const ignoredHostnamesOrDomains = [
         'localhost',    // Common local development hostname
         '127.0.0.1',    // IPv4 loopback address
         '::1',          // IPv6 loopback address
