@@ -57,7 +57,7 @@ export async function getCountryLeaderboardPage(page : number,date : String,coun
             FROM player_history
             WHERE inactive = FALSE AND CAST(snapshot_date AS DATE) = $1 AND country = ANY ($2)
             ORDER BY rank ASC
-            LIMIT $3
+            LIMIT $4
             OFFSET $3;
         `,
         values: [date,countrys,(page - 1) * 50, page_size],
