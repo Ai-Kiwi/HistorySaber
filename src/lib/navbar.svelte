@@ -1,4 +1,7 @@
 <script>
+    import { page } from "$app/state";
+    import { onMount } from "svelte";
+
     const links = [
       { name: 'Home', href: '/' },
       { name: 'Api', href: '/api' },
@@ -6,6 +9,13 @@
       { name: 'Leaderboard', href: '/leaderboard' },
       //{ name: 'Stats', href: '/stats' },
     ];
+
+    let ShowPages = $state(false)
+    onMount(() => {
+      if (window.innerWidth > 600) {
+        ShowPages = true
+      }
+    })
   </script>
   
   <div class="spaced-area">
@@ -13,16 +23,25 @@
   </div>
 
   <nav>
-    <div class="nav-container">
+    <div class="nav-container" style="{ShowPages == true ? 'align-items: center;' : 'align-items: center;'}">
       <a href="/">
         <!--<div class="logo">History Saber</div>-->
-        <img src="/images/small-logo.png" alt="HistorySaber logo" class="logo">
+        <button class="logo-button" onclick={() => {
+          ShowPages = !ShowPages
+          if (window.innerWidth > 600) {
+            ShowPages = true
+          }
+        }}>
+          <img src="/images/small-logo.png" alt="HistorySaber logo" class="logo">
+        </button>
       </a>
-      <ul>
-        {#each links as link}
-          <li><a href={link.href}>{link.name}</a></li>
-        {/each}
-      </ul>
+      {#if ShowPages == true}
+        <ul>
+          {#each links as link}
+            <li><a href={link.href}>{link.name}</a></li>
+          {/each}
+        </ul>
+      {/if}
     </div>
   </nav>
   
@@ -42,14 +61,13 @@
       left: 0;
       width: 100%;
       z-index: 1000;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
     }
   
     .nav-container {
       max-width: 1100px;
       margin: 0 auto;
       display: flex;
-      align-items: center;
+      align-items: start;
       justify-content: space-between;
       flex-wrap: wrap;
       overflow-x: hidden; /* Prevents horizontal overflow */
@@ -104,15 +122,14 @@
         gap: 10px;
         margin-top: 10px;
       }
-  
-      .nav-container {
-        flex-direction: column;
-        align-items: flex-start;
-      }
+    }
 
-      .spaced-area {
-        height: 140px;
-      }
+    .logo-button {
+      padding: 0px;
+      margin: 0px;
+      background-color: transparent;
+      border: 0px;
+      cursor: pointer;
     }
 
 
