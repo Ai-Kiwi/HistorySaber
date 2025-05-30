@@ -30,7 +30,6 @@
     max-width: calc(100% - 30px);
     margin: 15px auto;
     display: block;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
   }
 
   .date_slider::-webkit-slider-thumb {
