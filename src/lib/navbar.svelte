@@ -17,33 +17,29 @@
       }
     })
   </script>
-  
-  <div class="spaced-area">
 
+<nav>
+  <div class="nav-container" style="{ShowPages == true ? 'align-items: center;' : 'align-items: center;'}">
+    <a href="/">
+      <!--<div class="logo">History Saber</div>-->
+      <button class="logo-button" onclick={() => {
+        ShowPages = !ShowPages
+        if (window.innerWidth > 600) {
+          ShowPages = true
+        }
+      }}>
+        <img src="/images/small-logo.png" alt="HistorySaber logo" class="logo">
+      </button>
+    </a>
+    {#if ShowPages == true}
+      <ul>
+        {#each links as link}
+          <li><a href={link.href}>{link.name}</a></li>
+        {/each}
+      </ul>
+    {/if}
   </div>
-
-  <nav>
-    <div class="nav-container" style="{ShowPages == true ? 'align-items: center;' : 'align-items: center;'}">
-      <a href="/">
-        <!--<div class="logo">History Saber</div>-->
-        <button class="logo-button" onclick={() => {
-          ShowPages = !ShowPages
-          if (window.innerWidth > 600) {
-            ShowPages = true
-          }
-        }}>
-          <img src="/images/small-logo.png" alt="HistorySaber logo" class="logo">
-        </button>
-      </a>
-      {#if ShowPages == true}
-        <ul>
-          {#each links as link}
-            <li><a href={link.href}>{link.name}</a></li>
-          {/each}
-        </ul>
-      {/if}
-    </div>
-  </nav>
+</nav>
   
   <style>
     /* Ensure all elements inside the nav don't exceed screen width */
@@ -109,10 +105,6 @@
     li a:hover {
       color: #1abc9c;
     }
-
-    .spaced-area {
-      height: 70px;
-    }  
     
     @media (max-width: 600px) {
       ul {

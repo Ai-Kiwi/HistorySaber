@@ -4,6 +4,7 @@
     import Footer from '$lib/footer.svelte'
     import { onMount } from 'svelte';
     import { page } from '$app/state';
+    import { fade } from 'svelte/transition';
     let { children }  = $props();
     let showVideo = $state(false);
 
@@ -14,12 +15,19 @@
     }
   });
   const compact = page.url.searchParams.get('compact') === 'true';
+
+  let scroll_y = $state(0);
 </script>
   
 {#if compact == false}
 
   <main class="layout">
-    <Navbar />    
+    {#if scroll_y < 25}
+      <div transition:fade={{ duration: 150 }}>
+        <Navbar />
+      </div>
+    {/if}
+    
 
     <span class="hero">
         {@render children()}
@@ -43,7 +51,7 @@
 {/if}
   
   
-  
+<svelte:window bind:scrollY={scroll_y} />
   
   <style>  
 
@@ -62,7 +70,10 @@
       padding: 25px 25px;
       background-color: rgba(0, 0, 0, 0.55);
       border-radius: 15px;
-      margin: 20px auto;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 20px;
+      margin-top: 90px;
       max-width: 1000px;
       width: 90%;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
