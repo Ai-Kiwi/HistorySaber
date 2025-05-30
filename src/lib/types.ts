@@ -17,6 +17,14 @@ export interface UserType {
   ranked_play_count: number
 }
 
+export interface PlayerImprovementType {
+  current_name : string,
+  country : string,
+  old_rank : number,
+  new_rank : number,
+  rank_gain : number,
+}
+
 export interface LeaderboardSelections {
   country: String[],
   date_moved_forward: number,
