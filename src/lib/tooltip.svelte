@@ -41,7 +41,6 @@
         background-color: rgb(50, 50, 50);
         border-radius: 10px;
         padding: 5px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
         color: white;
 
 	}
