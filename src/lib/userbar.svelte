@@ -16,6 +16,9 @@
         <div class="country-rank">
             #{user.country_rank}
             <img class="country-rank-image" src={countries[user.country as keyof typeof countries].img} alt="">
+            <!--<span class="country-code-text">
+                {user.country}
+            </span>-->
         </div>
     </div>
 
@@ -38,6 +41,14 @@
 </a>
 
 <style>
+    .country-code-text {
+        padding-left: 5px;
+        color: rgb(210, 210, 210);
+        font-weight: bold;
+        font-size: 15px;
+        margin: auto 0px;
+    }
+
     .profile-picture{
         height: 32px;
         border-radius: 9999px;
