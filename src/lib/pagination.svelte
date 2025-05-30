@@ -33,7 +33,6 @@
     padding: 5px 10px;
     cursor: pointer;
     font-size: 18px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
     display: flex;
     align-items: center;
     justify-content: center;
