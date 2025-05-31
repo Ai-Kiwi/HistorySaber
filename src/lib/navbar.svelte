@@ -33,7 +33,14 @@
     {#if ShowPages == true}
       <ul>
         {#each links as link}
-          <li><a href={link.href}>{link.name}</a></li>
+          <button class="logo-button" onclick={() => {
+            ShowPages = !ShowPages
+            if (window.innerWidth > 600) {
+              ShowPages = true
+            }
+          }}>
+            <li><a href={link.href}>{link.name}</a></li>
+          </button>
         {/each}
       </ul>
     {/if}
