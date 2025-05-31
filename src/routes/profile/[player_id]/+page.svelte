@@ -1,17 +1,19 @@
 <script lang="ts">    
-  import { Chart } from 'chart.js';
+  import pkg from 'chart.js';
+  const {Chart} = pkg
   import type { PageProps } from './$types';
   import { formatDate } from '$lib/utils';
   import Navbar from '$lib/navbar.svelte';
   import Footer from '$lib/footer.svelte'
-    import DateSelect from '$lib/dateSelect.svelte';
-    import Pagination from '$lib/pagination.svelte';
-    import type { Score } from '$lib/types';
-    import ScoreDisplay from '$lib/scoreDisplay.svelte';
-    import { flip } from 'svelte/animate';
-    import { onMount } from 'svelte';
-    import { page } from '$app/state';
+  import DateSelect from '$lib/dateSelect.svelte';
+  import Pagination from '$lib/pagination.svelte';
+  import type { Score } from '$lib/types';
+  import ScoreDisplay from '$lib/scoreDisplay.svelte';
+  import { flip } from 'svelte/animate';
+  import { onMount } from 'svelte';
+  import { page } from '$app/state';
   let { data }: PageProps = $props();
+  let hasLoaded = false
 
   //compact mode settings
   const compact_mode = page.url.searchParams.get('compact') === 'true';
@@ -270,14 +272,14 @@
   let loading_outdated = false
   let selected_score_date = $state(new Date(score_tracking_started))
   let score_page_selected = $state(1)
-  let player_scores: Score[]  = $state([])
+  let player_scores: Score[]  = $state(data.initial_scores)
   let player_scores_sort: string  = $state(page.url.searchParams.get('scores_sort') || "top")
   let reverse_score_order = $state(false)
   let limit_score_ranked = $state(!(page.url.searchParams.get('only_ranked') === "false"))
   let score_page_size = Number(page.url.searchParams.get('score_count')) || 12
 
   async function fetch_scores() {
-    if (loading_scores == true) {
+    if (loading_scores == true || hasLoaded == false) {
       loading_outdated = true
       return
     }
@@ -322,6 +324,7 @@
   }
 
   onMount(() => {
+    hasLoaded = true
     fetch_scores()
   })
   function changeScoreSort(sort : string) {

@@ -1,5 +1,6 @@
+import { getPlayerScoresFiltered } from '$lib/server/database/user_scores';
 import { getPlayerInfo, getPlayerPastPpValues } from '$lib/server/database/users';
-import { daysSinceRankCollectStart } from '$lib/utils';
+import { daysSinceRankCollectStart, formatDate } from '$lib/utils';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ params, setHeaders }) => {
@@ -19,7 +20,7 @@ export const load: PageServerLoad = async ({ params, setHeaders }) => {
     const pastPp = await getPlayerPastPpValues(player_id, days + 1)
     const playerData = await getPlayerInfo(player_id)
 
-
+    const initial_player_scores = await getPlayerScoresFiltered(player_id, new Date(), 1, 12, "pp", false, true)
 
     return {
         pastPp: pastPp.pp_values,
@@ -33,5 +34,7 @@ export const load: PageServerLoad = async ({ params, setHeaders }) => {
         pastAverageRankedAccuracy : pastPp.average_ranked_accuracy_value,
         pastTotalPlayCount : pastPp.total_play_count_value,
         pastRankedPlayCount : pastPp.ranked_play_count_value,
+
+        initial_scores : initial_player_scores
     };
 }

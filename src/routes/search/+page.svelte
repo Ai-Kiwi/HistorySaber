@@ -45,10 +45,6 @@
       setTimeout(fetch_search, 100);
     }
   }
-
-  onMount(() => {
-    fetch_search()
-  })
 </script>
 
 <main>

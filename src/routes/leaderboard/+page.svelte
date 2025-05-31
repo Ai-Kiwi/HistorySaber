@@ -10,6 +10,9 @@
   import Pagination from '$lib/pagination.svelte'
   import { page } from '$app/stores';
   import { flip } from 'svelte/animate';
+  import type { PageProps } from './$types';
+  let { data }: PageProps = $props();
+  let hasLoaded = false
 
   let selectable_countries = [];
   for (const key in countries) {
@@ -39,7 +42,7 @@
   let currentDate = $derived.by(() => {
     return date_from_time_since_start(CurrentSelectedDaysSinceStart)
   });
-  let current_user_data : UserType[] = $state([]);
+  let current_user_data : UserType[] = $state(data.initial_leaderboard);
 
   let new_selections: LeaderboardSelections = $derived.by(() => {
     //const params = new URLSearchParams(window.location.search);
@@ -61,7 +64,7 @@
 
 
   async function fetchData() {
-    if (loading_new_data == true) { 
+    if (loading_new_data == true || hasLoaded == false) { 
       return
     }
     loading_new_data = true;
@@ -112,6 +115,7 @@
   }
 
   onMount(() => {
+    hasLoaded = true
     fetchData()
   })
 </script>
