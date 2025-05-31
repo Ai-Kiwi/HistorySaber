@@ -1,5 +1,6 @@
 <script>
     import { page } from "$app/state";
+    import { redirect } from "@sveltejs/kit";
     import { onMount } from "svelte";
 
     const links = [
@@ -20,7 +21,6 @@
 
 <nav>
   <div class="nav-container" style="{ShowPages == true ? 'align-items: center;' : 'align-items: center;'}">
-    <a href="/">
       <!--<div class="logo">History Saber</div>-->
       <button class="logo-button" onclick={() => {
         ShowPages = !ShowPages
@@ -30,7 +30,6 @@
       }}>
         <img src="/images/small-logo.png" alt="HistorySaber logo" class="logo">
       </button>
-    </a>
     {#if ShowPages == true}
       <ul>
         {#each links as link}
@@ -105,6 +104,14 @@
     li a:hover {
       color: #1abc9c;
     }
+
+    .logo-button {
+      padding: 0px;
+      margin: 0px;
+      background-color: transparent;
+      border: 0px;
+      cursor: pointer;
+    }
     
     @media (max-width: 600px) {
       ul {
@@ -116,13 +123,7 @@
       }
     }
 
-    .logo-button {
-      padding: 0px;
-      margin: 0px;
-      background-color: transparent;
-      border: 0px;
-      cursor: pointer;
-    }
+
 
 
   </style>
