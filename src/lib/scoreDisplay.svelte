@@ -99,7 +99,7 @@ import type { Score } from "./types";
             </a>
         </div>
 
-        <iframe class="improvement-graph" src="/score-improvement/{data.leaderboard_id}/{data.player_id}?compact=true" frameborder="0"></iframe>
+        <iframe loading="lazy" class="improvement-graph" src="/score-improvement/{data.leaderboard_id}/{data.player_id}?compact=true" frameborder="0"></iframe>
     {/if}
 
 </main>
