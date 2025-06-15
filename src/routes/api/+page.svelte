@@ -33,13 +33,12 @@
       padding: 1rem 1.5rem;
       margin-top: 1rem;
       font-family: sans-serif;
-        background-color: rgba(50, 50, 50, 0.25);
-        border-radius: 10px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-        cursor: pointer;
-        gap: 5px;
-        justify-items: start;
-        flex-wrap: wrap;
+      background-color: rgba(50, 50, 50, 0.25);
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+      gap: 5px;
+      justify-items: start;
+      flex-wrap: wrap;
     }
   
     code {
