@@ -120,7 +120,12 @@ import type { Score } from "./types";
         font-family: sans-serif;
         color: white;
         cursor: pointer;
+        transition: 0.25s ease;
+    }
 
+    .main-score:hover {
+        background-color: rgba(150, 150, 150, 0.25);
+        transition: 0.25s ease;
     }
 
     .improvement-graph {
@@ -141,6 +146,12 @@ import type { Score } from "./types";
         color: white;
         font-weight: bold;
         margin: 5px 2.5px;
+        transition: 0.25s ease;
+    }
+
+    .clickable-button:hover {
+        background-color: rgba(150, 150, 150, 0.25);
+        transition: 0.25s ease;
     }
 
     .clickable-buttons {
