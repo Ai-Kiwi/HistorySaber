@@ -1,6 +1,6 @@
 <footer>
     <div class="footer-content">
-      <p>© 2025 History Saber. Licensed under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>.</p>
+      <p>© 2025 HistorySaber. Licensed under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>.</p>
       <div class="social-links">
         <!--<a href="https://twitter.com" target="_blank" rel="noopener noreferrer">Twitter</a>-->
         <a href="https://github.com/Ai-Kiwi/HistorySaber" target="_blank" rel="noopener noreferrer">GitHub</a>
