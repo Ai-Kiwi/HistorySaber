@@ -21,7 +21,7 @@
 
 <nav>
   <div class="nav-container" style="{ShowPages == true ? 'align-items: center;' : 'align-items: center;'}">
-      <!--<div class="logo">History Saber</div>-->
+      <!--<div class="logo">HistorySaber</div>-->
       <button class="logo-button" onclick={() => {
         ShowPages = !ShowPages
         if (window.innerWidth > 600) {
