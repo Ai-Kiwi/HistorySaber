@@ -137,6 +137,12 @@
         gap: 5px;
         justify-items: start;
         flex-wrap: wrap;
+        transition: 0.25s ease;
+    }
+
+    .user-bar:hover {
+        background-color: rgba(150, 150, 150, 0.25);
+        transition: 0.25s ease;
     }
 
     .extra-text-info {

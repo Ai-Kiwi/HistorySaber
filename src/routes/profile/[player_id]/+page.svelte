@@ -372,8 +372,8 @@
       <div style="flex-basis: 100%;">
         <div style="width: 300px; background-color: rgba(25,25,25,0.5); height: 2px; border-radius: 15px; margin: auto;"></div>
       </div>
-      <button class="sort-toggle" style="background-color: {limit_score_ranked ? 'rgba(100, 100, 100, 0.5)' : ''};" on:click={()=>{ limit_score_ranked = !limit_score_ranked; fetch_scores() }}>Only Ranked</button>
-      <button class="sort-toggle" style="background-color: {reverse_score_order ? 'rgba(100, 100, 100, 0.5)' : ''};" on:click={()=>{ reverse_score_order = !reverse_score_order; fetch_scores() }}>Reverse Order</button>
+      <button class="{limit_score_ranked == false ? "sort-toggle" : "sort-toggle-selected"}" on:click={()=>{ limit_score_ranked = !limit_score_ranked; fetch_scores() }}>Only Ranked</button>
+      <button class="{reverse_score_order ? "sort-toggle-selected" : "sort-toggle"}" on:click={()=>{ reverse_score_order = !reverse_score_order; fetch_scores() }}>Reverse Order</button>
     </div>
   {/if}
 
@@ -415,6 +415,28 @@
     cursor: pointer;
   }
 
+  .sort-toggle:hover {
+    background-color: rgba(150, 150, 150, 0.25);
+    transition: 0.25s ease;
+  }
+
+  .sort-toggle-selected {
+    padding: 7.5px 10px;
+    font-family: sans-serif;
+    background-color: rgba(100, 100, 100, 0.5);
+    border-radius: 2.5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    border-width: 0px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .sort-toggle-selected:hover {
+    background-color: rgba(200, 200, 200, 0.5);
+    transition: 0.25s ease;
+  }
+
   .sort-select {
     padding: 7.5px 10px;
     font-family: sans-serif;
@@ -425,6 +447,12 @@
     color: white;
     font-weight: bold;
     cursor: pointer;
+    transition: 0.25s ease;
+  }
+
+  .sort-select:hover {
+    background-color: rgba(150, 150, 150, 0.25);
+    transition: 0.25s ease;
   }
 
   .sort-select-selected {
@@ -437,6 +465,12 @@
     color: white;
     font-weight: bold;
     cursor: pointer;
+    transition: 0.25s ease;
+  }
+
+  .sort-select-selected:hover {
+    background-color: rgba(200, 200, 200, 0.5);
+    transition: 0.25s ease;
   }
 
   .sort-select-section {
