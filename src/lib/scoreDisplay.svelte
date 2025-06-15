@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { slide } from "svelte/transition";
     import Tooltip from "./tooltip.svelte";
 import type { Score } from "./types";
     const { data }: { data: Score } = $props();
@@ -87,7 +88,7 @@ import type { Score } from "./types";
     </button>
 
     {#if extra_info == true}
-        <div class="clickable-buttons">
+        <div class="clickable-buttons" transition:slide={{ duration: 500 }}>
             <a href="/score-improvement/{data.leaderboard_id}/{data.player_id}" target="_blank" class="clickable-button">
                 Player Score Improvement
             </a>
@@ -98,8 +99,9 @@ import type { Score } from "./types";
                 ScoreSaber Page
             </a>
         </div>
-
-        <iframe loading="lazy" class="improvement-graph" src="/score-improvement/{data.leaderboard_id}/{data.player_id}?compact=true" frameborder="0"></iframe>
+        <div transition:slide={{ duration: 500 }}>
+            <iframe loading="lazy" class="improvement-graph" src="/score-improvement/{data.leaderboard_id}/{data.player_id}?compact=true" frameborder="0"></iframe>
+        </div>
     {/if}
 
 </main>
