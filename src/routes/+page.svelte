@@ -33,13 +33,13 @@
 
   
 
-  <!--<div class="logo">History Saber</div>-->
+  <!--<div class="logo">HistorySaber</div>-->
 
   <img src="/images/medium-logo.png" alt="HistorySaber website logo" class="logo">
   
   <div class="description">
     <p>
-      History Saber is your go-to platform for exploring historical Beat Saber rankings and player stats from
+      HistorySaber is your go-to platform for exploring historical Beat Saber rankings and player stats from
       <strong>ScoreSaber</strong>.
     </p>
   

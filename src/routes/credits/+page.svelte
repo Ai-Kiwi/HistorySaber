@@ -19,7 +19,7 @@
   
 <main>
     <h1>
-        History Saber was made possible thanks to the following people
+        HistorySaber was made possible thanks to the following people
     </h1>
 
     <div class="feedback-people">
