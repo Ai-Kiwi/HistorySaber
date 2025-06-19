@@ -120,6 +120,7 @@ import type { Score } from "./types";
         width: 100%;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
         font-family: sans-serif;
+        font-size: 15px;
         color: white;
         cursor: pointer;
         transition: 0.25s ease;
@@ -173,15 +174,12 @@ import type { Score } from "./types";
         color: rgb(255, 255, 255);
     }
     .sub-song-name {
-        font-size: 15px;
         color: rgb(245, 245, 245);
     }
     .song-author-name {
-        font-size: 15px;
         color: rgb(200, 200, 200);
     }
     .level-author-name {
-        font-size: 15px;
         color: rgb(200, 200, 200);
     }
 
@@ -226,11 +224,9 @@ import type { Score } from "./types";
     .score-misses {
         text-align: center;
         padding: 5px;
-        font-size: 15px;
         color: rgb(250, 250, 250);
         background-color: red;
         border-radius: 15px;
-        font-size: 15px;
         font-weight: bolder;
     }
 
@@ -238,11 +234,9 @@ import type { Score } from "./types";
         text-align: center;
         text-wrap-mode: nowrap;
         padding: 5px;
-        font-size: 15px;
         color: rgb(250, 250, 250);
         background-color: rgb(75, 75, 75);
         border-radius: 15px;
-        font-size: 15px;
         font-weight: bolder;
     }
 
@@ -257,11 +251,9 @@ import type { Score } from "./types";
     }
 
     .score-accuracy {
-        font-size: 15px;
         color: rgb(250, 250, 250);
         background-color: rgb(110, 110, 110);
         border-radius: 15px;
-        font-size: 15px;
         font-weight: bolder;
         padding: 4px 8px;
     }
@@ -283,7 +275,6 @@ import type { Score } from "./types";
     .score-star-text {
         position: absolute;
         padding: 2.5px 5px;
-        font-size: 15px;
         font-weight: bold;
         border-radius: 15px;
         bottom: 0px;
@@ -293,4 +284,13 @@ import type { Score } from "./types";
         color: rgb(255, 255, 255);
     }
 
+    @media (hover: hover) and (pointer: fine) {
+        .main-score {
+            backdrop-filter: blur(15px) saturate(130%);
+        }
+
+        .clickable-button {
+            backdrop-filter: blur(15px) saturate(130%);
+        }
+    }
 </style>
