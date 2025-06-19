@@ -25,7 +25,7 @@
     appearance: none;
     width: 100%;
     height: 10px;
-    background: rgb(50, 50, 50);
+    background: rgba(50, 50, 50, 0.5);
     border-radius: 10px;
     max-width: calc(100% - 30px);
     margin: 15px auto;
@@ -35,18 +35,26 @@
   .date_slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 25px;
-    height: 25px;
+    width: 27.5px;
+    height: 27.5px;
     border-radius: 50%; 
-    background: rgb(125, 125, 125);
+    background: rgb(100, 100, 100, 1);
+    border: 0px;
     cursor: pointer;
   }
 
   .date_slider::-moz-range-thumb {
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    background: rgb(125, 125, 125);;
+    width: 27.5px;
+    height: 27.5px;
+    border-radius: 50%; 
+    background: rgb(100, 100, 100, 1);
+    border: 0px;
     cursor: pointer;
   }
+
+  @media (hover: hover) and (pointer: fine) {
+      .user-bar {
+          backdrop-filter: blur(15px) saturate(130%);
+      }
+    }
 </style>
