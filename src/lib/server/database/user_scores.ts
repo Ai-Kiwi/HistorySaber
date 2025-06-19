@@ -4,12 +4,6 @@ import { client } from "./main"
 
 export async function fetchPlayerRankedScores(player_id : string, date : Date): Promise<any[]> {
     //set date to 3 as thats when leaderboards are collected
-    let timed_date = new Date(date)
-    timed_date.setTime(timed_date.getTime() + (1000 * 60 * 60 * 24)) //move forward a day
-    date.setHours(3)
-    date.setMinutes(0)
-    date.setSeconds(0)
-    date.setMilliseconds(0)
     const query = {
         name: 'fetch-player-ranked-scores-for-date',
         text: `
@@ -60,7 +54,7 @@ export async function fetchPlayerRankedScores(player_id : string, date : Date): 
         JOIN map_leaderboard ml ON s.leaderboard_id = ml.leaderboard_id
         JOIN map m ON ml.map_hash = m.map_hash
         `,
-        values: [player_id,timed_date,],
+        values: [player_id,date,],
     }
     const res = await client.query(query);
     const scores: Score[] = res.rows.map((row: any) => {
@@ -106,12 +100,6 @@ export async function fetchPlayerRankedScores(player_id : string, date : Date): 
 
 export async function fetchAllPlayerScores(player_id : string, date : Date): Promise<any[]> {
     //set date to 3 as thats when leaderboards are collected
-    let timed_date = new Date(date)
-    timed_date.setTime(timed_date.getTime() + (1000 * 60 * 60 * 24)) //move forward a day
-    date.setHours(3)
-    date.setMinutes(0)
-    date.setSeconds(0)
-    date.setMilliseconds(0)
     const query = {
         name: 'fetch-player-scores-for-date',
         text: `
@@ -162,7 +150,7 @@ export async function fetchAllPlayerScores(player_id : string, date : Date): Pro
         JOIN map_leaderboard ml ON s.leaderboard_id = ml.leaderboard_id
         JOIN map m ON ml.map_hash = m.map_hash
         `,
-        values: [player_id,timed_date,],
+        values: [player_id,date,],
     }
 
     const res = await client.query(query);
