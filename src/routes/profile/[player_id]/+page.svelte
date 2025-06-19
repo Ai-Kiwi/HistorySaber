@@ -413,6 +413,7 @@
     color: white;
     font-weight: bold;
     cursor: pointer;
+    backdrop-filter: saturate(130%);
   }
 
   .sort-toggle:hover {
@@ -430,6 +431,7 @@
     color: white;
     font-weight: bold;
     cursor: pointer;
+    backdrop-filter: saturate(130%);
   }
 
   .sort-toggle-selected:hover {
@@ -448,6 +450,7 @@
     font-weight: bold;
     cursor: pointer;
     transition: 0.25s ease;
+    backdrop-filter: saturate(130%);
   }
 
   .sort-select:hover {
@@ -466,6 +469,7 @@
     font-weight: bold;
     cursor: pointer;
     transition: 0.25s ease;
+    backdrop-filter: saturate(130%);
   }
 
   .sort-select-selected:hover {
@@ -557,6 +561,13 @@
 		pointer-events: none;
 		border-radius: inherit;
 	}
+
+  @media (hover: hover) and (pointer: fine) {
+      .graph {
+        backdrop-filter: blur(15px) saturate(130%);
+        border-radius: 15px;
+      }
+    }
 </style>
 
 

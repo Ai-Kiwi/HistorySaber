@@ -149,6 +149,12 @@
         display: none;
     }
 
+    @media (hover: hover) and (pointer: fine) {
+        .user-bar {
+            backdrop-filter: blur(15px) saturate(130%);
+        }
+    }
+
     @media (min-width: 725px) {
         .user-bar {
             display: flex;
