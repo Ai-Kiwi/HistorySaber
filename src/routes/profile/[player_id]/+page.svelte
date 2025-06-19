@@ -12,6 +12,8 @@
   import { flip } from 'svelte/animate';
   import { onMount } from 'svelte';
   import { page } from '$app/state';
+    import DataMissing from '$lib/oldScoresMissingWarning.svelte';
+    import OldScoresMissingWarning from '$lib/oldScoresMissingWarning.svelte';
   let { data }: PageProps = $props();
   let hasLoaded = false
 
@@ -376,6 +378,8 @@
       {#if player_scores_sort != "recent-duplicated"}
         <button class="{limit_score_ranked == false ? "sort-toggle" : "sort-toggle-selected"}" on:click={()=>{ limit_score_ranked = !limit_score_ranked; fetch_scores() }}>Only Ranked</button>
         <button class="{reverse_score_order ? "sort-toggle-selected" : "sort-toggle"}" on:click={()=>{ reverse_score_order = !reverse_score_order; fetch_scores() }}>Reverse Order</button>
+      {:else}
+      <OldScoresMissingWarning></OldScoresMissingWarning>
       {/if}
     </div>
   {/if}
