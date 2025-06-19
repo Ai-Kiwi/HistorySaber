@@ -372,10 +372,10 @@
       <button class="{player_scores_sort == "score" ? "sort-select-selected" : "sort-select"}" on:click={()=>changeScoreSort("score")}>Score</button>
       <button class="{player_scores_sort == "recent-duplicated" ? "sort-select-selected" : "sort-select"}" on:click={()=>changeScoreSort("recent-duplicated")}>Recent (With Duplicates)</button>
       <button class="{player_scores_sort == "recent" ? "sort-select-selected" : "sort-select"}" on:click={()=>changeScoreSort("recent")}>Recent</button>
-      <div style="flex-basis: 100%;">
-        <div style="width: 300px; background-color: rgba(25,25,25,0.5); height: 2px; border-radius: 15px; margin: auto;"></div>
-      </div>
       {#if player_scores_sort != "recent-duplicated"}
+        <div style="flex-basis: 100%;">
+          <div style="width: 300px; background-color: rgba(25,25,25,0.5); height: 2px; border-radius: 15px; margin: auto;"></div>
+        </div>
         <button class="{limit_score_ranked == false ? "sort-toggle" : "sort-toggle-selected"}" on:click={()=>{ limit_score_ranked = !limit_score_ranked; fetch_scores() }}>Only Ranked</button>
         <button class="{reverse_score_order ? "sort-toggle-selected" : "sort-toggle"}" on:click={()=>{ reverse_score_order = !reverse_score_order; fetch_scores() }}>Reverse Order</button>
       {:else}
