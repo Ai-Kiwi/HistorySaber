@@ -159,6 +159,7 @@
             <li><code>scores</code> – <code>true</code>/<code>false</code> to show top scores</li>
             <li><code>scores_sort</code> – one of:
               <code>recent</code>,
+              <code>recent-duplicated</code>,
               <code>hardest</code>,
               <code>accuracy</code>,
               <code>max_combo</code>,

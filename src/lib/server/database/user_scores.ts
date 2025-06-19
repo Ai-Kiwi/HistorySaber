@@ -222,7 +222,7 @@ export async function getPlayerScoresFiltered(player_id : string, date : Date, p
 export async function fetchAllPlayerScoresDuplicatedPaged(player_id : string, page : number, page_size : number): Promise<any[]> {
     //set date to 3 as thats when leaderboards are collected
     const query = {
-        name: 'fetch-player-scores-for-date',
+        name: 'fetch-all-player-scores-duplicated',
         text: `
         WITH paged_scores AS (
             SELECT *

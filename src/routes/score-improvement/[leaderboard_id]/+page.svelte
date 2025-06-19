@@ -1,4 +1,5 @@
 <script lang="ts">
+    import OldScoresMissingWarning from '$lib/oldScoresMissingWarning.svelte';
     import ScoreDisplay from '$lib/scoreDisplay.svelte';
     import type { Score } from '$lib/types.js';
     import pkg from 'chart.js';
@@ -200,9 +201,8 @@
 </script>
 
 <main>
-    <h1><span class="name">{data.map_data.song_name}</span> on <span class="name">{data.map_data.difficultyraw}</span> top score history</h1>
-
-  <!--<div class="old-data-warning">Please note data before collecting of scores started (3rd of May, 2025) doesn't factor in scores which have been overridden, meaning a fair amount of data is missing. Please only trust data after this date.</div>-->
+  <h1><span class="name">{data.map_data.song_name}</span> on <span class="name">{data.map_data.difficultyraw}</span> top score history</h1>
+  <OldScoresMissingWarning></OldScoresMissingWarning>
   {#if data.scores.length > 1}
     <div class="graph">
       <canvas use:chartRender={config}></canvas>
@@ -248,18 +248,6 @@
     margin-bottom: 0px;
   }
 
-  .old-data-warning {
-    font-family: sans-serif;
-    padding: 15px;
-    background-color: rgb(200, 0, 0);
-    border-radius: 10px;
-    text-align: center;
-    margin-bottom: 15px;
-    width: 1fr;
-    color: white;
-    font-weight: bolder;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-  }
 
   .name {
     color: lightblue;
