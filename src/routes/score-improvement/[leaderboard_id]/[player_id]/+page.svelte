@@ -1,5 +1,6 @@
 <script lang="ts">
     import { page } from '$app/state';
+    import OldScoresMissingWarning from '$lib/oldScoresMissingWarning.svelte';
     import ScoreDisplay from '$lib/scoreDisplay.svelte';
     import type { Score } from '$lib/types.js';
     import pkg from 'chart.js';
@@ -210,7 +211,8 @@
 {:else}
 <main>
     <h1><span class="name">{data.player_data.name}</span> playing <span class="name">{data.map_data.song_name}</span> on <span class="name">{data.map_data.difficultyraw}</span> top score history</h1>
-  {#if data.scores.length > 1}
+  <OldScoresMissingWarning></OldScoresMissingWarning>
+    {#if data.scores.length > 1}
     <div class="graph">
       <canvas use:chartRender={config}></canvas>
     </div>
