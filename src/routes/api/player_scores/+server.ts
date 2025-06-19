@@ -1,4 +1,4 @@
-import { getPlayerScoresFiltered } from '$lib/server/database/user_scores.js';
+import { fetchAllPlayerScoresDuplicatedPaged, getPlayerScoresFiltered } from '$lib/server/database/user_scores.js';
 
 export async function GET({ url }) {
   try {
@@ -26,6 +26,12 @@ export async function GET({ url }) {
           headers: { 'Content-Type': 'application/json' },
           status: 200
       });
+    }else if (sort == "recent-duplicated") {
+        let scores = await fetchAllPlayerScoresDuplicatedPaged(player,page,page_size)
+        return new Response(JSON.stringify(scores), {
+            headers: { 'Content-Type': 'application/json' },
+            status: 200
+        });
     }else if (sort == "accuracy") {
       let scores = await getPlayerScoresFiltered(player,new Date(date),page,page_size,"accuracy",reverse == "true",only_ranked == "true")
       return new Response(JSON.stringify(scores), {
