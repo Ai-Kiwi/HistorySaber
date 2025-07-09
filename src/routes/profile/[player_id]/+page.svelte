@@ -14,6 +14,7 @@
   import { page } from '$app/state';
     import DataMissing from '$lib/oldScoresMissingWarning.svelte';
     import OldScoresMissingWarning from '$lib/oldScoresMissingWarning.svelte';
+    import DataMissingWarning from '$lib/dataMissingWarning.svelte';
   let { data }: PageProps = $props();
   let hasLoaded = false
 
@@ -278,6 +279,7 @@
   let player_scores_sort: string  = $state(page.url.searchParams.get('scores_sort') || "top")
   let reverse_score_order = $state(false)
   let limit_score_ranked = $state(!(page.url.searchParams.get('only_ranked') === "false"))
+  let safe_data_for_date = $state(true)
   let score_page_size = Number(page.url.searchParams.get('score_count')) || 12
 
   async function fetch_scores() {
@@ -306,6 +308,19 @@
 
       const score_data = await res.json();
       player_scores = score_data
+
+      
+
+      if (formatedDates.includes(formatDate(selected_score_date))) {
+        if (ppDataset[formatedDates.indexOf(formatDate(selected_score_date))].y != null) {
+          safe_data_for_date = true
+        }else{
+          safe_data_for_date = false
+        }
+      }else{
+        safe_data_for_date = false
+      }
+
 
     }catch(e){
       console.log(`failed fetching data ${e}`)
@@ -382,6 +397,9 @@
       <OldScoresMissingWarning></OldScoresMissingWarning>
       {/if}
     </div>
+    {#if safe_data_for_date == false}
+      <DataMissingWarning></DataMissingWarning>   
+    {/if}
   {/if}
 
   {#if compact_mode == false || compact_display_scores == true}
