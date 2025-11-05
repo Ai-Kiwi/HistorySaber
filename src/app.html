@@ -11,12 +11,30 @@
 		<meta name="robots" content="index, follow">
 		<style>
 			body {
-			  	background: linear-gradient(to bottom right, rgb(20,20,20) , rgb(25,25,25));
-			  	margin: 0;
+			  	background: linear-gradient(70deg,rgba(80, 10, 10, 1) 0%, rgba(15, 15, 15, 1) 33%, rgba(15, 15, 15, 1) 66%, rgba(10, 45, 80, 1) 100%);
+				background-size: cover;
+				background-repeat: no-repeat, repeat;
+				
+				margin: 0;
 			  	font-family: 'Inter', sans-serif;
-				background-color: #0d0d0d;
 				color: white;
+				
 			}
+
+			body::after {
+				content: "";
+				position: fixed;
+				top: 0; left: 0; right: 0; bottom: 0;
+				pointer-events: none;
+				background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px);
+				background-size: 5px 5px;
+				animation: noiseMove 10s linear infinite;
+			}
+
+			@keyframes noiseMove {
+				0% { background-position: 0 0; }
+				100% { background-position: 25.9px 96.6px; }
+			}		
 
 			h1, h2, h3, .logo, .nav a {
 				font-family: 'Rajdhani', sans-serif;
