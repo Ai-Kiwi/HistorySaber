@@ -6,13 +6,9 @@
     import { page } from '$app/state';
     import { fade } from 'svelte/transition';
     let { children }  = $props();
-    let showVideo = $state(false);
 
     onMount(() => {
     // Basic check: only show video if screen is wider than 768px (adjust as needed)
-    if (window.innerWidth >= 768) {
-      showVideo = true;
-    }
   });
   const compact = page.url.searchParams.get('compact') === 'true';
 
@@ -32,17 +28,6 @@
     <span class="hero">
         {@render children()}
     </span>
-    
-    {#if showVideo}
-      <video preload="none" autoplay muted loop playsinline id="bg-video" style="filter: blur(15px);" poster="/images/background_image.png">
-        <!--surprisingly winded up looking worse-->
-        <!--<source src="background_av1.webm" type="video/webm; codecs=av01">
-        <source src="background_vp9.webm" type="video/webm; codecs=vp9">-->
-        <source src="/background_h264.mp4" type="video/mp4">
-      </video>
-    {:else}
-      <img src="/images/background_image.png" id="bg-video">
-    {/if}
 
     <Footer />
 </main>
@@ -54,17 +39,6 @@
 <svelte:window bind:scrollY={scroll_y} />
   
   <style>  
-
-    #bg-video {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      object-fit: cover;
-      z-index: -1;
-      pointer-events: none;
-    }
 
     .hero {
       padding: 25px 25px;
