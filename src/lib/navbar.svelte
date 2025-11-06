@@ -1,4 +1,5 @@
 <script>
+    import { goto } from "$app/navigation";
     import { page } from "$app/state";
     import { redirect } from "@sveltejs/kit";
     import { onMount } from "svelte";
@@ -26,6 +27,7 @@
         ShowPages = !ShowPages
         if (window.innerWidth > 600) {
           ShowPages = true
+          goto('/', { replaceState: true });
         }
       }}>
         <img src="/images/small-logo.png" alt="HistorySaber logo" class="logo">
@@ -84,6 +86,14 @@
       font-weight: bold;
       color: #1abc9c;
       white-space: nowrap;
+      transform: rotateZ(-0.75deg) scale(1);
+      transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 3);
+      animation: logoPulse 3s ease-in-out infinite;
+      filter: drop-shadow(0px 0px 0px #ffffff);
+    }
+    .logo:hover {
+      filter: drop-shadow(0px 0px 3px #ffffff82); 
+      transform: scale(1.01) rotateZ(-3deg);
     }
 
     a {
@@ -109,7 +119,7 @@
     }
   
     li a:hover {
-      color: #1abc9c;
+      text-shadow: 0px 0px 4px #ecf0f1;
     }
 
     .logo-button {

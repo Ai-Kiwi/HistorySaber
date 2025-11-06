@@ -125,11 +125,12 @@
 		position: absolute;
 		inset: 0;
 		background: linear-gradient(
-			120deg,
-			rgba(50, 50, 50, 0) 0%,
-			rgba(255, 255, 255, 0.1) 50%,
-			rgba(50, 50, 50, 0) 100%
-		);
+      120deg,
+    rgba(0, 150, 255, 0.1) 0%, 
+    rgba(0, 0, 0, 0) 33%, 
+    rgba(0, 0, 0, 0) 66%, 
+    rgba(255, 50, 0, 0.1) 100%
+      );
 		background-size: 200% 100%;
 		animation: shimmer 1.8s infinite linear;
 		pointer-events: none;

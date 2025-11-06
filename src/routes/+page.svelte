@@ -97,7 +97,7 @@
     justify-content: space-evenly;
     align-items: center;  /* Centers the items vertically */
     gap: 20px;  /* Space between the boxes */
-    max-width: 1000px;
+    max-width: 1fr;
     width: 100%;
     align-self: center;
     flex-wrap: wrap;
@@ -111,6 +111,7 @@
     justify-content: space-evenly;  /* Center content vertically */
     align-items: center;  /* Center content horizontally */
     text-align: center;
+    transition: filter 0.3s ease, scale 0.3s cubic-bezier(0.6, -0.8, 0.2, 1.5);
   }
 
   .info-value {
@@ -135,6 +136,24 @@
     margin-bottom: 35px;
     font-size: clamp(2rem, 12vw, 8rem);
     aspect-ratio: 3240 / 512;
+    animation: logoPulse 5s ease-in-out infinite;
+    filter: drop-shadow(0px 0px 0px #ffffff);
+  }
+
+  @keyframes logoPulse {
+    0%, 100% { 
+      filter: drop-shadow(0px 0px 15px #ffffff00); 
+      transform: scale(1)
+    }
+    50% { 
+      filter: drop-shadow(0px 0px 15px #ffffff82); 
+      transform: scale(1.01)
+    }
+  }
+
+  .info-box:hover {
+    filter: drop-shadow(0px 0px 50px #ffffff88) drop-shadow(0px 0px 15px #ffffff88);
+    scale: 1.25;
   }
 
 

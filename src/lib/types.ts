@@ -78,3 +78,11 @@ export interface MapLeaderboard {
   song_author_name: string,
   level_author_name: string,
 }
+
+export interface MapLeaderboardStar {
+  star_id: string,
+  leaderboard_id: string,
+  stars: number,
+  max_pp: number,
+  update_at: Date,
+}

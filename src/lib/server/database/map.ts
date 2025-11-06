@@ -1,4 +1,4 @@
-import type { MapLeaderboard, Score } from "$lib/types"
+import type { MapLeaderboard, MapLeaderboardStar, Score } from "$lib/types"
 import { calculatePP } from "../ppCalculator"
 import { client } from "./main"
 
@@ -52,6 +52,32 @@ export async function getLeaderboardInfo(leaderboard_id : string, date : Date) {
     return leaderboard_data
 }
 
+
+export async function getLeaderboardRankHistory(leaderboard_id : string) {
+    const query = {
+        // give the query a unique name
+        name: 'fetch-past-leaderboard-stars',
+        text: `
+        SELECT * FROM leaderboard_rating_update
+        WHERE leaderboard_id = $1
+        ORDER BY updated_at DESC;
+        `,
+        values: [leaderboard_id,],
+    }
+    const res = await client.query(query)
+    let ranks: MapLeaderboardStar[] = res.rows.map((row: any) => {
+
+        return {
+        star_id: row.id,
+        leaderboard_id: row.leaderboard_id,
+        stars: row.stars,
+        max_pp: row.max_pp,
+        update_at: row.updated_at
+        }
+    })
+
+    return ranks;
+}
 
 export async function fetchPastTopScoresOnMap(leaderboard_id : string): Promise<any[]> {
     //set date to 3 as thats when leaderboards are collected

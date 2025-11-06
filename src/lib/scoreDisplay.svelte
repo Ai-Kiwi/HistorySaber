@@ -95,6 +95,11 @@ import type { Score } from "./types";
             <a href="/score-improvement/{data.leaderboard_id}" target="_blank" class="clickable-button">
                 Map Score Improvement
             </a>
+            {#if data.stars != null}
+            <a href="/star-history/{data.leaderboard_id}" target="_blank" class="clickable-button">
+                Star History
+            </a>
+            {/if}
             <a href="https://scoresaber.com/leaderboard/{data.leaderboard_id}" target="_blank" class="clickable-button">
                 ScoreSaber Page
             </a>
