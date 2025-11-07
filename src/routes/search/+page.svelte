@@ -52,7 +52,7 @@
 
     <input class="search-text" placeholder="username" bind:value={user_text_searching} on:input={fetch_search}>
 
-    <Pagination current_page_selected={user_page_selected} pageChanged={(page: number) => {user_page_selected = page; fetch_search()}}></Pagination>
+    <Pagination current_page_selected={user_page_selected} pageChanged={(page: number) => {user_page_selected = page; fetch_search()}} pageSizeChanged={()=>{}} current_page_size={""}></Pagination>
 
 
     <div class="{loading_scores ? 'shimmer' : ''}">
@@ -73,7 +73,7 @@
       </div>
 
 
-      <Pagination current_page_selected={user_page_selected} pageChanged={(page: number) => {user_page_selected = page; fetch_search()}}></Pagination>
+      <Pagination current_page_selected={user_page_selected} pageChanged={(page: number) => {user_page_selected = page; fetch_search()}} pageSizeChanged={()=>{}} current_page_size={""}></Pagination>
 
 </main>
 

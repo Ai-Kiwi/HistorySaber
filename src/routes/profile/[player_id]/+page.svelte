@@ -280,7 +280,7 @@
   let reverse_score_order = $state(false)
   let limit_score_ranked = $state(!(page.url.searchParams.get('only_ranked') === "false"))
   let safe_data_for_date = $state(true)
-  let score_page_size = Number(page.url.searchParams.get('score_count')) || 12
+  let score_page_size = $state(Number(page.url.searchParams.get('score_count')) || 8)
 
   async function fetch_scores() {
     if (loading_scores == true || hasLoaded == false) {
@@ -377,7 +377,7 @@
     <h2 class="date_text">{selected_score_date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</h2>
     <DateSelect startDate={score_tracking_started} valueUpdate={update_score_date}></DateSelect>
 
-    <Pagination current_page_selected={score_page_selected} pageChanged={(page: number) => {score_page_selected = page; fetch_scores()}}></Pagination>
+    <Pagination current_page_selected={score_page_selected} pageChanged={(page: number) => {score_page_selected = page; fetch_scores()}} pageSizeChanged={(size : number) => {score_page_size = size; fetch_scores()}} current_page_size={score_page_size.toString()}></Pagination>
     <div class="sort-select-section">
       <button class="{player_scores_sort == "top" ? "sort-select-selected" : "sort-select"}" on:click={()=>changeScoreSort("top")}>Performance Points</button>
       <button class="{player_scores_sort == "hardest" ? "sort-select-selected" : "sort-select"}" on:click={()=>changeScoreSort("hardest")}>Stars</button>
@@ -422,7 +422,7 @@
 
 
   {#if compact_mode == false || (compact_settings == true && compact_display_scores == true)}
-    <Pagination current_page_selected={score_page_selected} pageChanged={(page: number) => {score_page_selected = page; fetch_scores()}}></Pagination>
+    <Pagination current_page_selected={score_page_selected} pageChanged={(page: number) => {score_page_selected = page; fetch_scores()}} pageSizeChanged={(size : number) => {score_page_size = size; fetch_scores()}} current_page_size={score_page_size.toString()}></Pagination>
   {/if}
 
 </main>

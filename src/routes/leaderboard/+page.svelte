@@ -134,6 +134,8 @@
     <Pagination 
       current_page_selected={current_page_selected} 
       pageChanged={(page) => { current_page_selected = page; fetchData(); }}
+      pageSizeChanged={() => {}} 
+      current_page_size={""}
     ></Pagination>
       <div class="country-select">
         <Multiselect style="--sms-options-bg: black; border-radius: 10px"
@@ -166,6 +168,8 @@
     <Pagination 
       current_page_selected={current_page_selected} 
       pageChanged={(page) => { current_page_selected = page; fetchData(); }}
+      pageSizeChanged={() => {}} 
+      current_page_size={""}
     ></Pagination>
 </main>
 
