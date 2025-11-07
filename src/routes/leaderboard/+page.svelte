@@ -151,9 +151,9 @@
       {#if current_user_data.length > 0}
       <div class="user-list">
         <UserBarLabels></UserBarLabels>
-        {#each current_user_data as user (user.player_id)}
+        {#each current_user_data as user, i (user.player_id)}
           <label animate:flip={{ duration: 150 }}>
-            <UserBar user={user} ></UserBar>
+            <UserBar user={user} relative_number={(selected_countries.length > 1) ? (i + 1) + (50 * (current_page_selected - 1)) : 0} ></UserBar>
           </label>
         {/each}
       </div>
