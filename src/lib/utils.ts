@@ -46,3 +46,19 @@ export function formatNumberShort(num : number) {
   }).format(num);
   return formatCash
 }
+
+export function parseLevelDifficulties(difficulty : number) {
+  if (difficulty == 1) {
+      return "Easy"
+  }else if (difficulty == 3) {
+      return "Normal"
+  }else if (difficulty == 5) {
+      return "Hard"
+  }else if (difficulty == 7) {
+      return "Expert"
+  }else if (difficulty == 9) {
+      return "Expert+"
+  }else {
+    return "Unknown"
+  }
+}

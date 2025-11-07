@@ -2,19 +2,10 @@
     import { slide } from "svelte/transition";
     import Tooltip from "./tooltip.svelte";
 import type { Score } from "./types";
+    import { parseLevelDifficulties } from "./utils";
     const { data }: { data: Score } = $props();
-    let dif_name = "unknown"
-    if (data.difficulty == 1) {
-        dif_name = "Easy"
-    }else if (data.difficulty == 3) {
-        dif_name = "Normal"
-    }else if (data.difficulty == 5) {
-        dif_name = "Hard"
-    }else if (data.difficulty == 7) {
-        dif_name = "Expert"
-    }else if (data.difficulty == 9) {
-        dif_name = "Expert+"
-    }
+    let dif_name = parseLevelDifficulties(data.difficulty)
+
 
     const date_formatter = new Intl.DateTimeFormat('en-US', {
         hour: 'numeric',
