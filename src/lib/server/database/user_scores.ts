@@ -56,8 +56,8 @@ export async function fetchPlayerRankedScores(player_id : string, date : Date): 
         `,
         values: [player_id,date,],
     }
-    const res = await client.query(query);
-    const scores: Score[] = res.rows.map((row: any) => {
+    const response = await client.query(query);
+    const scores: Score[] = response.rows.map((row: any) => {
         let accuracy = (row.score / row.maxscore) * 100.0
         if (row.maxscore == 0) {
             accuracy = 0
@@ -153,8 +153,8 @@ export async function fetchAllPlayerScores(player_id : string, date : Date): Pro
         values: [player_id,date,],
     }
 
-    const res = await client.query(query);
-    const scores: Score[] = res.rows.map((row: any) => {
+    const response = await client.query(query);
+    const scores: Score[] = response.rows.map((row: any) => {
         let accuracy = (row.score / row.maxscore) * 100.0
         if (row.maxscore == 0) {
             accuracy = 0
@@ -273,8 +273,8 @@ export async function fetchAllPlayerScoresDuplicatedPaged(player_id : string, pa
         values: [player_id,page_size,(page - 1) * page_size,],
     }
 
-    const res = await client.query(query);
-    const scores: Score[] = res.rows.map((row: any) => {
+    const response = await client.query(query);
+    const scores: Score[] = response.rows.map((row: any) => {
         let accuracy = (row.score / row.maxscore) * 100.0
         if (row.maxscore == 0) {
             accuracy = 0

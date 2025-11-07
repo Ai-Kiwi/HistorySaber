@@ -5,14 +5,14 @@ export async function GET({ request }) {
     const url = new URL(request.url);
     const hostname = url.hostname;
 
-    const ignoredHostnamesOrDomains = [
+    const ignored_hostnames_or_domains = [
         'localhost',    // Common local development hostname
         '127.0.0.1',    // IPv4 loopback address
         '::1',          // IPv6 loopback address
         '.aue.devtunnels.ms',
     ];
 
-    const shouldIgnore = ignoredHostnamesOrDomains.some(ignored => {
+    const shouldIgnore = ignored_hostnames_or_domains.some(ignored => {
         if (ignored.startsWith('.')) {
             return hostname.endsWith(ignored);
         }

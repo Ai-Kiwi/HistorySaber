@@ -3,7 +3,7 @@
     export let user: UserType;
 
     import { countries } from '$lib/userData'
-    const formattedDate = new Date(user.snapshot_date).toISOString().split("T")[0].replace(/-/g, '-')
+    const formatted_date = new Date(user.snapshot_date).toISOString().split("T")[0].replace(/-/g, '-')
 
     //    <a href="/country-ranks/{formattedDte}/{user.country}/1">
 </script>

@@ -55,10 +55,10 @@ export async function getMostImprovedPlayers() {
         //`
         //SELECT * FROM user WHERE id = $1',
     }
-    const res = await client.query(query)
+    const response = await client.query(query)
     //console.log(res.rows)
 
-    const returning_users: PlayerImprovementType[] = res.rows.map((row: any) => ({
+    const returning_users: PlayerImprovementType[] = response.rows.map((row: any) => ({
         current_name: row.current_name,
         country: row.country,
         old_rank: row.old_rank,

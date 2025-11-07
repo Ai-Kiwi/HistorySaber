@@ -12,7 +12,7 @@
   let user_page_selected = $state(1)
   let search_users: UserType[]  = $state([])
 
-  async function fetch_search() {
+  async function fetchSearch() {
     if (loading_scores == true) {
       loading_outdated = true
       return
@@ -42,7 +42,7 @@
     loading_scores = false
     if (loading_outdated == true) {
       loading_outdated = false
-      setTimeout(fetch_search, 100);
+      setTimeout(fetchSearch, 100);
     }
   }
 </script>
@@ -50,9 +50,9 @@
 <main>
     <h1>Search</h1>
 
-    <input class="search-text" placeholder="username" bind:value={user_text_searching} on:input={fetch_search}>
+    <input class="search-text" placeholder="username" bind:value={user_text_searching} on:input={fetchSearch}>
 
-    <Pagination current_page_selected={user_page_selected} pageChanged={(page: number) => {user_page_selected = page; fetch_search()}} pageSizeChanged={()=>{}} current_page_size={""}></Pagination>
+    <Pagination current_page_selected={user_page_selected} pageChanged={(page: number) => {user_page_selected = page; fetchSearch()}} pageSizeChanged={()=>{}} current_page_size={""}></Pagination>
 
 
     <div class="{loading_scores ? 'shimmer' : ''}">
@@ -73,7 +73,7 @@
       </div>
 
 
-      <Pagination current_page_selected={user_page_selected} pageChanged={(page: number) => {user_page_selected = page; fetch_search()}} pageSizeChanged={()=>{}} current_page_size={""}></Pagination>
+      <Pagination current_page_selected={user_page_selected} pageChanged={(page: number) => {user_page_selected = page; fetchSearch()}} pageSizeChanged={()=>{}} current_page_size={""}></Pagination>
 
 </main>
 
