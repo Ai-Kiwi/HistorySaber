@@ -18,7 +18,7 @@
 		"@sveltejs/vite-plugin-svelte": "^5.0.0",
 		"@types/chart.js": "^2.9.41",
 		"@types/pg": "^8.11.11",
-		"svelte": "^5.0.0",
+		"svelte": "^5.28.3",
 		"svelte-check": "^4.0.0",
 		"svelte-loading-spinners": "^0.3.6",
 		"typescript": "^5.0.0",
