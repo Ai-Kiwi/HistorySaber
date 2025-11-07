@@ -1,5 +1,6 @@
 <script lang="ts">
     import Pagination from "$lib/pagination.svelte";
+    import Seo from "$lib/seo.svelte";
     import type { UserType } from "$lib/types";
     import Userbar from "$lib/userbar.svelte";
     import UserBarLabels from "$lib/userBarLabels.svelte";
@@ -47,6 +48,12 @@
   }
 </script>
 
+<Seo
+  title="User Search - HistorySaber"
+  description="Search for Beat Saber players and explore their historical scores, rankings, and stats on HistorySaber."
+  url="https://historysaber.com/search"
+/>
+
 <main>
     <h1>Search</h1>
 
@@ -59,9 +66,9 @@
         {#if search_users.length > 0}
         <div class="search-list">
         <UserBarLabels></UserBarLabels>
-          {#each search_users as user (user.player_id)}
+          {#each search_users as user, i (user.player_id)}
             <label animate:flip={{ duration: 500 }}>
-              <Userbar user={user}></Userbar>
+              <Userbar relative_number={i} user={user}></Userbar>
             </label>
           {/each}
         </div>

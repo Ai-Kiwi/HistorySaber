@@ -11,11 +11,16 @@
     import Multiselect from 'svelte-multiselect';
     import { writable } from 'svelte/store';
       import { countries } from '$lib/userData';
+    import Seo from '$lib/seo.svelte';
   
 
   </script>
   
-  
+<Seo
+  title="Credits - HistorySaber"
+  description="Meet the team and contributors behind HistorySaber who made it possible."
+  url="https://historysaber.com/leaderboard"
+/>
   
 <main>
     <h1>

@@ -1,7 +1,15 @@
 <script>
+    import Seo from "$lib/seo.svelte";
+
     // If you want to load this dynamically or scroll to sections, add logic here
   </script>
   
+<Seo
+  title="API Info - HistorySaber"
+  description="Explore HistorySaber's API and learn how to access historical Beat Saber data programmatically."
+  url="https://historysaber.com/api"
+/>
+
   <style>
     main {
       max-width: 900px;
