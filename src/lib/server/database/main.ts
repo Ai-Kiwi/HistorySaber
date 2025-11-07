@@ -1,4 +1,5 @@
 import { DATABASE_URL } from '$env/static/private';
+import { formatNumberShort } from '$lib/utils';
 import pg from 'pg'
 const { Client } = pg
 export const client = new Client(DATABASE_URL)
@@ -26,9 +27,9 @@ export async function getTableInfo() {
     const countQuery = {
       name: 'fetch-table-row-counts',
       text: `
-        SELECT 'player_history' AS table_name, COUNT(*) AS row_count FROM player_history
+        SELECT 'player_history' AS table_name, COUNT(*) AS row_count, COUNT(DISTINCT player_id) AS unique_players FROM player_history
         UNION ALL
-        SELECT 'scores' AS table_name, COUNT(*) AS row_count FROM scores;
+        SELECT 'scores' AS table_name, COUNT(*) AS row_count, NULL AS unique_players FROM scores;
       `,
     };
   
@@ -48,12 +49,16 @@ export async function getTableInfo() {
     for (const row of countRes.rows) {
       if (info[row.table_name]) {
         info[row.table_name].row_count = parseInt(row.row_count, 10);
+        info[row.table_name].unique_players = row.unique_players
+        ? parseInt(row.unique_players, 10)
+        : 0;
       }
     }
   
     return {
       player_history_size: info['player_history']?.total_size,
       player_history_count: info['player_history']?.row_count,
+      player_history_unique_players: info['player_history']?.unique_players,
   
       player_scores_size: info['scores']?.total_size,
       player_scores_count: info['scores']?.row_count,

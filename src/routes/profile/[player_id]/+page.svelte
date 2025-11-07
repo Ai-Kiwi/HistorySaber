@@ -512,6 +512,10 @@
   }
 
   .profile-picture{
+    background-image: url("https://cdn.scoresaber.com/avatars/oculus.png");
+    background-size: cover;
+    background-position: center;
+    width: 128px;
     height: 128px;
     border-radius: 9999px;
     margin-left: 5px;
