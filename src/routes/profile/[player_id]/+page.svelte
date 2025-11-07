@@ -42,7 +42,7 @@
   let selected_date: string = "";
 
   //const dataset2 = dates.map((date, i) => ({ x: date, y: values2[i] }));
-  var formated_dates: string[] = []
+  let formated_dates: string[] = []
   data.past_dates.forEach((date) => {formated_dates.push(formatDate(date))})
 
 

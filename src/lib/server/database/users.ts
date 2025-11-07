@@ -38,7 +38,7 @@ export async function getPlayerPastPpValues(player_id: String,limit : number) {
     const current_date = new Date();
 
     for (let i = 0; i < limit; i++) {
-        var past_date = new Date(current_date);
+        let past_date = new Date(current_date);
         past_date.setDate(current_date.getDate() - (limit - i - 1)); // Subtract i days
         past_date = getDateWithoutTime(past_date)
         dates.push(new Date(past_date)); // Format as YYYY-MM-DD
