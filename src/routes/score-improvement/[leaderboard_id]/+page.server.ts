@@ -23,7 +23,7 @@ export const load: PageServerLoad = async ({ params, setHeaders }) => {
 			message: 'No data found for leaderboard'
 		});    
     }
-    var usernames: string[] = []
+    let usernames: string[] = []
     //this is like such a bad idea I find it crazy I wrote this. 
     //Its just so inefficient. I mean there are so many better ways I could have done this
     for (let step = 0; step < scores.length; step++) {
