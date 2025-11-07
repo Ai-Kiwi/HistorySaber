@@ -8,23 +8,23 @@ export async function GET({ url }) {
   
     const days = daysSinceRankCollectStart()
 
-    const pastPp = await getPlayerPastPpValues(player, days + 1)
-    const playerData = await getPlayerInfo(player)
+    const past_pp = await getPlayerPastPpValues(player, days + 1)
+    const player_info = await getPlayerInfo(player)
 
 
 
     const player_data = {
-        pastPp: pastPp.pp_values,
-        pastRank : pastPp.rank_values,
-        pastCountryRank : pastPp.country_values,
-        pastDates : pastPp.dates,
-        playerData: playerData,
+        past_pp: past_pp.pp_values,
+        past_rank : past_pp.rank_values,
+        past_country_rank : past_pp.country_values,
+        past_dates : past_pp.dates,
+        player_data: player_info,
 
-        pastTotalScore : pastPp.total_score_values,
-        pastTotalRankedScore : pastPp.total_ranked_score_value,
-        pastAverageRankedAccuracy : pastPp.average_ranked_accuracy_value,
-        pastTotalPlayCount : pastPp.total_play_count_value,
-        pastRankedPlayCount : pastPp.ranked_play_count_value,
+        past_total_score : past_pp.total_score_values,
+        past_total_ranked_score : past_pp.total_ranked_score_value,
+        past_average_ranked_accuracy : past_pp.average_ranked_accuracy_value,
+        past_total_play_count : past_pp.total_play_count_value,
+        past_ranked_play_count : past_pp.ranked_play_count_value,
     };
 
     return new Response(JSON.stringify(player_data), {

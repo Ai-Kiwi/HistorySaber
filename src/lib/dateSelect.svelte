@@ -1,8 +1,8 @@
 <script lang="ts">
-    const { startDate, valueUpdate } = $props<{ startDate: Date, valueUpdate: (value: number) => void; }>()
-    let dayRange: number = Math.floor((new Date().getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
+    const { start_date, valueUpdate } = $props<{ start_date: Date, valueUpdate: (value: number) => void; }>()
+    let day_range: number = Math.floor((new Date().getTime() - start_date.getTime()) / (1000 * 60 * 60 * 24));
 
-    let value: number = $state(dayRange);
+    let value: number = $state(day_range);
     
     function onChange() {
       valueUpdate(value)
@@ -15,12 +15,12 @@
 
 
 <main>
-    <input type="range" min="0" max="{dayRange.toString()}" bind:value={value} on:input={onChange} class="date_slider">
+    <input type="range" min="0" max="{day_range.toString()}" bind:value={value} on:input={onChange} class="date-slider">
 </main>
 
 
 <style>
-  .date_slider {
+  .date-slider {
     -webkit-appearance: none;
     appearance: none;
     width: 100%;
@@ -32,7 +32,7 @@
     display: block;
   }
 
-  .date_slider::-webkit-slider-thumb {
+  .date-slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
     width: 27.5px;
@@ -43,7 +43,7 @@
     cursor: pointer;
   }
 
-  .date_slider::-moz-range-thumb {
+  .date-slider::-moz-range-thumb {
     width: 27.5px;
     height: 27.5px;
     border-radius: 50%; 
@@ -53,8 +53,8 @@
   }
 
   @media (hover: hover) and (pointer: fine) {
-      .user-bar {
-          backdrop-filter: blur(15px) saturate(130%);
-      }
+    .user-bar {
+        backdrop-filter: blur(15px) saturate(130%);
     }
+  }
 </style>

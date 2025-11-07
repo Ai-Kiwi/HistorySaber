@@ -10,8 +10,8 @@
         new Chart (node, options)
     }
 
-    let rankDates: string[] = []
-    let rankStars: { y: number; x: Date; }[] = []
+    let rank_dates: string[] = []
+    let rank_stars: { y: number; x: Date; }[] = []
 
     const date_formatter = new Intl.DateTimeFormat('en-US', {
         hour: 'numeric',
@@ -23,11 +23,11 @@
         year: "numeric",
     });
   const chart_data = {
-      labels: rankDates,
+      labels: rank_dates,
       datasets: [
         {
           label: 'Stars',
-          data: rankStars,
+          data: rank_stars,
           borderColor: 'rgba(0, 123, 255, 1)', // Orange
           cubicInterpolationMode: 'monotone',
           yAxisID: 'StarsAxis',
@@ -37,8 +37,8 @@
   };
 
   data.ranks.forEach((rank : MapLeaderboardStar) => {
-    rankDates.push(date_formatter.format(rank.update_at))
-    rankStars.push({y: rank.stars, x : rank.update_at})
+    rank_dates.push(date_formatter.format(rank.update_at))
+    rank_stars.push({y: rank.stars, x : rank.update_at})
   })
 
   const config = {
@@ -84,8 +84,8 @@
           ticks: {
             callback: function(value: string, index: any, ticks: any) {
               //@ts-ignore
-              const chartData = this.chart;
-              if (chartData.isDatasetVisible(0)) {
+              const chart_data = this.chart;
+              if (chart_data.isDatasetVisible(0)) {
                 return value + " Stars";
               }else{
                 return null

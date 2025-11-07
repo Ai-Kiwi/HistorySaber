@@ -12,33 +12,33 @@
       //{ name: 'Stats', href: '/stats' },
     ];
 
-    let ShowPages = $state(false)
+    let Show_pages = $state(false)
     onMount(() => {
       if (window.innerWidth > 600) {
-        ShowPages = true
+        Show_pages = true
       }
     })
   </script>
 
 <nav>
-  <div class="nav-container" style="{ShowPages == true ? 'align-items: center;' : 'align-items: center;'}">
+  <div class="nav-container" style="{Show_pages == true ? 'align-items: center;' : 'align-items: center;'}">
       <!--<div class="logo">HistorySaber</div>-->
       <button class="logo-button" onclick={() => {
-        ShowPages = !ShowPages
+        Show_pages = !Show_pages
         if (window.innerWidth > 600) {
-          ShowPages = true
+          Show_pages = true
           goto('/', { replaceState: true });
         }
       }}>
         <img src="/images/small-logo.png" alt="HistorySaber logo" class="logo">
       </button>
-    {#if ShowPages == true}
+    {#if Show_pages == true}
       <ul>
         {#each links as link}
           <button class="logo-button" onclick={() => {
-            ShowPages = !ShowPages
+            Show_pages = !Show_pages
             if (window.innerWidth > 600) {
-              ShowPages = true
+              Show_pages = true
             }
           }}>
             <li><a href={link.href}>{link.name}</a></li>

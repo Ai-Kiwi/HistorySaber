@@ -33,21 +33,21 @@ export async function getLeaderboardInfo(leaderboard_id : string, date : Date) {
         `,
         values: [leaderboard_id,date,],
     }
-    const res = await client.query(query)
-    if (res.rowCount == 0) {
+    const response = await client.query(query)
+    if (response.rowCount == 0) {
         return undefined
     }
     let leaderboard_data: MapLeaderboard = {
         leaderboard_id: leaderboard_id,
-        stars: res.rows[0].stars,
-        map_hash: res.rows[0].map_hash,
-        difficulty: res.rows[0].difficulty,
-        difficultyraw: res.rows[0].difficultyraw,
-        maxscore: res.rows[0].maxscore,
-        song_name: res.rows[0].song_name,
-        song_sub_name: res.rows[0].song_sub_name,
-        song_author_name: res.rows[0].song_author_name,
-        level_author_name: res.rows[0].song_author_name,
+        stars: response.rows[0].stars,
+        map_hash: response.rows[0].map_hash,
+        difficulty: response.rows[0].difficulty,
+        difficultyraw: response.rows[0].difficultyraw,
+        maxscore: response.rows[0].maxscore,
+        song_name: response.rows[0].song_name,
+        song_sub_name: response.rows[0].song_sub_name,
+        song_author_name: response.rows[0].song_author_name,
+        level_author_name: response.rows[0].song_author_name,
     }
     return leaderboard_data
 }
@@ -64,8 +64,8 @@ export async function getLeaderboardRankHistory(leaderboard_id : string) {
         `,
         values: [leaderboard_id,],
     }
-    const res = await client.query(query)
-    let ranks: MapLeaderboardStar[] = res.rows.map((row: any) => {
+    const response = await client.query(query)
+    let ranks: MapLeaderboardStar[] = response.rows.map((row: any) => {
 
         return {
         star_id: row.id,
