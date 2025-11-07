@@ -3,7 +3,7 @@
 import type { RequestHandler } from "@sveltejs/kit";
 
 export const GET: RequestHandler = async ({ params }) => {
-  const targetUrl = `https://cdn.scoresaber.com/covers/${params.user_id}.png`;
+  const targetUrl = `https://cdn.scoresaber.com/covers/${params.leaderboard_id}.png`;
   const res = await fetch(targetUrl);
 
   if (!res.ok) {
