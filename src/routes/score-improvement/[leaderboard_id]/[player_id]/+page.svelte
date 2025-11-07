@@ -209,7 +209,7 @@
   title="{data.player_data.name}'s Score Progress - {data.map_data.song_name} ({data.map_data.difficulty}) mapped by {data.map_data.level_author_name} - HistorySaber"
   description="Track {data.player_data.name}'s score improvements over time on {data.map_data.song_name} ({data.map_data.difficulty}) mapped by {data.map_data.level_author_name} on HistorySaber."
   url="http://historysaber.com/score-improvement/{data.map_data.leaderboard_id}/{data.player_data.player_id}"
-  image="https://historysaber.com/og-image/user/{data.player_data.player_id}"
+  image="https://historysaber.com/og-image/user-map/{data.player_data.player_id}/{data.map_data.leaderboard_id}"
 />
 
 {#if compact == true}
