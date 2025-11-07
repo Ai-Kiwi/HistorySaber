@@ -1,6 +1,14 @@
 <script>
+    import Seo from "$lib/seo.svelte";
+
 
 </script>
+
+<Seo
+  title="Assets - HistorySaber"
+  description="Browse and download visual assets, icons, and images used on HistorySaber."
+  url="https://historysaber.com/assets"
+/>
 
 <main>
     <h1>Assets used for our website</h1>
