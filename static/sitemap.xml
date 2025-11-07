@@ -22,6 +22,13 @@
     <priority>0.2</priority>
   </url>
 
+  <!-- Search Users Page -->
+  <url>
+    <loc>https://historysaber.com/search</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.1</priority>
+  </url>
+
   <!-- Assets Page-->
   <url>
     <loc>https://historysaber.com/assets</loc>

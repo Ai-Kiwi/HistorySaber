@@ -1,6 +1,7 @@
 <script lang="ts">
     import OldScoresMissingWarning from '$lib/oldScoresMissingWarning.svelte';
     import ScoreDisplay from '$lib/scoreDisplay.svelte';
+    import Seo from '$lib/seo.svelte';
     import type { Score } from '$lib/types.js';
     import pkg from 'chart.js';
     const {Chart} = pkg
@@ -199,6 +200,13 @@
   };
 
 </script>
+
+<Seo
+  title="Top Score Progress - {data.map_data.song_name} ({data.map_data.difficulty}) mapped by {data.map_data.level_author_name} - HistorySaber"
+  description="See how top scores have improved over time for {data.map_data.song_name} ({data.map_data.difficulty}) mapped by {data.map_data.level_author_name} on HistorySaber."
+  url="http://historysaber.com/score-improvement/{data.map_data.leaderboard_id}"
+  image="https://historysaber.com/og-image/map/{data.map_data.map_hash}"
+/>
 
 <main>
   <h1><span class="name">{data.map_data.song_name}</span> on <span class="name">{data.map_data.difficultyraw}</span> top score history</h1>

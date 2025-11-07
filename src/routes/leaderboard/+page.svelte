@@ -12,6 +12,7 @@
   import { flip } from 'svelte/animate';
   import type { PageProps } from './$types';
     import DateSelect from '$lib/dateSelect.svelte';
+    import Seo from '$lib/seo.svelte';
   let { data }: PageProps = $props();
   let has_loaded = false
 
@@ -121,7 +122,11 @@
   })
 </script>
 
-
+<Seo
+  title="Leaderboard - Top Beat Saber Players - HistorySaber"
+  description="Check out the top Beat Saber players and their historical rankings on HistorySaber."
+  url="https://historysaber.com/leaderboard"
+/>
 
 <main>
 

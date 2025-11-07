@@ -3,6 +3,7 @@
   import Navbar from '$lib/navbar.svelte';
   import Footer from '$lib/footer.svelte'
     import { formatNumberShort } from '$lib/utils';
+    import Seo from '$lib/seo.svelte';
   let { data }: PageProps = $props();
   const system_info = data.info
   
@@ -29,6 +30,11 @@
   </script>
 </svelte:head>
 
+<Seo
+  title="HistorySaber - Track Beat Saber Scores and Player Stats"
+  description="HistorySaber.com is your go-to platform for tracking and analyzing historical Beat Saber scores, rankings, and player stats from ScoreSaber. HistorySaber lets you explore past performances, monitor player progress over time, and dive deep into the competitive Beat Saber scene with detailed insights and country-based leaderboards. Whether you're a casual rhythm gamer or a competitive player, HistorySaber helps you stay informed and ahead"
+  url="https://historysaber.com/"
+/>
 
 <main>
 

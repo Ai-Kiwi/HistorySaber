@@ -15,6 +15,7 @@
   import DataMissing from '$lib/oldScoresMissingWarning.svelte';
   import OldScoresMissingWarning from '$lib/oldScoresMissingWarning.svelte';
   import DataMissingWarning from '$lib/dataMissingWarning.svelte';
+    import Seo from '$lib/seo.svelte';
   let { data }: PageProps = $props();
   let hasLoaded = false
 
@@ -426,6 +427,13 @@
   {/if}
 
 </main>
+
+<Seo
+  title="{data.player_data.name} - Profile & Scores - HistorySaber"
+  description="View {data.player_data.name}'s historical Beat Saber scores, rankings, and stats on HistorySaber."
+  url="http://historysaber.com/profile/{data.player_data.player_id}"
+  image="https://historysaber.com/og-image/user/{data.player_data.player_id}"
+/>
 
 <style>
   .sort-toggle {

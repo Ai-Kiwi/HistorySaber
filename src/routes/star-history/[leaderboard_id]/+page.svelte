@@ -1,6 +1,7 @@
 <script lang="ts">
     import OldScoresMissingWarning from '$lib/oldScoresMissingWarning.svelte';
     import ScoreDisplay from '$lib/scoreDisplay.svelte';
+    import Seo from '$lib/seo.svelte';
     import type { MapLeaderboardStar, Score } from '$lib/types.js';
     import pkg from 'chart.js';
     const {Chart} = pkg
@@ -98,6 +99,13 @@
   };
 
 </script>
+
+<Seo
+  title="Star history - {data.map_data.song_name} ({data.map_data.difficulty}) mapped by {data.map_data.level_author_name} - HistorySaber"
+  description="View the star rating history of {data.map_data.song_name} ({data.map_data.difficulty}) mapped by {data.map_data.level_author_name} overtime on HistorySaber."
+  url="https://historysaber.com/star-history/{data.map_data.leaderboard_id}"
+  image="https://historysaber.com/og-image/map/{data.map_data.map_hash}"
+/>
 
 <main>
   <h1><span class="name">{data.map_data.song_name}</span> on <span class="name">{data.map_data.difficultyraw}</span> star history</h1>
