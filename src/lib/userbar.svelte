@@ -1,6 +1,7 @@
 <script lang="ts">
     import type { UserType } from '$lib/types'
     export let user: UserType;
+    export let relative_number: number;
 
     import { countries } from '$lib/userData'
     const formatted_date = new Date(user.snapshot_date).toISOString().split("T")[0].replace(/-/g, '-')
@@ -9,7 +10,12 @@
 </script>
 
 <a href="/profile/{user.player_id}" class="user-bar">
-    <div class="rank-display">
+    <div class="rank-display {(relative_number > 0) ? 'expanded-rank-display' : ''}">
+        {#if relative_number > 0}
+            <div class="relative-rank">
+                #{relative_number}
+            </div>
+        {/if}
         <div class="rank">
             #{user.rank}
         </div>
@@ -75,6 +81,9 @@
         width: 150px;
         margin-right: 5px;
     }
+    .expanded-rank-display {
+        width: 215px;
+    }
 
     .rank{
         margin-left: 5px;
@@ -88,6 +97,19 @@
         text-align: center;
         margin-right: 5px;
     }
+    .relative-rank {
+        margin-left: 5px;
+        height: 25px;
+        border-radius: 5px;
+        font-size: 15px;
+        background-color: rgb(80, 80, 80);
+        color: black;
+        padding: 0px 5px 0px 5px;
+        width: 50px;
+        text-align: center;
+        margin-right: 5px;
+    }
+
     .country-rank{
         height: 25px;
         text-align: center;
