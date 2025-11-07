@@ -2,6 +2,7 @@
   import type { PageProps } from './$types';
   import Navbar from '$lib/navbar.svelte';
   import Footer from '$lib/footer.svelte'
+    import { formatNumberShort } from '$lib/utils';
   let { data }: PageProps = $props();
   const system_info = data.info
   
@@ -67,21 +68,28 @@
 
   <div class="info-container">
     <div class="info-box">
-      <div class="info-value">{Number(data.info.player_history_count).toLocaleString()}</div>
+      <div class="info-value">{formatNumberShort(Number(data.info.player_history_count))}</div>
       <div class="info-label">Total Player Records</div>
     </div>
     <div class="info-box">
       <div class="info-value">{data.info.player_history_size}</div>
       <div class="info-label">Player Data Size</div>
     </div>
+    <div class="info-box-seperator"></div>
     <div class="info-box">
-      <div class="info-value">{Number(data.info.player_scores_count).toLocaleString()}</div>
+      <div class="info-value">{formatNumberShort(Number(data.info.player_scores_count))}</div>
       <div class="info-label">Total Score Records</div>
     </div>
     <div class="info-box">
       <div class="info-value">{data.info.player_scores_size}</div>
       <div class="info-label">Score Data Size</div>
     </div>
+    <div class="info-box-seperator"></div>
+    <div class="info-box">
+      <div class="info-value">{formatNumberShort(data.info.player_history_unique_players)}</div>
+      <div class="info-label">Players Tracked</div>
+    </div>
+    
   </div>
 
 </main>
@@ -91,6 +99,13 @@
 
 
 <style>
+
+  .info-box-seperator {
+    height: 50px;
+    width: 1px;
+    background-color: rgb(83, 83, 83);
+    border-radius: 25px;
+  }
   .info-container {
     margin-top: 50px;
     display: flex;
@@ -124,6 +139,18 @@
   .info-label {
     font-size: 14px;
     color: #bbb;  /* Lighter grey for the label */
+  }
+
+  @media (max-width: 950px) {
+    .info-box-seperator {
+      width: 100%;
+      height: 0px;
+    }
+    .info-container {
+      gap: 0px;
+      margin-top: 50px;
+      margin-bottom: 50px;
+    }
   }
 
   .logo {
