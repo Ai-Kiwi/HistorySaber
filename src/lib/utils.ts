@@ -10,11 +10,11 @@ export function haveSameValues(arr1: any[], arr2: any[]) {
     if (arr1.length !== arr2.length) return false;
   
     // Sort both arrays and compare element by element
-    const sortedArr1 = arr1.slice().sort();
-    const sortedArr2 = arr2.slice().sort();
+    const sorted_arr_1 = arr1.slice().sort();
+    const sorted_arr_2 = arr2.slice().sort();
   
-    for (let i = 0; i < sortedArr1.length; i++) {
-      if (sortedArr1[i] !== sortedArr2[i]) {
+    for (let i = 0; i < sorted_arr_1.length; i++) {
+      if (sorted_arr_1[i] !== sorted_arr_2[i]) {
         return false;
       }
     }
@@ -28,11 +28,11 @@ export function getDateWithoutTime(date: Date) {
 }
 
 export function daysSinceRankCollectStart() {
-  const targetDate : Date = new Date('2025-03-10');
-  const currentDate : Date = new Date();
-  const timeDifference = currentDate.getTime() - targetDate.getTime();
-  const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-  return daysDifference;
+  const target_date : Date = new Date('2025-03-10');
+  const current_date : Date = new Date();
+  const time_difference = current_date.getTime() - target_date.getTime();
+  const days_difference = Math.floor(time_difference / (1000 * 60 * 60 * 24));
+  return days_difference;
 }
 
 export function sleep(ms: number) {

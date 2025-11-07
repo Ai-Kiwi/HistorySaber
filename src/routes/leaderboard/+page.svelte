@@ -6,13 +6,14 @@
   import { formatDate, haveSameValues, sleep } from '$lib/utils';
   import Multiselect from 'svelte-multiselect';
   import { countries } from '$lib/userData';
-  import DateSelect from '$lib/dateSelect.svelte';
+  import Date_select from '$lib/dateSelect.svelte';
   import Pagination from '$lib/pagination.svelte'
   import { page } from '$app/stores';
   import { flip } from 'svelte/animate';
   import type { PageProps } from './$types';
+    import DateSelect from '$lib/dateSelect.svelte';
   let { data }: PageProps = $props();
-  let hasLoaded = false
+  let has_loaded = false
 
   let selectable_countries = [];
   for (const key in countries) {
@@ -20,7 +21,7 @@
       selectable_countries.push(countries[key as keyof typeof countries].name);
     }
   }
-  let selectedCountries = $state([]);
+  let selected_countries = $state([]);
 
   let current_data_selection: LeaderboardSelections = {
     country: [],
@@ -28,19 +29,19 @@
     date_moved_forward: 0,
   }
   let loading_new_data = $state(false);
-  let CurrentSelectedDaysSinceStart = $state(0);
+  let current_selected_days_since_start = $state(0);
   let current_page_selected: number = $state(1);
   
   function date_from_time_since_start(days: number) {
     let date = new Date()
-    date.setTime(new Date(startDate).getTime() + (days * 24 * 60 * 60 * 1000 ))
+    date.setTime(new Date(start_date).getTime() + (days * 24 * 60 * 60 * 1000 ))
     return date 
   }
 
 
-  const startDate: Date = new Date('2025-03-10');
-  let currentDate = $derived.by(() => {
-    return date_from_time_since_start(CurrentSelectedDaysSinceStart)
+  const start_date: Date = new Date('2025-03-10');
+  let current_date = $derived.by(() => {
+    return date_from_time_since_start(current_selected_days_since_start)
   });
   let current_user_data : UserType[] = $state(data.initial_leaderboard);
 
@@ -54,9 +55,9 @@
     //const newUrl = `${window.location.pathname}?${params.toString()}`;
     //window.history.pushState({}, '', newUrl);
     return { 
-      country: [...selectedCountries],
+      country: [...selected_countries],
       page: current_page_selected,
-      date_moved_forward: CurrentSelectedDaysSinceStart,
+      date_moved_forward: current_selected_days_since_start,
     };
   });
   
@@ -64,12 +65,12 @@
 
 
   async function fetchData() {
-    if (loading_new_data == true || hasLoaded == false) { 
+    if (loading_new_data == true || has_loaded == false) { 
       return
     }
     loading_new_data = true;
     console.log("fetching leaderboard data")
-    let RequestSelection : LeaderboardSelections = {
+    let request_selection : LeaderboardSelections = {
       country: [...new_selections.country], //create copy
       date_moved_forward: new_selections.date_moved_forward,
       page: new_selections.page
@@ -77,7 +78,7 @@
     try{
       //run request
       let converted_country: string[] = []
-      RequestSelection.country.forEach((country) => {
+      request_selection.country.forEach((country) => {
         for (var key in countries) {
           if (countries[key as keyof typeof countries].name == country) {
             converted_country.push(key)
@@ -85,7 +86,7 @@
         }
       })
 
-      const params = new URLSearchParams({ page: RequestSelection.page.toString(), country: converted_country.toString(), date : formatDate(date_from_time_since_start(RequestSelection.date_moved_forward)) });
+      const params = new URLSearchParams({ page: request_selection.page.toString(), country: converted_country.toString(), date : formatDate(date_from_time_since_start(request_selection.date_moved_forward)) });
       const res = await fetch(`/api/leaderboard?${params.toString()}`);
       if (!res.ok) {
         console.error('Failed to fetch leaderboard data:', res.statusText);
@@ -94,9 +95,9 @@
       }
 
       const user_data = await res.json();
-      current_data_selection.country = [...RequestSelection.country] //clone array
-      current_data_selection.date_moved_forward = RequestSelection.date_moved_forward
-      current_data_selection.page = RequestSelection.page
+      current_data_selection.country = [...request_selection.country] //clone array
+      current_data_selection.date_moved_forward = request_selection.date_moved_forward
+      current_data_selection.page = request_selection.page
       current_user_data = user_data
     }catch(e){
       console.log(`failed fetching data ${e}`)
@@ -110,12 +111,12 @@
   }
 
   function dateUpdate(new_date : number) {
-    CurrentSelectedDaysSinceStart = new_date;
+    current_selected_days_since_start = new_date;
     fetchData()
   }
 
   onMount(() => {
-    hasLoaded = true
+    has_loaded = true
     fetchData()
   })
 </script>
@@ -125,9 +126,9 @@
 <main>
 
     <h1>Scoresaber past leaderboard</h1>
-    <h2 class="date_text">{currentDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</h2>
+    <h2 class="date_text">{current_date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</h2>
     <DateSelect 
-      startDate={startDate} 
+      start_date={start_date} 
       valueUpdate={dateUpdate}
     ></DateSelect>
     
@@ -140,7 +141,7 @@
       <div class="country-select">
         <Multiselect style="--sms-options-bg: black; border-radius: 10px"
         on:change={fetchData}
-        bind:value={selectedCountries}
+        bind:value={selected_countries}
         options={selectable_countries}
         placeholder="Choose countries"
       />

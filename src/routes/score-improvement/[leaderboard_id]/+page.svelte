@@ -10,16 +10,16 @@
         new Chart (node, options)
     }
 
-    let scoreDates: string[] = []
-    let scoreAccuracy: { y: number; x: Date; }[] = []
-    let scoreScore: { y: number; x: Date; }[] = []
-    let scoreModifiedScore: { y: number; x: Date; }[] = []
-    let scoreStars: { y: number; x: Date; }[] = []
-    let scorePP: { y: number; x: Date; }[] = []
-    let scoreCombo: { y: number; x: Date; }[] = []
-    let scoreBadCuts: { y: number; x: Date; }[] = []
-    let scoreMissedNotes: { y: number; x: Date; }[] = []
-    let scoreBadCutsOrMissedNotes: { y: number; x: Date; }[] = []
+    let score_dates: string[] = []
+    let score_accuracy: { y: number; x: Date; }[] = []
+    let score_score: { y: number; x: Date; }[] = []
+    let score_modified_score: { y: number; x: Date; }[] = []
+    let score_stars: { y: number; x: Date; }[] = []
+    let score_pp: { y: number; x: Date; }[] = []
+    let score_combo: { y: number; x: Date; }[] = []
+    let score_bad_cuts: { y: number; x: Date; }[] = []
+    let score_missed_notes: { y: number; x: Date; }[] = []
+    let score_bad_cuts_or_missed_notes: { y: number; x: Date; }[] = []
 
     const date_formatter = new Intl.DateTimeFormat('en-US', {
         hour: 'numeric',
@@ -32,30 +32,30 @@
     });
 
     data.scores.forEach((score : Score) => {
-      scoreDates.push(date_formatter.format(score.time))
-      scoreAccuracy.push({y: score.accuracy, x : score.time})
-      scoreScore.push({y: score.score, x : score.time})
-      scoreModifiedScore.push({y: score.modified_score, x : score.time})
-      scoreStars.push({y: score.stars, x : score.time})
-      scorePP.push({y: score.pp, x : score.time})
-      scoreCombo.push({y: score.max_combo, x : score.time})
-      scoreBadCuts.push({y: score.bad_cuts, x : score.time})
-      scoreMissedNotes.push({y: score.missed_notes, x : score.time})
-      scoreBadCutsOrMissedNotes.push({y: score.missed_notes + score.bad_cuts, x : score.time})
+      score_dates.push(date_formatter.format(score.time))
+      score_accuracy.push({y: score.accuracy, x : score.time})
+      score_score.push({y: score.score, x : score.time})
+      score_modified_score.push({y: score.modified_score, x : score.time})
+      score_stars.push({y: score.stars, x : score.time})
+      score_pp.push({y: score.pp, x : score.time})
+      score_combo.push({y: score.max_combo, x : score.time})
+      score_bad_cuts.push({y: score.bad_cuts, x : score.time})
+      score_missed_notes.push({y: score.missed_notes, x : score.time})
+      score_bad_cuts_or_missed_notes.push({y: score.missed_notes + score.bad_cuts, x : score.time})
     })
   const chart_data = {
-      labels: scoreDates,
+      labels: score_dates,
       datasets: [
         {
           label: 'Acc',
-          data: scoreAccuracy,
+          data: score_accuracy,
           borderColor: 'rgba(0, 123, 255, 1)', // Orange
           cubicInterpolationMode: 'monotone',
           yAxisID: 'AccAxis',
           tension: 0.5,
         },{
           label: 'Score',
-          data: scoreScore,
+          data: score_score,
           borderColor: 'rgba(40, 167, 69, 1)',
           tension: 0.5,
           cubicInterpolationMode: 'monotone',
@@ -63,7 +63,7 @@
           hidden: true
         },{
           label: 'Performance Points (current)',
-          data: scorePP,
+          data: score_pp,
           borderColor: 'rgba(220, 53, 69, 1)',
           tension: 0.5,
           cubicInterpolationMode: 'monotone',
@@ -71,7 +71,7 @@
           hidden: true
         },{
           label: 'Combo',
-          data: scoreCombo,
+          data: score_combo,
           borderColor: 'rgba(255, 16, 242, 1)',
           tension: 0.5,
           cubicInterpolationMode: 'monotone',
@@ -79,7 +79,7 @@
           hidden: true
         },{
           label: 'Bad Cuts Or Missed Notes',
-          data: scoreBadCutsOrMissedNotes,
+          data: score_bad_cuts_or_missed_notes,
           borderColor: 'rgba(108, 117, 125, 1)',
           tension: 0.5,
           cubicInterpolationMode: 'monotone',
@@ -132,8 +132,8 @@
           ticks: {
             callback: function(value: string, index: any, ticks: any) {
               //@ts-ignore
-              const chartData = this.chart;
-              if (chartData.isDatasetVisible(0)) {
+              const chart_data = this.chart;
+              if (chart_data.isDatasetVisible(0)) {
                 return value + "%";
               }else{
                 return null
@@ -148,8 +148,8 @@
           ticks: {
             callback: function(value: string, index: any, ticks: any) {
               //@ts-ignore
-              const chartData = this.chart;
-              if (chartData.isDatasetVisible(1)) {
+              const chart_data = this.chart;
+              if (chart_data.isDatasetVisible(1)) {
                 return value;
               }else{
                 return null
@@ -168,8 +168,8 @@
           ticks: {
             callback: function(value: string, index: any, ticks: any) {
               //@ts-ignore
-              const chartData = this.chart;
-              if (chartData.isDatasetVisible(2)) {
+              const chart_data = this.chart;
+              if (chart_data.isDatasetVisible(2)) {
                 return value + "pp";
               }else{
                 return null

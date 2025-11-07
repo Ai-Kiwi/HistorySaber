@@ -10,7 +10,7 @@ console.log("created postgresql connection")
 
 export async function getTableInfo() {
     // Query sizes for both tables at once
-    const sizeQuery = {
+    const size_query = {
       name: 'fetch-timescaledb-hypertable-sizes',
       text: `
         SELECT 
@@ -24,7 +24,7 @@ export async function getTableInfo() {
     };
   
     // Query counts for both tables (two queries, can be combined with UNION)
-    const countQuery = {
+    const count_query = {
       name: 'fetch-table-row-counts',
       text: `
         SELECT 'player_history' AS table_name, COUNT(*) AS row_count, COUNT(DISTINCT player_id) AS unique_players FROM player_history
@@ -33,12 +33,12 @@ export async function getTableInfo() {
       `,
     };
   
-    const sizeRes = await client.query(sizeQuery);
-    const countRes = await client.query(countQuery);
+    const size_response = await client.query(size_query);
+    const count_response = await client.query(count_query);
   
     const info: Record<string, any> = {};
   
-    for (const row of sizeRes.rows) {
+    for (const row of size_response.rows) {
       info[row.hypertable_name] = {
         total_size: row.total_size,
         total_size_bytes: parseInt(row.total_size_bytes, 10),
@@ -46,7 +46,7 @@ export async function getTableInfo() {
       };
     }
   
-    for (const row of countRes.rows) {
+    for (const row of count_response.rows) {
       if (info[row.table_name]) {
         info[row.table_name].row_count = parseInt(row.row_count, 10);
         info[row.table_name].unique_players = row.unique_players

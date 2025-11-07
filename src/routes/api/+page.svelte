@@ -113,7 +113,7 @@
         <ul>
           <li><code>player</code> – player ID</li>
         </ul>
-        <p class="response">{'{ pastPp: [...], pastRank: [...], ... }'}</p>
+        <p class="response">{'{ past_pp: [...], past_rank: [...], ... }'}</p>
       </div>
     </section>
   

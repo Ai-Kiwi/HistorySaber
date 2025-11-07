@@ -12,9 +12,9 @@
   import { flip } from 'svelte/animate';
   import { onMount } from 'svelte';
   import { page } from '$app/state';
-    import DataMissing from '$lib/oldScoresMissingWarning.svelte';
-    import OldScoresMissingWarning from '$lib/oldScoresMissingWarning.svelte';
-    import DataMissingWarning from '$lib/dataMissingWarning.svelte';
+  import DataMissing from '$lib/oldScoresMissingWarning.svelte';
+  import OldScoresMissingWarning from '$lib/oldScoresMissingWarning.svelte';
+  import DataMissingWarning from '$lib/dataMissingWarning.svelte';
   let { data }: PageProps = $props();
   let hasLoaded = false
 
@@ -29,29 +29,29 @@
     new Chart (node, options)
   }
 
-  const ppDataset = data.pastDates.map((date, i) => ({ x: new Date(date), y: data.pastPp[i] }));
-  const rankDataset = data.pastDates.map((date, i) => ({ x: new Date(date), y: data.pastRank[i] }));
-  const countryDataset = data.pastDates.map((date, i) => ({ x: new Date(date), y: data.pastCountryRank[i] }));
-  const pastTotalScoreDataset = data.pastDates.map((date, i) => ({ x: new Date(date), y: data.pastTotalScore[i] }));
-  const pastTotalRankedScoreDataset = data.pastDates.map((date, i) => ({ x: new Date(date), y: data.pastTotalRankedScore[i] }));
-  const pastAverageRankedAccuracyDataset = data.pastDates.map((date, i) => ({ x: new Date(date), y: data.pastAverageRankedAccuracy[i] }));
-  const pastTotalPlayCountDataset = data.pastDates.map((date, i) => ({ x: new Date(date), y: data.pastTotalPlayCount[i] }));
-  const pastRankedPlayCountDataset = data.pastDates.map((date, i) => ({ x: new Date(date), y: data.pastRankedPlayCount[i] }));
+  const pp_dataset = data.past_dates.map((date, i) => ({ x: new Date(date), y: data.past_pp[i] }));
+  const rank_dataset = data.past_dates.map((date, i) => ({ x: new Date(date), y: data.past_rank[i] }));
+  const country_dataset = data.past_dates.map((date, i) => ({ x: new Date(date), y: data.past_country_rank[i] }));
+  const past_total_score_dataset = data.past_dates.map((date, i) => ({ x: new Date(date), y: data.past_total_score[i] }));
+  const past_total_ranked_score_dataset = data.past_dates.map((date, i) => ({ x: new Date(date), y: data.past_total_ranked_score[i] }));
+  const past_average_ranked_accuracy_dataset = data.past_dates.map((date, i) => ({ x: new Date(date), y: data.past_average_ranked_accuracy[i] }));
+  const past_total_play_count_dataset = data.past_dates.map((date, i) => ({ x: new Date(date), y: data.past_total_play_count[i] }));
+  const past_ranked_play_count_dataset = data.past_dates.map((date, i) => ({ x: new Date(date), y: data.past_ranked_play_count[i] }));
 
-  const user_data = data.playerData;
+  const user_data = data.player_data;
   let selected_date: string = "";
 
   //const dataset2 = dates.map((date, i) => ({ x: date, y: values2[i] }));
-  var formatedDates: string[] = []
-  data.pastDates.forEach((date) => {formatedDates.push(formatDate(date))})
+  var formated_dates: string[] = []
+  data.past_dates.forEach((date) => {formated_dates.push(formatDate(date))})
 
 
   const chart_data = {
-      labels: formatedDates,
+      labels: formated_dates,
       datasets: [
         {
           label: 'Performance Points',
-          data: ppDataset,
+          data: pp_dataset,
           borderColor: 'rgba(255, 165, 0, 1)', // Orange
           tension: 0.5,
           cubicInterpolationMode: 'monotone',
@@ -59,7 +59,7 @@
         },
         {
           label: 'World Wide Rank',
-          data: rankDataset,
+          data: rank_dataset,
           borderColor: 'rgba(30, 144, 255, 1)', // Dodger Blue
           tension: 0.5,
           cubicInterpolationMode: 'monotone',
@@ -67,7 +67,7 @@
         },
         {
           label: 'Country Rank',
-          data: countryDataset,
+          data: country_dataset,
           borderColor: 'rgba(34, 139, 34, 1)', // Forest Green
           tension: 0.5,
           cubicInterpolationMode: 'monotone',
@@ -76,7 +76,7 @@
         },
         {
           label: 'Average Ranked Accuracy',
-          data: pastAverageRankedAccuracyDataset,
+          data: past_average_ranked_accuracy_dataset,
           borderColor: 'rgba(255, 215, 0, 1)', // Gold
           tension: 0.5,
           cubicInterpolationMode: 'monotone',
@@ -85,7 +85,7 @@
         },
         {
           label: 'Total Score',
-          data: pastTotalScoreDataset,
+          data: past_total_score_dataset,
           borderColor: 'rgba(128, 0, 128, 1)', // Purple
           tension: 0.5,
           cubicInterpolationMode: 'monotone',
@@ -94,7 +94,7 @@
         },
         {
           label: 'Total Ranked Score',
-          data: pastTotalRankedScoreDataset,
+          data: past_total_ranked_score_dataset,
           borderColor: 'rgba(220, 20, 60, 1)', // Crimson
           tension: 0.5,
           cubicInterpolationMode: 'monotone',
@@ -103,7 +103,7 @@
         },
         {
           label: 'Total Play Count',
-          data: pastTotalPlayCountDataset,
+          data: past_total_play_count_dataset,
           borderColor: 'rgba(255, 99, 71, 1)', // Tomato
           tension: 0.5,
           cubicInterpolationMode: 'monotone',
@@ -112,7 +112,7 @@
         },
         {
           label: 'Ranked Play Count',
-          data: pastRankedPlayCountDataset,
+          data: past_ranked_play_count_dataset,
           borderColor: 'rgba(100, 149, 237, 1)', // Cornflower Blue
           tension: 0.5,
           cubicInterpolationMode: 'monotone',
@@ -256,8 +256,8 @@
 //}`}>
 
 
-  const validEntries = formatedDates
-    .map((date, i) => ({ date: new Date(ppDataset[i].x), value: ppDataset[i].y }))
+  const validEntries = formated_dates
+    .map((date, i) => ({ date: new Date(pp_dataset[i].x), value: pp_dataset[i].y }))
     .filter(entry => entry.value !== null);
 
   // Step 2: Find the entry with the earliest date
@@ -282,7 +282,7 @@
   let safe_data_for_date = $state(true)
   let score_page_size = $state(Number(page.url.searchParams.get('score_count')) || 8)
 
-  async function fetch_scores() {
+  async function fetchScores() {
     if (loading_scores == true || hasLoaded == false) {
       loading_outdated = true
       return
@@ -293,7 +293,7 @@
       const params = new URLSearchParams({ 
         page: score_page_selected.toString(), 
         date: formatDate(selected_score_date), 
-        player: data.playerData.player_id, 
+        player: data.player_data.player_id, 
         sort: player_scores_sort, 
         reverse: reverse_score_order.toString(), 
         only_ranked: limit_score_ranked.toString(),
@@ -311,8 +311,8 @@
 
       
 
-      if (formatedDates.includes(formatDate(selected_score_date))) {
-        if (ppDataset[formatedDates.indexOf(formatDate(selected_score_date))].y != null) {
+      if (formated_dates.includes(formatDate(selected_score_date))) {
+        if (pp_dataset[formated_dates.indexOf(formatDate(selected_score_date))].y != null) {
           safe_data_for_date = true
         }else{
           safe_data_for_date = false
@@ -330,23 +330,23 @@
     loading_scores = false
     if (loading_outdated == true) {
       loading_outdated = false
-      setTimeout(fetch_scores, 100);
+      setTimeout(fetchScores, 100);
     }
   }
 
   function update_score_date(offset: number) {
     selected_score_date.setTime(score_tracking_started.getTime() + (offset * 24 * 60 * 60 * 1000 ))
     selected_score_date = new Date(selected_score_date);
-    fetch_scores()
+    fetchScores()
   }
 
   onMount(() => {
     hasLoaded = true
-    fetch_scores()
+    fetchScores()
   })
   function changeScoreSort(sort : string) {
     player_scores_sort = sort
-    fetch_scores()
+    fetchScores()
   }
 
 </script>
@@ -356,7 +356,7 @@
 
   {#if compact_mode == false}
     <div class="basic-info-row">
-      <img src="https://cdn.scoresaber.com/avatars/{data.playerData.player_id}.jpg" alt="Profile picture of {data.playerData.name}" class="profile-picture" aria-hidden="true">
+      <img src="https://cdn.scoresaber.com/avatars/{data.player_data.player_id}.jpg" alt="Profile picture of {data.player_data.name}" class="profile-picture" aria-hidden="true">
 
       <div class="username">{user_data.name}</div>
     </div>
@@ -375,9 +375,9 @@
   {#if compact_mode == false || (compact_settings == true && compact_display_scores == true)}
     
     <h2 class="date_text">{selected_score_date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</h2>
-    <DateSelect startDate={score_tracking_started} valueUpdate={update_score_date}></DateSelect>
+    <DateSelect start_date={score_tracking_started} valueUpdate={update_score_date}></DateSelect>
 
-    <Pagination current_page_selected={score_page_selected} pageChanged={(page: number) => {score_page_selected = page; fetch_scores()}} pageSizeChanged={(size : number) => {score_page_size = size; fetch_scores()}} current_page_size={score_page_size.toString()}></Pagination>
+    <Pagination current_page_selected={score_page_selected} pageChanged={(page: number) => {score_page_selected = page; fetchScores()}} pageSizeChanged={(size : number) => {score_page_size = size; fetchScores()}} current_page_size={score_page_size.toString()}></Pagination>
     <div class="sort-select-section">
       <button class="{player_scores_sort == "top" ? "sort-select-selected" : "sort-select"}" on:click={()=>changeScoreSort("top")}>Performance Points</button>
       <button class="{player_scores_sort == "hardest" ? "sort-select-selected" : "sort-select"}" on:click={()=>changeScoreSort("hardest")}>Stars</button>
@@ -391,8 +391,8 @@
         <div style="flex-basis: 100%;">
           <div style="width: 300px; background-color: rgba(25,25,25,0.5); height: 2px; border-radius: 15px; margin: auto;"></div>
         </div>
-        <button class="{limit_score_ranked == false ? "sort-toggle" : "sort-toggle-selected"}" on:click={()=>{ limit_score_ranked = !limit_score_ranked; fetch_scores() }}>Only Ranked</button>
-        <button class="{reverse_score_order ? "sort-toggle-selected" : "sort-toggle"}" on:click={()=>{ reverse_score_order = !reverse_score_order; fetch_scores() }}>Reverse Order</button>
+        <button class="{limit_score_ranked == false ? "sort-toggle" : "sort-toggle-selected"}" on:click={()=>{ limit_score_ranked = !limit_score_ranked; fetchScores() }}>Only Ranked</button>
+        <button class="{reverse_score_order ? "sort-toggle-selected" : "sort-toggle"}" on:click={()=>{ reverse_score_order = !reverse_score_order; fetchScores() }}>Reverse Order</button>
       {:else}
       <OldScoresMissingWarning></OldScoresMissingWarning>
       {/if}
@@ -422,7 +422,7 @@
 
 
   {#if compact_mode == false || (compact_settings == true && compact_display_scores == true)}
-    <Pagination current_page_selected={score_page_selected} pageChanged={(page: number) => {score_page_selected = page; fetch_scores()}} pageSizeChanged={(size : number) => {score_page_size = size; fetch_scores()}} current_page_size={score_page_size.toString()}></Pagination>
+    <Pagination current_page_selected={score_page_selected} pageChanged={(page: number) => {score_page_selected = page; fetchScores()}} pageSizeChanged={(size : number) => {score_page_size = size; fetchScores()}} current_page_size={score_page_size.toString()}></Pagination>
   {/if}
 
 </main>
@@ -593,11 +593,11 @@
 	}
 
   @media (hover: hover) and (pointer: fine) {
-      .graph {
-        backdrop-filter: blur(15px) saturate(130%);
-        border-radius: 15px;
-      }
+    .graph {
+      backdrop-filter: blur(15px) saturate(130%);
+      border-radius: 15px;
     }
+  }
 </style>
 
 

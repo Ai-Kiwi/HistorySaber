@@ -21,8 +21,8 @@ export async function GET({ url }) {
       //this is like such a bad idea I find it crazy I wrote this. 
       //Its just so inefficient. I mean there are so many better ways I could have done this
       for (let step = 0; step < scores.length; step++) {
-          const userData = await getPlayerInfo(scores[step].player_id)
-          usernames.push(userData.name)
+          const user_data = await getPlayerInfo(scores[step].player_id)
+          usernames.push(user_data.name)
       }
 
       const response = {

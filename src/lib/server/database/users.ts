@@ -23,7 +23,7 @@ export async function getPlayerPastPpValues(player_id: String,limit : number) {
         //`
         //SELECT * FROM user WHERE id = $1',
     }
-    const res = await client.query(query)
+    const response = await client.query(query)
 
     let pp_values : (Number | null)[] = []
     let rank_values : (Number | null)[] = []
@@ -35,17 +35,17 @@ export async function getPlayerPastPpValues(player_id: String,limit : number) {
     let ranked_play_count_value : (Number | null)[] = []
 
     const dates: Date[] = [];
-    const currentDate = new Date();
+    const current_date = new Date();
 
     for (let i = 0; i < limit; i++) {
-        var pastDate = new Date(currentDate);
-        pastDate.setDate(currentDate.getDate() - (limit - i - 1)); // Subtract i days
-        pastDate = getDateWithoutTime(pastDate)
-        dates.push(new Date(pastDate)); // Format as YYYY-MM-DD
+        var past_date = new Date(current_date);
+        past_date.setDate(current_date.getDate() - (limit - i - 1)); // Subtract i days
+        past_date = getDateWithoutTime(past_date)
+        dates.push(new Date(past_date)); // Format as YYYY-MM-DD
 
         let found_match = false;
-        res.rows.forEach((row: any) => {
-            if (pastDate.getTime() == row.snapshot_date.getTime()) {
+        response.rows.forEach((row: any) => {
+            if (past_date.getTime() == row.snapshot_date.getTime()) {
                 pp_values.push(row.pp)
                 rank_values.push(row.rank)
                 country_values.push(row.country_rank)
@@ -95,27 +95,27 @@ export async function getPlayerInfo(player_id: String) {
         `,
         values: [player_id,],
     }
-    const res = await client.query(query)
+    const response = await client.query(query)
 
     let pp_values : Number[] = []
 
     let player_data: UserType = {
-        player_id: res.rows[0].player_id,
-        snapshot_date: res.rows[0].snapshot_date,
-        name: res.rows[0].name,
-        bio: res.rows[0].bio,
-        country: res.rows[0].country,
-        pp: res.rows[0].pp,
-        rank: res.rows[0].rank,
-        country_rank: res.rows[0].country_rank,
-        badges: res.rows[0].badges,
-        banned: res.rows[0].banned,
-        inactive: res.rows[0].inactive,
-        total_score: res.rows[0].total_score,
-        total_ranked_score: res.rows[0].total_ranked_score,
-        average_ranked_accuracy: res.rows[0].average_ranked_accuracy,
-        total_play_count: res.rows[0].total_play_count,
-        ranked_play_count: res.rows[0].ranked_play_count
+        player_id: response.rows[0].player_id,
+        snapshot_date: response.rows[0].snapshot_date,
+        name: response.rows[0].name,
+        bio: response.rows[0].bio,
+        country: response.rows[0].country,
+        pp: response.rows[0].pp,
+        rank: response.rows[0].rank,
+        country_rank: response.rows[0].country_rank,
+        badges: response.rows[0].badges,
+        banned: response.rows[0].banned,
+        inactive: response.rows[0].inactive,
+        total_score: response.rows[0].total_score,
+        total_ranked_score: response.rows[0].total_ranked_score,
+        average_ranked_accuracy: response.rows[0].average_ranked_accuracy,
+        total_play_count: response.rows[0].total_play_count,
+        ranked_play_count: response.rows[0].ranked_play_count
     }
     return player_data
 }
@@ -237,10 +237,10 @@ export async function searchForUser(text : string, page : number, page_size : nu
         values: [`%${text}%`, page_size, offset],
     };
 
-    const res = await client.query(query);
-    const rows = res.rows;
+    const response = await client.query(query);
+    const rows = response.rows;
 
-    let users: UserType[] = res.rows.map((row: any) => {
+    let users: UserType[] = response.rows.map((row: any) => {
         return {
             player_id: row.player_id,
             snapshot_date: row.snapshot_date,
