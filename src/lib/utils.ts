@@ -38,3 +38,11 @@ export function daysSinceRankCollectStart() {
 export function sleep(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
+
+export function formatNumberShort(num : number) {
+  const formatCash = Intl.NumberFormat('en-US', {
+    notation: "compact",
+    maximumFractionDigits: 2
+  }).format(num);
+  return formatCash
+}
