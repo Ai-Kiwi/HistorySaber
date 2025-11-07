@@ -5,30 +5,29 @@ Track historical ScoreSaber rankings, player scores, and top player performance 
 HistorySaber is a tool for exploring historical data from ScoreSaber, the global Beat Saber ranking platform. It lets you dive deep into how players’ rankings, performance points (pp), and top scores have evolved — features not currently offered in depth by ScoreSaber itself.
 
 <p float="center">
-  <img src="https://github.com/user-attachments/assets/35d08ae6-236e-4652-93f4-2127a8f1562a" width="400" />
-  <img src="https://github.com/user-attachments/assets/b9719e7f-0596-4748-8a14-57ddbbb0a75f" width="400" />
-  <img src="https://github.com/user-attachments/assets/594b16c5-e86a-40f4-99c3-385285e7ee5c" width="400" />
-  <img src="https://github.com/user-attachments/assets/094a1751-432a-4793-b8b0-cd9966a28275" width="400" />
-  <img src="https://github.com/user-attachments/assets/8365b6ee-9bae-4a9b-8efd-08d447b73416" width="400" />
+  <img src="https://github.com/user-attachments/assets/f3f4935d-4e3e-4756-9138-fd194f7a3785" width="400" />
+  <img src="https://github.com/user-attachments/assets/0dd435c9-221c-4576-9ce8-455663c9bff4" width="400" />
+  <img src="https://github.com/user-attachments/assets/02c9558e-441c-472a-8836-26e7a0cfc9e2" width="400" />
+  <img src="https://github.com/user-attachments/assets/c8e50486-73dd-462c-b27e-cef604312217" width="400" />
+  <img src="https://github.com/user-attachments/assets/1e2a4ed1-ec29-4f33-a401-e6039b7d48e0" width="400" />
+  <img src="https://github.com/user-attachments/assets/21a951ae-6dac-4115-a9a8-b1acdc5eae13" width="400" />
+  <img src="https://github.com/user-attachments/assets/779b22d1-0712-40f0-80a6-95e10ff58198" width="400" />
 </p>
+
 
 ## Features
 
-- View changes in player rank, pp, and top scores over time  
+- View changes in player rank, pp, and top scores over time all in easy to use interactive graph
+- View complete daily snapshots of leaderboard ranks back till March 10th, 2025  
+- View all past scores for any player (apart from scores overidden before May 4th, 2025) including date accurate information such as star rating and how much pp it was worth  
 - Historical tracking of global, country, and regional rankings  
 - Explore past top player scores and leaderboard snapshots  
-- Country-based filters to analyze regional performance trends  
+- Discover what maps were ranked at in the past    
 - Stores and organizes historical data for long-term access  
 
 ## Website
 
 Visit the live site: https://historysaber.com  
-
-## How It Works
-
-1. A Python script periodically fetches player and score data using the ScoreSaber API. (currently not shared)
-2. Data is stored in a PostgreSQL database using timescaledb.  
-3. The website displays this data in an easy-to-read historical format.
 
 ## Use Cases
 
