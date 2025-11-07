@@ -182,8 +182,8 @@ export async function fetchPastTopScoresOnMap(leaderboard_id : string): Promise<
     })
 
     let oldest_date = new Date("2021-5-5")
-    for(var i = 0; i < scores.length; i++) {
-        var score = scores[i];
+    for(let i = 0; i < scores.length; i++) {
+        let score = scores[i];
         if (score.time.getTime() < new Date("2025-5-5").getTime()) {
             oldest_date = score.time
             break

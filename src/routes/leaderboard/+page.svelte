@@ -79,7 +79,7 @@
       //run request
       let converted_country: string[] = []
       request_selection.country.forEach((country) => {
-        for (var key in countries) {
+        for (let key in countries) {
           if (countries[key as keyof typeof countries].name == country) {
             converted_country.push(key)
           }
