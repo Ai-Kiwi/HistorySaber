@@ -1,7 +1,7 @@
 <script lang="ts">
     import { slide } from "svelte/transition";
     import Tooltip from "./tooltip.svelte";
-import type { Score } from "./types";
+    import type { Score } from "./types";
     import { parseLevelDifficulties } from "./utils";
     const { data }: { data: Score } = $props();
     let dif_name = parseLevelDifficulties(data.difficulty)
