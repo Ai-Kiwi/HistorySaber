@@ -7,6 +7,7 @@
     const links = [
       { name: 'Home', href: '/' },
       { name: 'Api', href: '/api' },
+      { name: 'All Scores', href: '/all-scores' },
       { name: 'Search', href: '/search' },
       { name: 'Leaderboard', href: '/leaderboard' },
       //{ name: 'Stats', href: '/stats' },
