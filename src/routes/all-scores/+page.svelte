@@ -93,6 +93,12 @@
 
   <Pagination current_page_selected={score_page_selected} pageChanged={(page: number) => {score_page_selected = page; fetchScores()}} pageSizeChanged={(size : number) => {score_page_size = size; fetchScores()}} current_page_size={score_page_size.toString()}></Pagination>
 
+  <div class="notice">
+    If you are on this page looking for something, most likely you should instead contact me <br>
+    This page was not designed by be used for anything to practical, if you are needing to compare data as broad as between players please contact me. 
+    You can reach me by email at contact@aikiwi.dev. It doesn't matter how small I am happy to help.
+  </div>
+
 </main>
 
 <Seo
@@ -150,6 +156,13 @@
   }
   h3 {
     margin-bottom: 0px;
+  }
+
+  .notice {
+    text-align: center;
+    padding: 7.5px;
+    font-size: 15px;
+    color: gray;
   }
 
 </style>
