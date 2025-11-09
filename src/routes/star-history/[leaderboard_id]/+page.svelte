@@ -144,9 +144,23 @@
     color: lightblue;
   }
 
-.score-list{
+  .score-list{
     display: flex;
     flex-direction: column;
     gap: 10px;
+  }
+
+  @media (max-width: 480px) {
+    .graph {
+      height: 150px;
+      
+    }
+    main {
+      font-size: clamp(0px,3vw,24px);
+    }
+    .notice {
+      font-size: 10px;
+      padding: 5px;
+    }
   }
 </style>

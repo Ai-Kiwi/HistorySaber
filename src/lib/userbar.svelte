@@ -181,6 +181,58 @@
         }
     }
 
+    @media (max-width: 520px) {
+        .profile-picture{
+        }
+
+        .username-and-pfp{
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+
+        .rank-display {
+            font-size: 1px;
+            
+        }
+        .expanded-rank-display {
+            width: 0px;
+        }
+
+        .rank{
+            font-size: 13px;
+            padding: 0px 2px 0px 2px;
+            height: 20px;
+        }
+        .relative-rank {
+            font-size: 13px;
+            padding: 0px 2px 0px 2px;
+            height: 20px;
+            width: auto;
+        }
+
+        .country-rank{
+            font-size: 13px;
+            padding: 0px 2px 0px 2px;
+            height: 20px;
+        }
+        .country-rank-image{
+            height: 20px;
+        }
+        .username {
+
+        }
+        .point-score{
+            
+        }
+        .user-bar{
+            padding-top: 50px;
+        }
+
+        .extra-text-info {
+        }
+    }
+
     @media (min-width: 725px) {
         .user-bar {
             display: flex;

@@ -526,7 +526,6 @@
     width: 128px;
     height: 128px;
     border-radius: 9999px;
-    margin-left: 5px;
     font-size: 0px;
   }
 
@@ -541,11 +540,14 @@
   }
 
   .basic-info-row {
-    height: 128px;
     display: flex;
     flex-direction: row;
     margin-bottom: 15px;
-
+    flex-wrap: wrap;
+    padding: auto 0px auto 0px;
+    gap: 16px;
+    row-gap: 0px;
+    justify-content: center;
   }
 
   .graph {
@@ -554,7 +556,6 @@
   }
 
   .username {
-    margin: auto 15px;
     font-size: 50px;
     font-weight: bolder;
     align-self: center;
@@ -604,6 +605,47 @@
     .graph {
       backdrop-filter: blur(15px) saturate(130%);
       border-radius: 15px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .graph {
+      height: 350px;
+    }
+    .basic-info-row {
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding-top: 15px;
+    }
+    .profile-picture {
+      width: 35vw;
+      height: 35vw;
+    }
+    .username {
+      font-size: 10vw;
+    }
+
+    .sort-select {
+      font-size: clamp(10px,2.9vw,12px);
+      padding: 5px;
+    }
+    .sort-select-selected {
+      font-size: clamp(10px,2.9vw,12px);
+      padding: 5px;
+    }
+    .sort-toggle {
+      font-size: clamp(10px,3.25vw,12px);
+      padding: 5px;
+    }
+
+    .sort-toggle-selected {
+      font-size: clamp(10px,3.25vw,12px);
+      padding: 5px;
+    }
+
+    .sort-select-section {
+      margin: 0px 0px 20px 0px;
     }
   }
 </style>

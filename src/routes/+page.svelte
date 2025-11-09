@@ -189,5 +189,35 @@
     scale: 1.25;
   }
 
+  @media (max-width: 480px) {
+    .logo {
+      display: none;
+    }
+    
+    main {
+      font-size: 14px;
+    }
+
+    .info-box {
+      padding: 5px;
+    }
+
+    .info-value {
+      font-size: 25px;
+    }
+
+    .info-container {
+      gap: 0px;
+    }
+    .info-label {
+      font-size: 12px;
+    }
+    .info-box-seperator {
+      height: 15px;
+      background-color: transparent;
+    }
+
+  }
+
 
 </style>
