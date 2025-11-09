@@ -165,6 +165,13 @@
     color: gray;
   }
 
+  @media (max-width: 480px) {
+    .notice {
+      font-size: 10px;
+      padding: 5px;
+    }
+  }
+
 </style>
 
 
