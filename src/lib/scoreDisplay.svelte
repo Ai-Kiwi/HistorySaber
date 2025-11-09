@@ -23,25 +23,28 @@
 
 <main>
     <button class="main-score" on:click={extra_info = !extra_info}>
-        <div class="score-icon-parent">
-            <img class="score-icon" src="https://cdn.scoresaber.com/covers/{data.map_hash}.png" alt="">
-            <div class="score-star-text">
-                {#if data.stars != null}
-                    {data.stars}☆
-                {:else}
-                    {dif_name}
-                {/if}
+        <div class="icon-and-text">
+            <div class="score-icon-parent">
+                <img class="score-icon" src="https://cdn.scoresaber.com/covers/{data.map_hash}.png" alt="">
+                <div class="score-star-text">
+                    {#if data.stars != null}
+                        {data.stars}☆
+                    {:else}
+                        {dif_name}
+                    {/if}
 
+                </div>
+            </div>
+
+            <div class="score-text">
+                <span class="song-name">{data.song_name}</span>
+                <span class="sub-song-name">{data.song_sub_name}</span>
+                <div style="height:100%"></div>
+                <span class="song-author-name">Song by {data.song_author_name}</span>
+                <span class="level-author-name">Mapped by {data.level_author_name}</span>
             </div>
         </div>
 
-        <div class="score-text">
-            <span class="song-name">{data.song_name}</span>
-            <span class="sub-song-name">{data.song_sub_name}</span>
-            <div style="height:100%"></div>
-            <span class="song-author-name">Song by {data.song_author_name}</span>
-            <span class="level-author-name">Mapped by {data.level_author_name}</span>
-        </div>
 
         <div class="placement-text">
             <div class="score-stat-row">
@@ -255,15 +258,15 @@
     }
 
     .score-icon {
-        width: 90px;
-        height: 90px;
+        width: 100%;
+        height: 100%;
         border-radius: 15px;
     }
 
     .score-icon-parent {
         margin: 5px;
         width: 90px;
-        height: 90px;
+        aspect-ratio: 1;
         position: relative;
         text-decoration: none;
     }
@@ -278,6 +281,12 @@
         z-index: 10;
         background-color: blue;
         color: rgb(255, 255, 255);
+        font-size: 14px;
+    }
+
+    .icon-and-text {
+        display: flex;
+        flex-direction: row;
     }
 
     @media (hover: hover) and (pointer: fine) {
@@ -287,6 +296,47 @@
 
         .clickable-button {
             backdrop-filter: blur(15px) saturate(130%);
+        }
+    }
+
+    @media (max-width: 650px) {
+
+        .icon-and-text {
+            flex-direction: row;
+            width: 100%;
+        }
+
+        main {
+            font-size: clamp(0px,3vw,24px);
+        }
+        .placement-text {
+            align-items: center;
+            justify-content: center;
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 5px;
+            row-gap: 10px;
+            width: 100%;
+            padding: 5px;
+        }
+        .score-stat-row {
+            display: contents;
+        }
+
+        .score-text {
+            font-size: clamp(14px,3.75vw,20px);
+        }
+        .main-score {
+            font-size: clamp(12px,2vw,100px);
+            flex-direction: column;
+        }
+        .clickable-button {
+            font-size: 2.75vw;
+            padding: 2.5px;
+            height: auto;
+        }
+        .improvement-graph {
+            height: 300px;
         }
     }
 </style>

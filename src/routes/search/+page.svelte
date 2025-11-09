@@ -68,7 +68,7 @@
         <UserBarLabels></UserBarLabels>
           {#each search_users as user, i (user.player_id)}
             <label animate:flip={{ duration: 500 }}>
-              <Userbar relative_number={i} user={user}></Userbar>
+              <Userbar relative_number={i + 1 + ((user_page_selected - 1) * 50)} user={user}></Userbar>
             </label>
           {/each}
         </div>
@@ -103,7 +103,7 @@
     background-color: black;
     margin: 15px;
     border-radius: 15px;
-    width: 100%;
+    width: calc(100% - 25px);
     border: 0px;
     color: white;
     padding: 5px;

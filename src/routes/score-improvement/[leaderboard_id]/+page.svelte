@@ -266,4 +266,14 @@
     flex-direction: column;
     gap: 10px;
   }
+
+  @media (max-width: 480px) {
+    .graph {
+      height: 350px;
+      
+    }
+    main {
+      font-size: clamp(0px,3vw,24px);
+    }
+  }
 </style>

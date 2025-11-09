@@ -102,4 +102,27 @@
     color: white;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
   }
+
+  @media (max-width: 480px) {
+    #page-size {
+      width: 35px;
+      height: 30px;
+      font-size: 12px;
+    }
+
+    .page-btn {
+      width: 35px;
+      height: 35px;
+      font-size: 10px;
+    }
+
+
+    .page-input {
+      width: 35px;
+      height: 35px;
+      font-size: 15px;
+      padding: 3px;
+    }
+
+  }
 </style>
