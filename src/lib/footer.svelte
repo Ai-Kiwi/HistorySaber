@@ -21,11 +21,12 @@
       padding: 20px;
       text-align: center;
       margin-top: auto;
+      max-width: 100vw;
     }
   
     .footer-content {
-      max-width: 1000px;
       margin: 0 auto;
+      font-size: clamp(0.75rem, 3vw, 1rem);
     }
   
     .social-links {
@@ -39,7 +40,6 @@
       text-decoration: none;
       color: #1abc9c;
       margin: 0 15px;
-      font-size: 1rem;
       transition: color 0.3s;
     }
   

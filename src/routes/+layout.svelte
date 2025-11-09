@@ -114,9 +114,19 @@
     margin-right: auto;
     margin-bottom: 20px;
     margin-top: 90px;
-    max-width: 900px;
+    max-width: clamp(0px,900px,calc(100vw - 50px));
     width: 90%;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  }
+
+  @media (max-width: 480px) {
+    .hero {
+      border-radius: 8px;
+      padding: 15px 15px;
+      width: 100vw;
+      max-width: clamp(0px,900px,calc(100vw - 30px));
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
   }
 
   @media (min-width: 1500px) {
@@ -140,12 +150,8 @@
     display: flex;
     flex-direction: column;
     min-height: 100vh;  /* Ensures the layout takes the full height of the screen */
-  }
-
-  main {
-    font-family: "Inter", sans-serif;
+    width: 100vw;
     color: white;
     flex: 1;  /* Takes up remaining space */
-    min-height: calc(100vh - 70px);
   }
 </style>
