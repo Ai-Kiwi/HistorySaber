@@ -9,7 +9,7 @@
     /** @type {import('./$types').PageProps} */
     let { data } = $props();
 
-  let star_rank_history_shown = $state(false)
+  let star_rank_history_shown = $state(true)
   let top_score_history_shown = $state(false)
   let dif_name = parseLevelDifficulties(data.map_data.difficulty)
 
@@ -58,7 +58,7 @@
   {#if data.other_difficulties.length > 1}
     <div class="clickable-buttons" transition:slide={{ duration: 500 }}>
       {#each data.other_difficulties as map_dif}
-        <a href="/map/{map_dif.leaderboard_id}" class="clickable-button">
+        <a href="/map/{map_dif.leaderboard_id}" class="clickable-button" data-sveltekit-reload>
           {parseLevelDifficulties(map_dif.difficulty)}
           {#if map_dif.stars != null && map_dif.stars != 0}
               ({map_dif.stars}☆)
