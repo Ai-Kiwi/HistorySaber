@@ -4,7 +4,6 @@ import { calculatePP } from "../ppCalculator"
 import { client } from "./main"
 
 export async function getPlayerPastPpValues(player_id: String,limit : number) {
-    console.log(isNaN(Number(player_id)))
     if (isNaN(Number(player_id))) {
         return undefined
     }
