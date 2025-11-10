@@ -146,7 +146,7 @@ export async function fetchPastTopScoresOnMap(leaderboard_id : string) {
         LEFT JOIN latest_ratings r ON s.leaderboard_id = r.leaderboard_id
         JOIN map_leaderboard ml ON s.leaderboard_id = ml.leaderboard_id
         JOIN map m ON ml.map_hash = m.map_hash
-        ORDER BY s.time DESC;
+        ORDER BY s.time DESC, s.score DESC;
         `,
         values: [leaderboard_id,],
     }

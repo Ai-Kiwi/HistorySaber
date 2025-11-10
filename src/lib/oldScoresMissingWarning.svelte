@@ -23,7 +23,9 @@
 <main>
   {#if dismissed == false}
     <div class="old-data-warning">
-      Please note that scores from before data collection began (May 3rd, 2025) will be largely incomplete. Additionally, due to the system not being perfect, a very small number of scores from after that date might also be missing.      <button class="dismiss-button" on:click={dismiss}>
+      Please note that scores from before data collection began (May 3rd, 2025) will be largely incomplete. Additionally, due to the system not being perfect, a very small number of scores from after that date might also be missing.<br>   
+      For map star rankings data was only recently started being gathered so can only be trusted after start date and information may be a day off sometimes.
+      <button class="dismiss-button" on:click={dismiss}>
         Dismiss
       </button>
     </div>
@@ -59,7 +61,7 @@
 
   .dismiss-button {
     font-family: sans-serif;
-    margin-top: 15px;
+    margin-top: 5px;
     padding: 15px;
     background-color: rgb(150, 0, 0);
     border-radius: 10px;

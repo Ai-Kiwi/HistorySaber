@@ -1,11 +1,10 @@
 <script lang="ts">
-    import OldScoresMissingWarning from '$lib/oldScoresMissingWarning.svelte';
-    import ScoreDisplay from '$lib/scoreDisplay.svelte';
-    import Seo from '$lib/seo.svelte';
-    import type { MapLeaderboardStar, Score } from '$lib/types.js';
+    import type { MapLeaderboardStar } from '$lib/types';
+
+    const data = $props<{ ranks: MapLeaderboardStar[] }>();
+
     import pkg from 'chart.js';
     const {Chart} = pkg
-    const { data } = $props()
 
     const chartRender = (node: any, options: any) => {
         new Chart (node, options)
@@ -37,7 +36,7 @@
       ]
   };
 
-  data.ranks.forEach((rank : MapLeaderboardStar) => {
+  data.ranks.slice().reverse().forEach((rank : MapLeaderboardStar) => {
     rank_dates.push(date_formatter.format(rank.update_at))
     rank_stars.push({y: rank.stars, x : rank.update_at})
   })
@@ -97,70 +96,23 @@
       }
     }
   };
-
 </script>
 
-<Seo
-  title="Star history - {data.map_data.song_name} ({data.map_data.difficulty}) mapped by {data.map_data.level_author_name} - HistorySaber"
-  description="View the star rating history of {data.map_data.song_name} ({data.map_data.difficulty}) mapped by {data.map_data.level_author_name} overtime on HistorySaber."
-  url="https://historysaber.com/star-history/{data.map_data.leaderboard_id}"
-  image="https://historysaber.com/og-image/map/{data.map_data.map_hash}"
-/>
-
-<main>
-  <h1><span class="name">{data.map_data.song_name}</span> on <span class="name">{data.map_data.difficultyraw}</span> star history</h1>
-  <OldScoresMissingWarning NOTICE_ID="star-history-missing-scores"></OldScoresMissingWarning>
-  <div class="graph">
+<div class="graph">
     <canvas use:chartRender={config}></canvas>
-  </div>
-
-  <div class="notice">
-    Note: The star rank displayed on the graph should be used as an estimate only and may be inaccurate. Additionally, data for when a map was first ranked is unreliable for dates before April 5th.
-  </div>
-</main>
+</div>
 
 <style>
-  .graph {
-    height: 500px;
-    margin-bottom: 15px;
-  }
+    .graph {
+        height: 500px;
+        margin-bottom: 15px;
+    }
 
-  .notice {
-    text-align: center;
-    padding: 7.5px;
-    font-size: 0.9375rem;
-    color: gray;
-  }
-
-  h1, h2, h3 {
-    text-align: center;
-  }
-  h3 {
-    margin-bottom: 0px;
-  }
-
-
-  .name {
-    color: lightblue;
-  }
-
-  .score-list{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
 
   @media (max-width: 480px) {
     .graph {
       height: 150px;
       
     }
-    main {
-      font-size: clamp(0px,3vw,1.5rem);
-    }
-    .notice {
-      font-size: 0.625rem;
-      padding: 5px;
-    }
-  }
+}
 </style>

@@ -1,10 +1,12 @@
-import { fetchPastTopScoresOnMap, getLeaderboardInfo } from '$lib/server/database/map';
+import { fetchPastTopScoresOnMap, getLeaderboardInfo, getLeaderboardRankHistory } from '$lib/server/database/map';
 import { getPlayerInfo } from '$lib/server/database/users';
-import type { MapLeaderboard, Score, UserType } from '$lib/types';
 import { daysSinceRankCollectStart } from '$lib/utils';
 import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
+import type { MapLeaderboardStar, Score } from '$lib/types';
+import { getOtherLeaderboardDifficulties } from '$lib/server/database/leaderboards';
 
+/** @type {import('./$types').PageLoad} */
 export const load: PageServerLoad = async ({ params, setHeaders }) => {
     setHeaders({
         'Content-Security-Policy': "frame-ancestors *", // or specify allowed domains
@@ -22,7 +24,7 @@ export const load: PageServerLoad = async ({ params, setHeaders }) => {
             message: "invalid-leaderboard"
         }); 
     }
-    const scores : Score[] = (scores_unsafe).reverse()
+    const scores : Score[] = scores_unsafe
     const map_data = await getLeaderboardInfo(leaderboard_id, new Date("2100-1-1"))
     if (!map_data) {
         error(404, {
@@ -30,6 +32,8 @@ export const load: PageServerLoad = async ({ params, setHeaders }) => {
             message: "invalid-leaderboard"
         });  
     }
+    const other_difficulties = await getOtherLeaderboardDifficulties(map_data.map_hash)
+
     let usernames: string[] = []
     //this is like such a bad idea I find it crazy I wrote this. 
     //Its just so inefficient. I mean there are so many better ways I could have done this
@@ -42,9 +46,19 @@ export const load: PageServerLoad = async ({ params, setHeaders }) => {
         }
     }
 
+    const ranks = await getLeaderboardRankHistory(leaderboard_id)
+    if (!ranks) {
+        error(404, {
+            code: 'invalid-leaderboard',
+            message: "invalid-leaderboard"
+        }); 
+    }
+
     return {
         scores : scores,
         map_data : map_data,
-        usernames : usernames
+        usernames : usernames,
+        ranks : ranks,
+        other_difficulties : other_difficulties
     };
 }

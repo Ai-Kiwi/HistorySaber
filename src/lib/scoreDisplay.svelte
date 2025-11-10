@@ -27,7 +27,7 @@
             <div class="score-icon-parent">
                 <img class="score-icon" src="https://cdn.scoresaber.com/covers/{data.map_hash}.png" alt="">
                 <div class="score-star-text">
-                    {#if data.stars != null}
+                    {#if data.stars != null && data.stars != 0}
                         {data.stars}☆
                     {:else}
                         {dif_name}
@@ -86,14 +86,9 @@
             <a href="/score-improvement/{data.leaderboard_id}/{data.player_id}" target="_blank" class="clickable-button">
                 Player Score Improvement
             </a>
-            <a href="/score-improvement/{data.leaderboard_id}" target="_blank" class="clickable-button">
-                Map Score Improvement
+            <a href="/map/{data.leaderboard_id}" target="_blank" class="clickable-button">
+                Map Information
             </a>
-            {#if data.stars != null}
-            <a href="/star-history/{data.leaderboard_id}" target="_blank" class="clickable-button">
-                Star History
-            </a>
-            {/if}
             <a href="https://scoresaber.com/leaderboard/{data.leaderboard_id}" target="_blank" class="clickable-button">
                 ScoreSaber Page
             </a>
@@ -269,6 +264,7 @@
         height: 90px;
         position: relative;
         text-decoration: none;
+        flex-shrink: 0;
     }
 
     .score-star-text {
