@@ -93,7 +93,7 @@
 
     h1 {
         text-align: center;
-        font-size: 40px;
+        font-size: 2.5rem;
     }
     h2 {
         text-align: center;
@@ -107,7 +107,7 @@
     border: 0px;
     color: white;
     padding: 5px;
-    font-size: 20px;
+    font-size: 1.25rem;
   }
 
 

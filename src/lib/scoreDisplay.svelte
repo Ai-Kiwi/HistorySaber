@@ -119,7 +119,7 @@
         width: 100%;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
         font-family: sans-serif;
-        font-size: 15px;
+        font-size: 0.9375rem;
         color: white;
         cursor: pointer;
         transition: 0.25s ease;
@@ -144,7 +144,7 @@
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
         text-align: center;
         text-decoration: none;
-        font-size: 15px;
+        font-size: 0.9375rem;
         color: white;
         font-weight: bold;
         margin: 5px 2.5px;
@@ -281,7 +281,7 @@
         z-index: 10;
         background-color: blue;
         color: rgb(255, 255, 255);
-        font-size: 14px;
+        font-size: 0.875rem;
     }
 
     .icon-and-text {
@@ -307,7 +307,7 @@
         }
 
         main {
-            font-size: clamp(0px,3vw,24px);
+            font-size: clamp(0px,3vw,1.5rem);
         }
         .placement-text {
             align-items: center;
@@ -324,10 +324,10 @@
         }
 
         .score-text {
-            font-size: clamp(14px,3.75vw,20px);
+            font-size: clamp(0.875rem,3.75vw,1.25rem);
         }
         .main-score {
-            font-size: clamp(12px,2vw,100px);
+            font-size: clamp(12px,2vw,6.25rem);
             flex-direction: column;
         }
         .clickable-button {

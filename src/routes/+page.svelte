@@ -136,14 +136,14 @@
   }
 
   .info-value {
-    font-size: 32px;  /* Large numbers */
+    font-size: 2rem;  /* Large numbers */
     font-weight: bold;
     color: #f1f1f1;  /* Light grey color for values */
     margin-bottom: 10px;  /* Space between value and label */
   }
 
   .info-label {
-    font-size: 14px;
+    font-size: 0.875rem;
     color: #bbb;  /* Lighter grey for the label */
   }
 
@@ -195,7 +195,7 @@
     }
     
     main {
-      font-size: 14px;
+      font-size: 0.875rem;
     }
 
     .info-box {
@@ -203,14 +203,14 @@
     }
 
     .info-value {
-      font-size: 25px;
+      font-size: 1.5625rem;
     }
 
     .info-container {
       gap: 0px;
     }
     .info-label {
-      font-size: 12px;
+      font-size: 0.75rem;
     }
     .info-box-seperator {
       height: 15px;

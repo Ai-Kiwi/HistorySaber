@@ -556,13 +556,13 @@
   }
 
   .username {
-    font-size: 50px;
+    font-size: 3.125rem;
     font-weight: bolder;
     align-self: center;
   }
 
   .date_text {
-    font-size: 20px;
+    font-size: 1.25rem;
     margin: 15px;
     font-style: normal;
     font-weight: bold;
@@ -627,20 +627,20 @@
     }
 
     .sort-select {
-      font-size: clamp(10px,2.9vw,12px);
+      font-size: clamp(0.625rem,2.9vw,0.75rem);
       padding: 5px;
     }
     .sort-select-selected {
-      font-size: clamp(10px,2.9vw,12px);
+      font-size: clamp(0.625rem,2.9vw,0.75rem);
       padding: 5px;
     }
     .sort-toggle {
-      font-size: clamp(10px,3.25vw,12px);
+      font-size: clamp(0.625rem,3.25vw,0.75rem);
       padding: 5px;
     }
 
     .sort-toggle-selected {
-      font-size: clamp(10px,3.25vw,12px);
+      font-size: clamp(0.625rem,3.25vw,0.75rem);
       padding: 5px;
     }
 
