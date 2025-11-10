@@ -190,7 +190,7 @@
 
   h1 {
     text-align: center;
-    font-size: 40px;
+    font-size: 2.5rem;
   }
 
   h2 {
@@ -203,7 +203,7 @@
   }
 
   .date_text {
-    font-size: 20px;
+    font-size: 1.25rem;
     margin: 15px;
     font-style: normal;
     font-weight: bold;

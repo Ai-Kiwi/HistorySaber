@@ -38,7 +38,7 @@
     background-color: rgb(160, 0, 0);
     border-radius: 10px;
     text-align: center;
-    font-size: 15px;
+    font-size: 0.9375rem;
     width: 1fr;
     color: white;
     font-weight: bolder;
@@ -64,7 +64,7 @@
     background-color: rgb(150, 0, 0);
     border-radius: 10px;
     text-align: center;
-    font-size: 15px;
+    font-size: 0.9375rem;
     color: white;
     font-weight: bolder;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
