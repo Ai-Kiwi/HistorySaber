@@ -274,3 +274,22 @@ export async function searchForUser(text : string, page : number, page_size : nu
 
     return users
 }
+
+export async function fetchListOfAllPlayers() {
+    const query = {
+        name: 'fetch-all-player-list',
+        text: `
+        SELECT DISTINCT player_id
+        FROM player_history;
+        `,
+        values: [],
+    }
+
+
+    const res = await client.query(query);
+    let players = res.rows.map((row: any) => {
+        return row.player_id
+    })
+
+    return players;
+}
