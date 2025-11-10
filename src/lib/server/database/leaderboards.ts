@@ -1,4 +1,4 @@
-import type { UserType } from "$lib/types";
+import type { MapLeaderboard, UserType } from "$lib/types";
 import { client } from "./main";
 
 export async function getLeaderboardPage(page : number,date : String, page_size : number) {
@@ -45,6 +45,58 @@ export async function getLeaderboardPage(page : number,date : String, page_size 
         ranked_play_count: row.ranked_play_count
     }));
     return returning_users
+}
+
+
+export async function getOtherLeaderboardDifficulties(map_hash : String) {
+    //console.log(`getting database leaderboard data page ${page}, date ${date}`)
+    const query = {
+        // give the query a unique name
+        name: 'fetch-other-map-leaderboard-difficulties',
+        text: `
+            WITH latest_ratings AS (
+            SELECT DISTINCT ON (r.leaderboard_id)
+                r.leaderboard_id,
+                r.stars,
+                r.updated_at
+            FROM leaderboard_rating_update r
+            ORDER BY r.leaderboard_id, r.updated_at DESC
+            )
+            SELECT 
+                COALESCE(r.stars, 0) AS stars,
+                ml.map_hash,
+                ml.difficulty,
+                ml.difficultyraw,
+                ml.maxscore,
+                ml.leaderboard_id,
+                m.song_name,
+                m.song_sub_name,
+                m.song_author_name,
+                m.level_author_name
+            FROM map_leaderboard AS ml
+            LEFT JOIN latest_ratings r ON ml.leaderboard_id = r.leaderboard_id
+            JOIN map m ON ml.map_hash = m.map_hash
+            WHERE ml.map_hash = $1
+            ORDER BY ml.difficulty, ml.leaderboard_id ASC;
+        `,
+        values: [map_hash],
+    }
+    const res = await client.query(query)
+    //console.log(res.rows)
+
+    const returning_leaderboards: MapLeaderboard[] = res.rows.map((row: any) => ({
+        leaderboard_id: row.leaderboard_id,
+        stars: row.stars,
+        map_hash: row.map_hash,
+        difficulty: row.difficulty,
+        difficultyraw: row.difficultyraw,
+        maxscore: row.maxscore,
+        song_name: row.song_name,
+        song_sub_name: row.song_sub_name,
+        song_author_name: row.song_author_name,
+        level_author_name: row.song_author_name,
+    }));
+    return returning_leaderboards
 }
 
 
