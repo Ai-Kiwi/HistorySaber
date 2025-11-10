@@ -5,7 +5,7 @@ import type { RequestHandler } from '@sveltejs/kit';
 import { fetchListOfAllLeaderboards } from '$lib/server/database/leaderboards';
 import { fetchListOfAllPlayers } from '$lib/server/database/users';
 
-export const prerender = true;
+export const prerender = false;
 
 export const GET: RequestHandler = async ({ params }) => {
 
