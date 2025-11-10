@@ -161,13 +161,13 @@
   .notice {
     text-align: center;
     padding: 7.5px;
-    font-size: 15px;
+    font-size: 0.9375rem;
     color: gray;
   }
 
   @media (max-width: 480px) {
     .notice {
-      font-size: 10px;
+      font-size: 0.625rem;
       padding: 5px;
     }
   }

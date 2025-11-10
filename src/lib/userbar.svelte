@@ -51,7 +51,7 @@
         padding-left: 5px;
         color: rgb(210, 210, 210);
         font-weight: bold;
-        font-size: 15px;
+        font-size: 0.9375rem;
         margin: auto 0px;
     }
 
@@ -89,7 +89,7 @@
         margin-left: 5px;
         height: 25px;
         border-radius: 5px;
-        font-size: 15px;
+        font-size: 0.9375rem;
         background-color: rgb(200, 200, 200);
         color: black;
         padding: 0px 5px 0px 5px;
@@ -101,7 +101,7 @@
         margin-left: 5px;
         height: 25px;
         border-radius: 5px;
-        font-size: 15px;
+        font-size: 0.9375rem;
         background-color: rgb(80, 80, 80);
         color: black;
         padding: 0px 5px 0px 5px;
@@ -114,7 +114,7 @@
         height: 25px;
         text-align: center;
         border-radius: 5px;
-        font-size: 15px;
+        font-size: 0.9375rem;
         background-color: rgb(125, 125, 125);
         padding: 0px 5px 0px 5px;
         display: flex;
@@ -133,7 +133,7 @@
     }
     .username {
         font-weight: bold;
-        font-size: 15px;
+        font-size: 0.9375rem;
         color: rgb(250, 250, 250);
         margin: 5px;
     }
@@ -142,7 +142,7 @@
         width: 90px;
         text-align: center;
         border-radius: 5px;
-        font-size: 15px;
+        font-size: 0.9375rem;
         background-color: rgb(54, 101, 212);     
         padding: 0px 5px 0px 5px;
         margin: 5px;
@@ -192,7 +192,7 @@
         }
 
         .rank-display {
-            font-size: 1px;
+            font-size: 0.0625rem;
             
         }
         .expanded-rank-display {
@@ -200,19 +200,19 @@
         }
 
         .rank{
-            font-size: 13px;
+            font-size: 0.8125rem;
             padding: 0px 2px 0px 2px;
             height: 20px;
         }
         .relative-rank {
-            font-size: 13px;
+            font-size: 0.8125rem;
             padding: 0px 2px 0px 2px;
             height: 20px;
             width: auto;
         }
 
         .country-rank{
-            font-size: 13px;
+            font-size: 0.8125rem;
             padding: 0px 2px 0px 2px;
             height: 20px;
         }
@@ -247,7 +247,7 @@
             width: 50px;
             height: 25px;
             border-radius: 5px;
-            font-size: 15px;
+            font-size: 0.9375rem;
             background-color: rgb(75, 75, 75);     
             padding: 0px 5px 0px 5px;
             margin: 5px;

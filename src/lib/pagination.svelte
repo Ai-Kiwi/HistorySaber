@@ -53,7 +53,7 @@
     border-radius: 6px;
     padding: 5px 10px;
     cursor: pointer;
-    font-size: 18px;
+    font-size: 1.125rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -68,7 +68,7 @@
   .page-input {
     width: 60px;
     padding: 5px;
-    font-size: 16px;
+    font-size: 1rem;
     text-align: center;
     border: 1px solid #999;
     border-radius: 6px;
@@ -94,7 +94,7 @@
   #page-size {
     width: 60px;
     padding: 5px;
-    font-size: 16px;
+    font-size: 1rem;
     text-align: center;
     border: 1px solid #999;
     border-radius: 6px;
@@ -107,20 +107,20 @@
     #page-size {
       width: 35px;
       height: 30px;
-      font-size: 12px;
+      font-size: 0.75rem;
     }
 
     .page-btn {
       width: 35px;
       height: 35px;
-      font-size: 10px;
+      font-size: 0.625rem;
     }
 
 
     .page-input {
       width: 35px;
       height: 35px;
-      font-size: 15px;
+      font-size: 0.9375rem;
       padding: 3px;
     }
 

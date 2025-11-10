@@ -49,7 +49,7 @@
     }
     .user-bar{
         padding: 5px;
-        font-size: 15px;
+        font-size: 0.9375rem;
         color: white;
         font-weight: bolder;
         font-family: sans-serif;
@@ -66,7 +66,7 @@
 
     @media (max-width: 900px) {
         .user-bar {
-            font-size: 12px;
+            font-size: 0.75rem;
         }
 
     }

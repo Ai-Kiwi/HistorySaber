@@ -14,7 +14,7 @@
     background-color: rgb(160, 0, 0);
     border-radius: 10px;
     text-align: center;
-    font-size: 15px;
+    font-size: 0.9375rem;
     width: 1fr;
     color: white;
     font-weight: bolder;

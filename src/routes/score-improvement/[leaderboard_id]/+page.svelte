@@ -273,7 +273,7 @@
       
     }
     main {
-      font-size: clamp(0px,3vw,24px);
+      font-size: clamp(0px,3vw,1.5rem);
     }
   }
 </style>
