@@ -16,10 +16,10 @@ export async function GET({ url }) {
     //this is like such a bad idea I find it crazy I wrote this. 
     //Its just so inefficient. I mean there are so many better ways I could have done this
     for (let step = 0; step < scores.length; step++) {
-      try {
-        const user_data = await getPlayerInfo(scores[step].player_id)
+      const user_data = await getPlayerInfo(scores[step].player_id)
+      if (user_data != undefined) {
         usernames.push(user_data.name)
-      } catch {
+      } else {
         usernames.push(`N/A (${scores[step].player_id})`)
       }
       

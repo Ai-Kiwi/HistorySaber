@@ -15,20 +15,31 @@ export const load: PageServerLoad = async ({ params, setHeaders }) => {
     //const data = await response.json();
 
     const leaderboard_id = params.leaderboard_id
-  
-    const scores : Score[] = (await fetchPastTopScoresOnMap(leaderboard_id)).reverse()
+    const scores_unsafe = await fetchPastTopScoresOnMap(leaderboard_id)
+    if (!scores_unsafe) {
+        error(404, {
+            code: 'invalid-leaderboard',
+            message: "invalid-leaderboard"
+        }); 
+    }
+    const scores : Score[] = (scores_unsafe).reverse()
     const map_data = await getLeaderboardInfo(leaderboard_id, new Date("2100-1-1"))
     if (!map_data) {
-		error(404, {
-			message: 'No data found for leaderboard'
-		});    
+        error(404, {
+            code: 'invalid-leaderboard',
+            message: "invalid-leaderboard"
+        });  
     }
     let usernames: string[] = []
     //this is like such a bad idea I find it crazy I wrote this. 
     //Its just so inefficient. I mean there are so many better ways I could have done this
     for (let step = 0; step < scores.length; step++) {
         const user_data = await getPlayerInfo(scores[step].player_id)
-        usernames.push(user_data.name)
+        if (user_data != undefined) {
+          usernames.push(user_data.name)
+        } else {
+          usernames.push(`N/A (${scores[step].player_id})`)
+        }
     }
 
     return {

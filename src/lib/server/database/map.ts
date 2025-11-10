@@ -3,6 +3,9 @@ import { calculatePP } from "../ppCalculator"
 import { client } from "./main"
 
 export async function getLeaderboardInfo(leaderboard_id : string, date : Date) {
+    if (isNaN(Number(leaderboard_id))) {
+        return undefined
+    }
     const query = {
         // give the query a unique name
         name: 'fetch-leaderboard-info',
@@ -54,6 +57,9 @@ export async function getLeaderboardInfo(leaderboard_id : string, date : Date) {
 
 
 export async function getLeaderboardRankHistory(leaderboard_id : string) {
+    if (isNaN(Number(leaderboard_id))) {
+        return undefined
+    }
     const query = {
         // give the query a unique name
         name: 'fetch-past-leaderboard-stars',
@@ -79,7 +85,10 @@ export async function getLeaderboardRankHistory(leaderboard_id : string) {
     return ranks;
 }
 
-export async function fetchPastTopScoresOnMap(leaderboard_id : string): Promise<any[]> {
+export async function fetchPastTopScoresOnMap(leaderboard_id : string) {
+    if (isNaN(Number(leaderboard_id))) {
+        return undefined
+    }
     //set date to 3 as thats when leaderboards are collected
     const query = {
         name: 'fetch-past-top-scores-for-leaderboard',

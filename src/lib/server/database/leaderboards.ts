@@ -48,7 +48,7 @@ export async function getLeaderboardPage(page : number,date : String, page_size 
 }
 
 
-export async function getCountryLeaderboardPage(page : number,date : String,countrys: String[], page_size : number) {
+export async function getCountryLeaderboardPage(page : number,date : String, countrys: String[], page_size : number) {
 
     const query = {
         // give the query a unique name
