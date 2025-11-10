@@ -58,7 +58,7 @@
   {#if data.other_difficulties.length > 1}
     <div class="clickable-buttons" transition:slide={{ duration: 500 }}>
       {#each data.other_difficulties as map_dif}
-        <a href="/map/{map_dif.leaderboard_id}" class="clickable-button" data-sveltekit-reload>
+        <a href="/map/{map_dif.leaderboard_id}" class="clickable-button" data-sveltekit-reload style="{data.map_data.leaderboard_id == map_dif.leaderboard_id ? "background-color: rgba(100, 100, 100, 0.5);" : ""}">
           {parseLevelDifficulties(map_dif.difficulty)}
           {#if map_dif.stars != null && map_dif.stars != 0}
               ({map_dif.stars}☆)
