@@ -395,7 +395,7 @@
         <button class="{limit_score_ranked == false ? "sort-toggle" : "sort-toggle-selected"}" on:click={()=>{ limit_score_ranked = !limit_score_ranked; fetchScores() }}>Only Ranked</button>
         <button class="{reverse_score_order ? "sort-toggle-selected" : "sort-toggle"}" on:click={()=>{ reverse_score_order = !reverse_score_order; fetchScores() }}>Reverse Order</button>
       {:else}
-      <OldScoresMissingWarning></OldScoresMissingWarning>
+      <OldScoresMissingWarning NOTICE_ID="user-scores-duplicated"></OldScoresMissingWarning>
       {/if}
     </div>
     {#if safe_data_for_date == false}

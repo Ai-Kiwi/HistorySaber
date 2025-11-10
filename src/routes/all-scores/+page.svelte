@@ -64,7 +64,7 @@
 
   <Pagination current_page_selected={score_page_selected} pageChanged={(page: number) => {score_page_selected = page; fetchScores()}} pageSizeChanged={(size : number) => {score_page_size = size; fetchScores()}} current_page_size={score_page_size.toString()}></Pagination>
 
-  <OldScoresMissingWarning></OldScoresMissingWarning>
+  <OldScoresMissingWarning NOTICE_ID="all-scores"></OldScoresMissingWarning>
 
   <div class="{loading_scores ? 'shimmer' : ''}">
     {#if player_scores.length > 0}
