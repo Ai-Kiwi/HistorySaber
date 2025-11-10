@@ -1,6 +1,7 @@
 import { getPlayerScoresFiltered } from '$lib/server/database/user_scores';
 import { getPlayerInfo, getPlayerPastPpValues } from '$lib/server/database/users';
 import { daysSinceRankCollectStart, formatDate } from '$lib/utils';
+import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ params, setHeaders }) => {
@@ -18,9 +19,27 @@ export const load: PageServerLoad = async ({ params, setHeaders }) => {
     const days = daysSinceRankCollectStart()
 
     const past_pp = await getPlayerPastPpValues(player_id, days + 1)
+    if (!past_pp) {
+      error(404, {
+        code: 'invalid-player',
+        message: "invalid-player"
+      }); 
+    }
     const player_data = await getPlayerInfo(player_id)
+    if (!player_data) {
+      error(404, {
+        code: 'invalid-player',
+        message: "invalid-player"
+      }); 
+    }
 
     const initial_player_scores = await getPlayerScoresFiltered(player_id, new Date(), 1, 12, "pp", false, true)
+    if (!initial_player_scores) {
+        error(404, {
+            code: 'invalid-player',
+            message: "invalid-player"
+        });
+    }
 
     return {
         past_pp: past_pp.pp_values,

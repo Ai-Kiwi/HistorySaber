@@ -2,7 +2,10 @@ import type { Score } from "$lib/types"
 import { calculatePP } from "../ppCalculator"
 import { client } from "./main"
 
-export async function fetchPlayerRankedScores(player_id : string, date : Date): Promise<any[]> {
+export async function fetchPlayerRankedScores(player_id : string, date : Date) {
+    if (isNaN(Number(player_id))) {
+        return undefined
+    }
     //set date to 3 as thats when leaderboards are collected
     const query = {
         name: 'fetch-player-ranked-scores-for-date',
@@ -98,7 +101,10 @@ export async function fetchPlayerRankedScores(player_id : string, date : Date): 
     return scores;
 }
 
-export async function fetchAllPlayerScores(player_id : string, date : Date): Promise<any[]> {
+export async function fetchAllPlayerScores(player_id : string, date : Date) {
+    if (isNaN(Number(player_id))) {
+        return undefined
+    }
     //set date to 3 as thats when leaderboards are collected
     const query = {
         name: 'fetch-player-scores-for-date',
@@ -198,6 +204,9 @@ export async function fetchAllPlayerScores(player_id : string, date : Date): Pro
 
 export async function getPlayerScoresFiltered(player_id : string, date : Date, page : number, page_size : number, sort_by : keyof Score, reverse : boolean, only_ranked : boolean) {
     let scores = only_ranked == true ? await fetchPlayerRankedScores(player_id, date) : await fetchAllPlayerScores(player_id, date)
+    if (scores == undefined) {
+        return undefined
+    }
 
     scores.sort((a, b) => {
         const aVal = sort_by === "time" ? a.time.getTime() : a[sort_by];
@@ -219,7 +228,10 @@ export async function getPlayerScoresFiltered(player_id : string, date : Date, p
 }
 
 
-export async function fetchAllPlayerScoresDuplicatedPaged(player_id : string, page : number, page_size : number): Promise<any[]> {
+export async function fetchAllPlayerScoresDuplicatedPaged(player_id : string, page : number, page_size : number) {
+    if (isNaN(Number(player_id))) {
+        return undefined
+    }
     //set date to 3 as thats when leaderboards are collected
     const query = {
         name: 'fetch-all-player-scores-duplicated',
