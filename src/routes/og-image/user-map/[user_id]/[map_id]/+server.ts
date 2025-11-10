@@ -100,7 +100,7 @@ export const GET: RequestHandler = async ({ params }) => {
     ctx.fillStyle = '#ffffffff';
     ctx.font = 'bold 35px sans-serif';
     ctx.textAlign = 'center';
-    ctx.fillText(player_info.name, img_side_padding+(img_width/2), img_top_padding+img_width+35);
+    ctx.fillText(player_info ? player_info.name : "N/A", img_side_padding+(img_width/2), img_top_padding+img_width+35);
     disableShadow(ctx)
 
     //map pfp

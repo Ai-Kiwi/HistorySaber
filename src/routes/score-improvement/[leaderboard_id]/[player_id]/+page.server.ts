@@ -17,15 +17,27 @@ export const load: PageServerLoad = async ({ params, setHeaders }) => {
     const player_id = params.player_id
     const leaderboard_id = params.leaderboard_id
   
-    
-
-    const scores : Score[] = (await fetchPlayerScoresOnMap(player_id,leaderboard_id)).reverse()
-    const player_data: UserType = await await getPlayerInfo(player_id)
+    const player_data = await await getPlayerInfo(player_id)
+    if (!player_data) {
+        error(404, {
+            code: 'invalid-player',
+            message: "invalid-player"
+        }); 
+    }
+    const scores_unsafe = await fetchPlayerScoresOnMap(player_id,leaderboard_id)
+    if (!scores_unsafe) {
+        error(404, {
+            code: 'invalid-leaderboard',
+            message: "invalid-leaderboard"
+        }); 
+    }
+    const scores : Score[] = (scores_unsafe).reverse()
     const map_data = await getLeaderboardInfo(leaderboard_id, new Date("2100-1-1"));
     if (!map_data) {
         error(404, {
-            message: 'No data found for leaderboard'
-        });    
+            code: 'invalid-leaderboard',
+            message: "invalid-leaderboard"
+        });  
     }
 
 

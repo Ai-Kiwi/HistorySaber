@@ -4,6 +4,10 @@ import { calculatePP } from "../ppCalculator"
 import { client } from "./main"
 
 export async function getPlayerPastPpValues(player_id: String,limit : number) {
+    console.log(isNaN(Number(player_id)))
+    if (isNaN(Number(player_id))) {
+        return undefined
+    }
     const query = {
         // give the query a unique name
         name: 'fetch-player-past-pp',
@@ -84,6 +88,9 @@ export async function getPlayerPastPpValues(player_id: String,limit : number) {
 
 
 export async function getPlayerInfo(player_id: String) {
+    if (isNaN(Number(player_id))) {
+        return undefined
+    }
     const query = {
         // give the query a unique name
         name: 'fetch-player-info',
@@ -96,8 +103,9 @@ export async function getPlayerInfo(player_id: String) {
         values: [player_id,],
     }
     const response = await client.query(query)
-
-    let pp_values : Number[] = []
+    if (response.rowCount == 0) {
+        return undefined
+    }
 
     let player_data: UserType = {
         player_id: response.rows[0].player_id,
@@ -121,7 +129,10 @@ export async function getPlayerInfo(player_id: String) {
 }
 
 
-export async function fetchPlayerScoresOnMap(player_id : string, leaderboard_id : string): Promise<any[]> {
+export async function fetchPlayerScoresOnMap(player_id : string, leaderboard_id : string) {
+    if (isNaN(Number(player_id)) || isNaN(Number(leaderboard_id))) {
+        return undefined
+    }
     //set date to 3 as thats when leaderboards are collected
     const query = {
         name: 'fetch-player-scores-for-leaderboard',

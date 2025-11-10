@@ -9,20 +9,33 @@ export async function GET({ url }) {
     const player_id = url.searchParams.get('player') || 'none';
     const leaderboard_id = url.searchParams.get('map') || '';
 
-    if (player_id === "none") {    
-      const scores : Score[] = (await fetchPastTopScoresOnMap(leaderboard_id)).reverse()
+    if (player_id === "none") {
+      const scores_unsafe = await fetchPastTopScoresOnMap(leaderboard_id)
+        if (!scores_unsafe) {
+        error(404, {
+          code: 'invalid-leaderboard',
+          message: "invalid-leaderboard"
+        });
+      }
+
+      const scores : Score[] = (scores_unsafe).reverse()
       const map_data = await getLeaderboardInfo(leaderboard_id, new Date("2100-1-1"))
       if (!map_data) {
-      error(404, {
-        message: 'No data found for leaderboard'
-      });    
+        error(404, {
+          code: 'invalid-leaderboard',
+          message: "invalid-leaderboard"
+        });    
       }
       let usernames: string[] = []
       //this is like such a bad idea I find it crazy I wrote this. 
       //Its just so inefficient. I mean there are so many better ways I could have done this
       for (let step = 0; step < scores.length; step++) {
-          const user_data = await getPlayerInfo(scores[step].player_id)
+        const user_data = await getPlayerInfo(scores[step].player_id)
+        if (user_data != undefined) {
           usernames.push(user_data.name)
+        } else {
+          usernames.push(`N/A (${scores[step].player_id})`)
+        }
       }
 
       const response = {
@@ -36,14 +49,29 @@ export async function GET({ url }) {
         status: 200
       });
     }else{
-      const scores : Score[] = (await fetchPlayerScoresOnMap(player_id,leaderboard_id)).reverse()
-      const player_data: UserType = await await getPlayerInfo(player_id)
+      const player_data = await await getPlayerInfo(player_id)
+      if (!player_data) {
+        error(404, {
+          code: 'invalid-player',
+          message: "invalid-player"
+        });    
+      }
+      const scores_unsafe = await fetchPlayerScoresOnMap(player_id,leaderboard_id)
+      if (!scores_unsafe) {
+        error(404, {
+          code: 'invalid-leaderboard',
+          message: "invalid-leaderboard"
+        });
+      }
+      const scores : Score[] = (scores_unsafe).reverse()
       const map_data = await getLeaderboardInfo(leaderboard_id, new Date("2100-1-1"));
       if (!map_data) {
-          error(404, {
-              message: 'No data found for leaderboard'
-          });    
+        error(404, {
+          code: 'invalid-leaderboard',
+          message: "invalid-leaderboard"
+        });       
       }
+
     
       const response = {
           scores : scores,

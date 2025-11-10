@@ -7,6 +7,9 @@ declare global {
 		// interface PageData {}
 		// interface PageState {}
 		// interface Platform {}
+		interface Error {
+			code: string;
+		}
 	}
 }
 
