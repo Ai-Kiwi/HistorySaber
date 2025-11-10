@@ -145,3 +145,22 @@ export async function getCountryLeaderboardPage(page : number,date : String, cou
     }));
     return returning_users
 }
+
+export async function fetchListOfAllLeaderboards() {
+    const query = {
+        name: 'fetch-all-leaderboard-list',
+        text: `
+        SELECT DISTINCT leaderboard_id
+        FROM map_leaderboard;
+        `,
+        values: [],
+    }
+
+
+    const res = await client.query(query);
+    let leaderboards = res.rows.map((row: any) => {
+        return row.leaderboard_id
+    })
+
+    return leaderboards;
+}
