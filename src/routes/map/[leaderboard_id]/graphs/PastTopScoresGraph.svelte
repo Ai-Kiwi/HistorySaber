@@ -1,11 +1,10 @@
 <script lang="ts">
-    import OldScoresMissingWarning from '$lib/oldScoresMissingWarning.svelte';
-    import ScoreDisplay from '$lib/scoreDisplay.svelte';
-    import Seo from '$lib/seo.svelte';
-    import type { Score } from '$lib/types.js';
+    import type { Score } from "$lib/types";
+
+    const data = $props<{ scores: Score[] }>();
+
     import pkg from 'chart.js';
     const {Chart} = pkg
-    const { data } = $props()
 
     const chartRender = (node: any, options: any) => {
         new Chart (node, options)
@@ -32,7 +31,7 @@
         year: "numeric",
     });
 
-    data.scores.forEach((score : Score) => {
+    data.scores.slice().reverse().forEach((score : Score) => {
       score_dates.push(date_formatter.format(score.time))
       score_accuracy.push({y: score.accuracy, x : score.time})
       score_score.push({y: score.score, x : score.time})
@@ -198,82 +197,26 @@
       }
     }
   };
-
 </script>
 
-<Seo
-  title="Top Score Progress - {data.map_data.song_name} ({data.map_data.difficulty}) mapped by {data.map_data.level_author_name} - HistorySaber"
-  description="See how top scores have improved over time for {data.map_data.song_name} ({data.map_data.difficulty}) mapped by {data.map_data.level_author_name} on HistorySaber."
-  url="http://historysaber.com/score-improvement/{data.map_data.leaderboard_id}"
-  image="https://historysaber.com/og-image/map/{data.map_data.map_hash}"
-/>
-
 <main>
-  <h1><span class="name">{data.map_data.song_name}</span> on <span class="name">{data.map_data.difficultyraw}</span> top score history</h1>
-  <OldScoresMissingWarning NOTICE_ID="leaderboard-score-improvement-missing-scores"></OldScoresMissingWarning>
-  {#if data.scores.length > 1}
     <div class="graph">
       <canvas use:chartRender={config}></canvas>
     </div>
-
-    <h1>Scores</h1>
-  {/if}
-
-    {#if data.scores.length > 0}
-    <div class="score-list">
-      {#each [...data.scores].reverse() as score, i}
-        {#if i > 0}
-          {#if data.usernames[(data.scores.length-1)-i] != data.usernames[(data.scores.length-1)-i+1]}
-            <h3>{data.usernames[(data.scores.length-1)-i]}</h3>
-          {/if}
-        {:else}
-          <h3>{data.usernames[(data.scores.length-1)-i]}</h3>
-        {/if}
-        
-        {#key score.score_id}
-          <ScoreDisplay data={score}></ScoreDisplay>
-        {/key}
-      {/each}
-    </div>
-  {:else}
-  <h2>
-    No scores to display on this page
-  </h2>
-  {/if}
-
 </main>
 
+
 <style>
-  .graph {
-    height: 500px;
-    margin-bottom: 15px;
-  }
-
-  h1, h2, h3 {
-    text-align: center;
-  }
-  h3 {
-    margin-bottom: 0px;
-  }
-
-
-  .name {
-    color: lightblue;
-  }
-
-.score-list{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  @media (max-width: 480px) {
     .graph {
-      height: 350px;
-      
+        height: 500px;
+        margin-bottom: 15px;
     }
-    main {
-      font-size: clamp(0px,3vw,1.5rem);
+
+    @media (max-width: 480px) {
+        .graph {
+        height: 350px;
+        
+        }
     }
-  }
 </style>
+

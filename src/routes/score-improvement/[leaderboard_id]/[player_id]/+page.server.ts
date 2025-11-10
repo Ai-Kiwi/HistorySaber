@@ -31,7 +31,7 @@ export const load: PageServerLoad = async ({ params, setHeaders }) => {
             message: "invalid-leaderboard"
         }); 
     }
-    const scores : Score[] = (scores_unsafe).reverse()
+    const scores : Score[] = scores_unsafe
     const map_data = await getLeaderboardInfo(leaderboard_id, new Date("2100-1-1"));
     if (!map_data) {
         error(404, {
