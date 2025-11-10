@@ -109,7 +109,7 @@
 
 <main>
   <h1><span class="name">{data.map_data.song_name}</span> on <span class="name">{data.map_data.difficultyraw}</span> star history</h1>
-  <OldScoresMissingWarning></OldScoresMissingWarning>
+  <OldScoresMissingWarning NOTICE_ID="star-history-missing-scores"></OldScoresMissingWarning>
   <div class="graph">
     <canvas use:chartRender={config}></canvas>
   </div>

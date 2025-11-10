@@ -1,17 +1,17 @@
-<script>
+<script lang="ts">
 	let dismissed = $state(false);
   import { browser } from "$app/environment"
+  const { NOTICE_ID } = $props<{ NOTICE_ID: string }>();
 
   if (typeof localStorage !== 'undefined') {
-    dismissed = localStorage.getItem('oldScoresMissingWarningDismissed') === 'true';
-    console.log(localStorage.getItem('oldScoresMissingWarningDismissed') === 'true')
+    dismissed = localStorage.getItem(`oldScoresMissingWarningDismissed-${NOTICE_ID}`) === 'true';
   }
 
   function dismiss() {
     if(!browser)return;
     try {
       dismissed = true;
-      localStorage.setItem('oldScoresMissingWarningDismissed', 'true');
+      localStorage.setItem(`oldScoresMissingWarningDismissed-${NOTICE_ID}`, 'true');
     }catch(err) {
       console.log(err)
     }
