@@ -210,7 +210,7 @@
 
 <main>
   <h1><span class="name">{data.map_data.song_name}</span> on <span class="name">{data.map_data.difficultyraw}</span> top score history</h1>
-  <OldScoresMissingWarning></OldScoresMissingWarning>
+  <OldScoresMissingWarning NOTICE_ID="leaderboard-score-improvement-missing-scores"></OldScoresMissingWarning>
   {#if data.scores.length > 1}
     <div class="graph">
       <canvas use:chartRender={config}></canvas>
