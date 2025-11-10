@@ -266,7 +266,7 @@
     .score-icon-parent {
         margin: 5px;
         width: 90px;
-        aspect-ratio: 1;
+        height: 90px;
         position: relative;
         text-decoration: none;
     }
