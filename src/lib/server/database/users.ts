@@ -96,7 +96,7 @@ export async function getPlayerInfo(player_id: String) {
         text: `SELECT * 
             FROM player_history
             WHERE player_id = $1
-            ORDER BY snapshot_date ASC
+            ORDER BY snapshot_date DESC
             LIMIT 1;
         `,
         values: [player_id,],
