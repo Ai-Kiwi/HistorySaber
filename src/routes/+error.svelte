@@ -1,5 +1,6 @@
 <script>
 	import { page } from '$app/state';
+    import { error } from '@sveltejs/kit';
 
 
     let message = "Error occurred"
@@ -11,6 +12,11 @@
     }else if (page.error?.code == "invalid-player") {
         message = "Invalid Player"
         subtext = "The player input does not have any data for it. Likely this means they are not being tracked. They will start being tacked after they become active."
+    }else{
+        if (page.status == 404) {
+            message = "Invalid Page"
+        subtext = "The page requested can not be found."
+        } 
     }
 
 
@@ -18,3 +24,13 @@
 
 <h1>{message}</h1>
 <h3>{subtext}</h3>
+
+<style>
+    h1 {
+        text-align: center;
+    }
+
+    h2 {
+
+    }
+</style>
