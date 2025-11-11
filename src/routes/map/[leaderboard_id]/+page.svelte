@@ -170,7 +170,7 @@
     border-radius: 15px;
     bottom: 0px;
     left: 0px;
-    z-index: 10;
+    z-index: 1;
     background-color: blue;
     color: rgb(255, 255, 255);
     font-size: 1.25rem;
