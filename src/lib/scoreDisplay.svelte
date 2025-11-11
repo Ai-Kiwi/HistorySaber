@@ -1,8 +1,9 @@
 <script lang="ts">
     import { slide } from "svelte/transition";
-    import Tooltip from "./tooltip.svelte";
+    import Tooltip from "./Tooltip.svelte";
     import type { Score } from "./types";
     import { parseLevelDifficulties } from "./utils";
+    import ToolTipClient from "./ToolTipClient.svelte";
     const { data }: { data: Score } = $props();
     let dif_name = parseLevelDifficulties(data.difficulty)
 
@@ -17,6 +18,11 @@
         year: "numeric",
         timeZoneName: 'short'
     });
+
+    let tooltip_x = $state(0)
+    let tooltip_y = $state(0) 
+    let tooltip_enabled = $state(false) 
+    let tooltip_title = $state("")
 
     let extra_info = $state(false)
 </script>
@@ -48,32 +54,32 @@
 
         <div class="placement-text">
             <div class="score-stat-row">
-                <Tooltip title="Played on {data.device_hmd} with left controller {data.device_controller_left} and right controller {data.device_controller_right}">
+                <ToolTipClient updateTooltipState={(enabled: boolean,x: number,y: number, title : string)=> {tooltip_enabled = enabled; tooltip_x = x; tooltip_y = y; tooltip_title = title}} title="Played on {data.device_hmd} with left controller {data.device_controller_left} and right controller {data.device_controller_right}">
                     <span class="score-headset">{data.device_hmd}</span>
-                </Tooltip>
-                <Tooltip title="{data.accuracy}%">
+                </ToolTipClient>
+                <ToolTipClient updateTooltipState={(enabled: boolean,x: number,y: number, title : string)=> {tooltip_enabled = enabled; tooltip_x = x; tooltip_y = y; tooltip_title = title}} title="{data.accuracy}%">
                     <span class="score-accuracy">{ Math.floor(data.accuracy * 100) / 100}%</span>
-                </Tooltip>
+                </ToolTipClient>
                 {#if data.stars != null}
                     <span class="score-pp">~{ Math.floor(data.pp * 100) / 100}pp </span>
                 {/if}
             </div>
             <div class="score-stat-row">
                 {#if data.mods.length > 0}
-                    <Tooltip title="Mods that were enabled">
+                    <ToolTipClient updateTooltipState={(enabled: boolean,x: number,y: number, title : string)=> {tooltip_enabled = enabled; tooltip_x = x; tooltip_y = y; tooltip_title = title}} title="Mods that were enabled">
                         <span class="score-mods">{data.mods}</span>
-                    </Tooltip>
+                    </ToolTipClient>
                 {/if}
-                <Tooltip title="scored {data.score.toLocaleString()} with max of {data.maxscore.toLocaleString()}. (modifed score would be {data.modified_score.toLocaleString()})">
+                <ToolTipClient updateTooltipState={(enabled: boolean,x: number,y: number, title : string)=> {tooltip_enabled = enabled; tooltip_x = x; tooltip_y = y; tooltip_title = title}} title="scored {data.score.toLocaleString()} with max of {data.maxscore.toLocaleString()}. (modifed score would be {data.modified_score.toLocaleString()})">
                     <span class="score-score">{data.score}</span>
-                </Tooltip>
-                <Tooltip title="{data.missed_notes} misses and {data.bad_cuts} bad cuts. Max combo of {data.max_combo}">
+                </ToolTipClient>
+                <ToolTipClient updateTooltipState={(enabled: boolean,x: number,y: number, title : string)=> {tooltip_enabled = enabled; tooltip_x = x; tooltip_y = y; tooltip_title = title}} title="{data.missed_notes} misses and {data.bad_cuts} bad cuts. Max combo of {data.max_combo}">
                     {#if data.missed_notes + data.bad_cuts == 0}
                         <span class="score-misses" style="background-color: green;">{data.missed_notes + data.bad_cuts} ✔️</span>
                     {:else}
                         <span class="score-misses">{data.missed_notes + data.bad_cuts} ✖️</span>
                     {/if}
-                </Tooltip>
+                </ToolTipClient>
             </div>
 
             <div style="height:100%"></div>
@@ -100,8 +106,20 @@
 
 </main>
 
+<div class="tooltip">
+    {#if tooltip_enabled}
+        <Tooltip title={tooltip_title} tooltop_x={tooltip_x} tooltop_y={tooltip_y}></Tooltip>
+    {/if}
+
+</div>
+
 
 <style>
+    .tooltip {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+    }
     .main-score {
         border: none;
         font-family: sans-serif;
@@ -274,7 +292,7 @@
         border-radius: 15px;
         bottom: 0px;
         left: 0px;
-        z-index: 10;
+        z-index: 1;
         background-color: blue;
         color: rgb(255, 255, 255);
         font-size: 0.875rem;

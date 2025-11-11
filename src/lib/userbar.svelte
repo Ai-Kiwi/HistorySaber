@@ -164,6 +164,7 @@
         justify-items: start;
         flex-wrap: wrap;
         transition: 0.25s ease;
+        position: relative;
     }
 
     .user-bar:hover {
