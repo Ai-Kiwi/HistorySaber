@@ -210,7 +210,8 @@
         text-align: center;
         padding: 5px;
         color: rgb(250, 250, 250);
-        background-color: rgb(50, 0,250);
+        background: linear-gradient(120deg, rgb(22, 69, 177) 0%, rgb(25, 45, 160) 100%);
+        box-shadow: 0px 0px 3px rgb(22, 69, 177); 
         border-radius: 15px;
         font-weight: bolder;
     }

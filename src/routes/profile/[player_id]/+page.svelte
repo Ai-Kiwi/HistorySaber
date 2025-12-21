@@ -16,6 +16,7 @@
   import OldScoresMissingWarning from '$lib/oldScoresMissingWarning.svelte';
   import DataMissingWarning from '$lib/dataMissingWarning.svelte';
     import Seo from '$lib/seo.svelte';
+    import Background from '$lib/background.svelte';
   let { data }: PageProps = $props();
   let hasLoaded = false
 
@@ -352,7 +353,9 @@
 
 </script>
   
-<main>
+<Background></Background>
+
+<main class="global-main-content-area-window">
 
 
   {#if compact_mode == false}
@@ -436,6 +439,17 @@
 />
 
 <style>
+  main {
+    margin-top: 80px;
+    margin-bottom: 100px;
+    max-width: 1000px;
+    padding: 25px;
+  }
+
+  h1 {
+    margin-top: 50px;
+  }
+
   .sort-toggle {
     padding: 7.5px 10px;
     font-family: sans-serif;

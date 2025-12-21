@@ -1,5 +1,6 @@
 <script lang="ts">
     import { page } from '$app/state';
+    import Background from '$lib/background.svelte';
     import OldScoresMissingWarning from '$lib/oldScoresMissingWarning.svelte';
     import ScoreDisplay from '$lib/scoreDisplay.svelte';
     import Seo from '$lib/seo.svelte';
@@ -18,10 +19,12 @@
   image="https://historysaber.com/og-image/user-map/{data.player_data.player_id}/{data.map_data.leaderboard_id}"
 />
 
+<Background></Background>
+
 {#if compact == true}
   <PastTopScoresGraph scores={data.scores}></PastTopScoresGraph>
 {:else}
-<main>
+<main class="global-main-content-area-window">
     <h1><span class="name">{data.player_data.name}</span> playing <span class="name">{data.map_data.song_name}</span> on <span class="name">{data.map_data.difficultyraw}</span> top score history</h1>
   <OldScoresMissingWarning NOTICE_ID="user-score-improvement-missing-scores"></OldScoresMissingWarning>
   <PastTopScoresGraph scores={data.scores}></PastTopScoresGraph>
@@ -46,6 +49,12 @@
 {/if}
 
 <style>
+  main {
+    margin-top: 80px;
+    margin-bottom: 100px;
+    max-width: 900px;
+    padding: 25px;
+  }
 
   h1, h2, h3 {
     text-align: center;

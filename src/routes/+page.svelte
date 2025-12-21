@@ -1,12 +1,10 @@
-<script lang="ts">
-  import type { PageProps } from './$types';
-  import Navbar from '$lib/navbar.svelte';
-  import Footer from '$lib/footer.svelte'
-    import { formatNumberShort } from '$lib/utils';
-    import Seo from '$lib/seo.svelte';
-  let { data }: PageProps = $props();
-  const system_info = data.info
-  
+<script>
+    import Footer from "$lib/footer.svelte";
+    import Navbar from "$lib/navbar.svelte";
+    import Seo from "$lib/seo.svelte";
+    import { onMount } from "svelte";
+    import { fade } from "svelte/transition";
+
 </script>
 
 <svelte:head>
@@ -36,188 +34,252 @@
   url="https://historysaber.com/"
 />
 
-<main>
 
-  
-
-  <!--<div class="logo">HistorySaber</div>-->
-
-  <img src="/images/medium-logo.png" alt="HistorySaber website logo" class="logo">
-  
-  <div class="description">
-    <p>
-      HistorySaber is your go-to platform for exploring historical Beat Saber rankings and player stats from
-      <strong>ScoreSaber</strong>.
-    </p>
-  
-    <p>
-      Player rankings are tracked starting from <strong>March 10, 2025</strong>. Score tracking is now active, but only for <strong>active players</strong>. Note that we do not have historical scores from before tracking began. If a player had scores that were later overwritten or deleted, that older data is lost. Because of this, only the <strong>list of top plays on each day since tracking started</strong> (and since the player became active) can be considered accurate.
-    </p>
-  
-    <p>
-      <strong>Inactive players</strong> currently have no score data downloaded at all. I'm looking into whether this can be improved in the future.
-    </p>
-  
-    <p>
-      Got older data or want to help improve the site? Feel free to reach out!
-    </p>
-  
-    <p>
-      For data downloads or feature requests, contact us at
-      <a href="mailto:contact@aikiwi.dev">contact@aikiwi.dev</a>.
-    </p>
-  
-    <p>
-      Happy browsing!
-    </p>
-  </div>
-
-  <div class="info-container">
-    <div class="info-box">
-      <div class="info-value">{formatNumberShort(Number(data.info.player_history_count))}</div>
-      <div class="info-label">Total Player Records</div>
+<div class="main-content">
+    <div class="background-mascots">
+        <img src="/images/left.webp" alt="" class="mascot left-mascot">
+        <img src="/images/right.webp" alt="" class="mascot right-mascot">
     </div>
-    <div class="info-box">
-      <div class="info-value">{data.info.player_history_size}</div>
-      <div class="info-label">Player Data Size</div>
+    <div class="center-text">
+        <img src="/images/medium-logo.png" alt="" class="logo">
+        <div class="logo-text">
+            Documenting the past, one score at a time.
+        </div>
     </div>
-    <div class="info-box-seperator"></div>
-    <div class="info-box">
-      <div class="info-value">{formatNumberShort(Number(data.info.player_scores_count))}</div>
-      <div class="info-label">Total Score Records</div>
-    </div>
-    <div class="info-box">
-      <div class="info-value">{data.info.player_scores_size}</div>
-      <div class="info-label">Score Data Size</div>
-    </div>
-    <div class="info-box-seperator"></div>
-    <div class="info-box">
-      <div class="info-value">{formatNumberShort(data.info.player_history_unique_players)}</div>
-      <div class="info-label">Players Tracked</div>
+    <a class="open-leaderboard-button" href="/leaderboard">
+        Open Leaderboards
+    </a>
+    <div class="foornote-text-section">
+        <div class="foornote-text">
+            <h3>About HistorySaber</h3>
+            <p>
+                Track the evolution of the leaderboard. HistorySaber archives player stats and rankings from ScoreSaber, letting you travel back in time to compare changes.
+            </p>
+            <p>
+                <b>Player History:</b> View your scores on specific dates and visualize your growth journey.<br>
+                <b>Map Data:</b> Access historical top scores and track changes in star ratings over time.<br>
+                <b>Detailed Analytics:</b> Understand not just that your rank increased but when and why.<br>
+            </p>
+        </div>
+        <div class="foornote-text">
+            <h3>Data & Feedback</h3>
+            <p>
+                Note on Accuracy: While dates are pulled directly from ScoreSaber and are fully reliable, please note that some historical scores may be missing or overridden if they were beaten before our tracking began.
+            </p>
+            <p>
+                Found a bug, want to request a feature, or have extra data to contribute? <br>
+                Email me at : <a href="mailto:contact@aikiwi.dev">contact@aikiwi.dev</a>.
+                <br> Happy browsing!
+            </p>
+        </div>
     </div>
     
-  </div>
-
-</main>
-
-
-
-
+</div>
 
 <style>
-
-  .info-box-seperator {
-    height: 50px;
-    width: 1px;
-    background-color: rgb(83, 83, 83);
-    border-radius: 25px;
-  }
-  .info-container {
-    margin-top: 50px;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;  /* Centers the items vertically */
-    gap: 20px;  /* Space between the boxes */
-    max-width: 1fr;
-    width: 100%;
-    align-self: center;
-    flex-wrap: wrap;
-  }
-
-  .info-box {
-    padding: 20px;
-    display: flex;
-    flex: 1 1 0px;
-    flex-direction: column;
-    justify-content: space-evenly;  /* Center content vertically */
-    align-items: center;  /* Center content horizontally */
-    text-align: center;
-    transition: filter 0.3s ease, scale 0.3s cubic-bezier(0.6, -0.8, 0.2, 1.5);
-  }
-
-  .info-value {
-    font-size: 2rem;  /* Large numbers */
-    font-weight: bold;
-    color: #f1f1f1;  /* Light grey color for values */
-    margin-bottom: 10px;  /* Space between value and label */
-  }
-
-  .info-label {
-    font-size: 0.875rem;
-    color: #bbb;  /* Lighter grey for the label */
-  }
-
-  @media (max-width: 950px) {
-    .info-box-seperator {
-      width: 100%;
-      height: 0px;
+    .background-mascots {
+        width: 100vw;
+        height: 100vh;
+        z-index: -2;
+        position: absolute;
+        background: 
+        radial-gradient(circle at right bottom,rgba(10, 45, 80, 1) 0%, rgba(15, 15, 15, 0.25) 50%, rgba(15, 15, 15, 0) 100%),
+        radial-gradient(circle at left bottom,rgba(80, 10, 10, 1) 0%, rgba(15, 15, 15, 0.25) 50%, rgba(15, 15, 15, 0) 100%);
+        background-blend-mode: color;
+        
     }
-    .info-container {
-      gap: 0px;
-      margin-top: 50px;
-      margin-bottom: 50px;
+
+    .mascot {
+        position: absolute;
+        top: 5%;
+        z-index: 0;
+        width: 30vw;
+        padding: 3vw;
+        animation: float 3s ease-in-out infinite;
+        
     }
-  }
 
-  .logo {
-    max-width: 100%;
-    max-height: 100%;
-    font-weight: bold;
-    color: #1abc9c;
-    white-space: nowrap;
-    text-align: center;
-    margin-bottom: 35px;
-    font-size: clamp(2rem, 12vw, 8rem);
-    aspect-ratio: 3240 / 512;
-    animation: logoPulse 5s ease-in-out infinite;
-    filter: drop-shadow(0px 0px 0px #ffffff);
-  }
-
-  @keyframes logoPulse {
-    0%, 100% { 
-      filter: drop-shadow(0px 0px 15px #ffffff00); 
-      transform: scale(1)
-    }
-    50% { 
-      filter: drop-shadow(0px 0px 15px #ffffff82); 
-      transform: scale(1.01)
-    }
-  }
-
-  .info-box:hover {
-    filter: drop-shadow(0px 0px 50px #ffffff88) drop-shadow(0px 0px 15px #ffffff88);
-    scale: 1.25;
-  }
-
-  @media (max-width: 480px) {
-    .logo {
-      display: none;
+    .right-mascot {
+        right: 0px;
+        filter: drop-shadow(0px 0px 15px rgba(20, 90, 160, 0.25));
     }
     
-    main {
-      font-size: 0.875rem;
+    .left-mascot {
+        left: 0px;
+        animation-delay: -0.5s;
+        filter: drop-shadow(0px 0px 15px rgba(160, 20, 20, 0.25));
     }
 
-    .info-box {
-      padding: 5px;
+    @keyframes float {
+      0% {
+          transform: translateY(0);
+      }
+
+      50% {
+          transform: translateY(-1%);
+      }
+
+      100% {
+          transform: translateY(0);
+      }
     }
 
-    .info-value {
-      font-size: 1.5625rem;
+    .main-content {
+        width: 100vw;
+        min-height: 100vh;
     }
 
-    .info-container {
-      gap: 0px;
-    }
-    .info-label {
-      font-size: 0.75rem;
-    }
-    .info-box-seperator {
-      height: 15px;
-      background-color: transparent;
+    .open-leaderboard-button {
+        border: 1px solid rgb(98, 156, 232);
+        border-radius: 0px;
+        padding: 15px 35px;
+        background-color: transparent;
+        border-radius: 99999px;
+        color: white;
+        font-size: 1.75vw;
+        position: absolute;
+        top: 45%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-decoration: none;
     }
 
-  }
+    .open-leaderboard-button::after {
+        content: "";
+        border-radius: 99999px;
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        animation: button-outline-glow 7s ease-in-out infinite;
+        box-shadow: 
+            0px 0px 15px rgb(79, 111, 253),
+            0px 0px 25px rgb(27, 56, 183);
+        z-index: 10;
+    }
 
 
+    @keyframes button-outline-glow {
+      0% {
+        opacity: 75%;
+      }
+
+      50% {
+        opacity: 100%;
+      }
+
+      100% {
+        opacity: 75%;
+      }
+    }
+
+    .logo-text {
+        color: rgb(230, 230, 230);
+        font-size: 1.75vw;
+        z-index: 3;
+    }
+
+    .center-text {
+        z-index: 3;
+        position: relative;
+        width: 1fr;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        position: absolute;
+        top: 22.5%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    
+    .logo {
+        height: 7vw;
+        animation: logoPulse 5s ease-in-out infinite;
+    }
+
+    @keyframes logoPulse {
+      0%, 100% { 
+        filter: drop-shadow(0px 0px 10px #ffffff00); 
+        transform: scale(1)
+      }
+      50% { 
+        filter: drop-shadow(0px 0px 10px #ffffff4d); 
+        transform: scale(1.0)
+      }
+    }
+
+    .foornote-text-section {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        max-width: 1750px;
+        gap: 50px;
+        width: calc(100vw - 600px);
+        position: absolute;
+        top: 80%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .foornote-text {
+        border-radius: 15px;
+        padding: 15px;
+        text-align: center;
+        width: 100%;
+        font-size: clamp(1rem,1.2vw,1.3rem);
+        box-shadow: 0px 0px 15px rgba(4, 4, 142, 0.549);
+        background-color: rgba(0, 0, 0, 0.25);
+        backdrop-filter: blur(15px);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    p {
+        margin: 0px;
+        margin-bottom: clamp(5px,1.25vw,20px);
+    }
+    h3 {
+        font-size: clamp(1.35rem,1.6vw,1.75rem);
+        margin-top: 0px;
+        margin-bottom: 5px;
+    }
+    @media (max-width: 1480px) {
+        .foornote-text-section {
+            flex-direction: column;
+            width: calc(100vw - 400px);
+        }
+    }
+
+    @media (max-width: 1000px) {
+        .foornote-text-section {
+            flex-direction: column;
+            width: calc(100vw);
+            padding: 0px;
+            margin: 0px;
+            gap: 15px;
+        }
+        .foornote-text {
+            max-width: 1000px;
+            font-size: clamp(0.05rem,2.5vw,1rem);
+            margin: 0px;
+        }
+
+        .logo-text {
+            font-size: 3.5vw;
+        }
+
+        .logo {
+            width: 100vw;
+            height: calc(100vw/6.328125);
+        }
+
+        .mascot {
+            visibility: hidden;
+        }
+
+        .open-leaderboard-button {
+            font-size: 5vw;
+            text-wrap: nowrap;
+        }
+    }
 </style>

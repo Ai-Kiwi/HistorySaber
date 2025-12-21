@@ -6,11 +6,9 @@
     import StarRankGraph from './graphs/StarRankGraph.svelte';
     import Seo from '$lib/seo.svelte';
     import { parseLevelDifficulties } from '$lib/utils';
+    import Background from '$lib/background.svelte';
     /** @type {import('./$types').PageProps} */
     let { data } = $props();
-
-  let star_rank_history_shown = $state(true)
-  let top_score_history_shown = $state(false)
   let dif_name = parseLevelDifficulties(data.map_data.difficulty)
 
 </script>
@@ -22,9 +20,11 @@
   image="https://historysaber.com/og-image/map/{data.map_data.map_hash}"
 />
 
+<Background></Background>
+
 <main>
-  <!--Title and info for level-->
-  <div class="top-information">
+  <div class="info-section global-main-content-area-window">
+    <!--Title and info for level-->
     <div class="title-and-icon">
         <div class="map-icon-parent">
             <img class="map-icon" src="https://cdn.scoresaber.com/covers/{data.map_data.map_hash}.png" alt="Map Image">
@@ -38,62 +38,55 @@
             </div>
         </div>
         <div class="song-info-text">
-            <span class="song-name">{data.map_data.song_name}</span>
+            <span class="song-name page-header">{data.map_data.song_name}</span>
             <span class="sub-song-name">{data.map_data.song_sub_name}</span>
             <span class="song-author-name">Song by {data.map_data.song_author_name}</span>
             <span class="level-author-name">Mapped by {data.map_data.level_author_name}</span>
         </div>
     </div>
-  </div>
-  
-  <!--General Info About Map-->
-  <div class="song-info-text">
-    <span>Max score : {data.map_data.maxscore}</span>
-    <span>Map hash : {data.map_data.map_hash}</span>
-    <span>Difficulty raw : {data.map_data.difficultyraw}</span>
-    <span>Leaderboard id : {data.map_data.leaderboard_id}</span>
-  </div>
-
-
-  {#if data.other_difficulties.length > 1}
-    <div class="clickable-buttons" transition:slide={{ duration: 500 }}>
-      {#each data.other_difficulties as map_dif}
-        <a href="/map/{map_dif.leaderboard_id}" class="clickable-button" data-sveltekit-reload style="{data.map_data.leaderboard_id == map_dif.leaderboard_id ? "background-color: rgba(100, 100, 100, 0.5);" : ""}">
-          {parseLevelDifficulties(map_dif.difficulty)}
-          {#if map_dif.stars != null && map_dif.stars != 0}
-              ({map_dif.stars}☆)
-          {/if}
-        </a>
-      {/each}
+    
+    <!--General Info About Map-->
+    <div class="song-info-text">
+      <span>Max score : {data.map_data.maxscore}</span>
+      <span>Map hash : {data.map_data.map_hash}</span>
+      <span>Difficulty raw : {data.map_data.difficultyraw}</span>
+      <span>Leaderboard id : {data.map_data.leaderboard_id}</span>
     </div>
-  {/if}
+
+    <!--Pick difficulty you are viewing-->
+    {#if data.other_difficulties.length > 1}
+      <div class="clickable-buttons" transition:slide={{ duration: 500 }}>
+        {#each data.other_difficulties as map_dif}
+          <a href="/map/{map_dif.leaderboard_id}" class="clickable-button" data-sveltekit-reload style="{data.map_data.leaderboard_id == map_dif.leaderboard_id ? "background-color: rgba(100, 100, 100, 0.5);" : ""}">
+            {parseLevelDifficulties(map_dif.difficulty)}
+            {#if map_dif.stars != null && map_dif.stars != 0}
+                ({map_dif.stars}☆)
+            {/if}
+          </a>
+        {/each}
+      </div>
+    {/if}
+  </div>
 
 
-
-
-
-
-
-  <!--Star Rank History-->
-  {#if data.map_data.stars}
-    <button onclick="{()=>{star_rank_history_shown = !star_rank_history_shown}}" aria-label="Show top score section" class="section-toggle {star_rank_history_shown ? "enabled-section" : ""}">
-      Star History
-    </button>
-    {#if star_rank_history_shown}
-      <div transition:slide={{ duration: 500 }}>
+  
+  <div class="map-details-row">
+    {#if data.map_data.stars}
+    <div class="rank-section global-main-content-area-window">
+      <!--Star Rank History-->
+        <div class="section-toggle page-header">
+          Star History
+        </div>
         <OldScoresMissingWarning NOTICE_ID="leaderboard-global-star-history"></OldScoresMissingWarning>
         <StarRankGraph ranks={data.ranks}></StarRankGraph>
       </div>
     {/if}
-  {/if}
 
-
-  <!--Top Score History-->
-  <button onclick="{()=>{top_score_history_shown = !top_score_history_shown}}" aria-label="Show top score section" class="section-toggle {top_score_history_shown ? "enabled-section" : ""}">
-    Top Score History
-  </button>
-  {#if top_score_history_shown}
-    <div transition:slide={{ duration: 500 }}>
+    <div class="top-scores-section global-main-content-area-window">
+      <!--Top Score History-->
+      <div class="section-toggle page-header">
+        Top Score History
+      </div>
       <OldScoresMissingWarning NOTICE_ID="leaderboard-global-score-improvement"></OldScoresMissingWarning>
       <PastTopScoresGraph scores={data.scores}></PastTopScoresGraph>
       <div class="score-list">
@@ -112,39 +105,74 @@
         {/each}
       </div>
     </div>
-
-  {/if}
-
-
-
+  </div>
 
 </main>
 
 <style>
-    .clickable-button {
-        background-color: rgba(50, 50, 50, 0.25);
-        border-radius: 10px;
-        padding: 10px;
-        width: 100%;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-        text-align: center;
-        text-decoration: none;
-        font-size: 0.9375rem;
-        color: white;
-        font-weight: bold;
-        margin: 5px 2.5px;
-        transition: 0.25s ease;
-    }
+  main {
+    display: flex;
+    flex-direction: row-reverse;
+    margin-top: 80px;
+    margin-bottom: 80px;
+    max-width: clamp(0px,calc(100vw - 50px),2000px);
+    align-items: flex-start;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+  }
 
-    .clickable-button:hover {
-        background-color: rgba(150, 150, 150, 0.25);
-        transition: 0.25s ease;
-    }
+  .info-section{
+    flex: 0 0 auto;
+    padding: 25px;
+  }
+  .map-details-row{
+    flex: 1;
+    gap: 25px;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    width: clamp(350px,100vw,2000px);
+    min-width: 500px;
+    
+  }
 
-    .clickable-buttons {
-      margin-top: 8px;
-      display: flex;
-    }
+  .rank-section{
+    padding: 25px;
+  }
+
+  .top-scores-section{ 
+    padding: 25px;
+  }
+
+  .clickable-button {
+    background-color: rgba(50, 50, 50, 0.25);
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    text-decoration: none;
+    font-size: 0.9375rem;
+    color: white;
+    font-weight: bold;
+    margin: 5px 2.5px;
+    transition: 0.25s ease;
+    flex: 0 0 175px;
+  }
+
+  .clickable-button:hover {
+      background-color: rgba(150, 150, 150, 0.25);
+      transition: 0.25s ease;
+  }
+
+  .clickable-buttons {
+    margin-top: 8px;
+    flex-direction: row;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: start;
+    max-width: 600px;
+  }
 
 
   .map-icon {
@@ -154,7 +182,7 @@
   }
 
   .map-icon-parent {
-    margin: 16px;
+    margin-bottom: 16px;
     width: 125px;
     height: 125px;
     position: relative;
@@ -200,6 +228,9 @@
   .song-info-text {
     display: flex;
     flex-direction: column;
+    margin-left: 16px;
+    text-wrap: wrap;
+    max-width: 500px;
   }
 
   .level-author-name {
@@ -226,8 +257,6 @@
 
   .section-toggle {
     width: 100%;
-    background-color: rgba(25, 25, 25, 0.9);
-    border: 2px rgba(25, 25, 25,0.5) solid;
     border-radius: 16px;
     height: 65px;
     text-align: center;
@@ -235,14 +264,8 @@
     flex-direction: column;
     justify-content: center;
     color: white;
-    font-size: 30px;
+    font-size: 40px;
     font-weight: bold;
-    margin-top: 25px;
-  }
-
-  .enabled-section {
-    background-color: transparent;
-    border: 0px;
-
+    margin-bottom: 15px;
   }
 </style>

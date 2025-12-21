@@ -1,49 +1,60 @@
 <footer>
-    <div class="footer-content">
-      <p>© 2025 HistorySaber. Licensed under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>.</p>
-      <div class="social-links">
-        <!--<a href="https://twitter.com" target="_blank" rel="noopener noreferrer">Twitter</a>-->
-        <a href="https://github.com/Ai-Kiwi/HistorySaber" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <div>-</div>
-        <a href="/credits">Credits</a>
-        <div>-</div>
-        <a href="/assets">Assets</a>
-        <div>-</div>
-        <a href="mailto:contact@aikiwi.dev">Contact</a>
-      </div>
+  <div class="text-sections">
+    <img src="/images/small-logo.png" alt="" class="small-logo">
+
+    <div class="resources-row">
+      <div><a href="/api">Api</a></div>
+      -
+      <div><a href="https://github.com/Ai-Kiwi/HistorySaber">Github</a></div>
+      -
+      <div><a href="/assets">Assets</a></div>
+      -
+      <div><a href="/credits">Credits</a></div>
+      -
+      <a href="mailto:contact@aikiwi.dev">Contact</a>
     </div>
-  </footer>
+
+    <div class="credit-row">
+      © 2025 HistorySaber. <br>
+      Licensed under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>.
+    </div>
+  </div>
+</footer>
   
-  <style>
+<style>
     footer {
-      background-color: rgba(0, 0, 0, 0);
-      color: #aaa;
-      padding: 20px;
-      text-align: center;
-      margin-top: auto;
-      max-width: 100vw;
+      border-top: 1px solid rgba(25, 25, 25, 1);
+      width: 100vw;
+      z-index: 10;
+      background-color: rgb(0, 0, 0);
+      position: relative;
     }
-  
-    .footer-content {
-      margin: 0 auto;
-      font-size: clamp(0.75rem, 3vw, 1rem);
+    .text-sections {
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      color: rgb(230,230,230);
+      display: flex;
+      justify-content: start;
+      align-items: start;
+      flex-direction: column;
+      padding: 16px;
+      gap: 2px;
     }
-  
-    .social-links {
-      margin-top: 10px;
+    
+    .small-logo {
+      width: 350px;
+    }
+
+    .resources-row {
+      align-items: center;
+      justify-content: center;
       display: flex;
       flex-direction: row;
-      justify-content: center;
+      gap: 15px;
+      margin-bottom: 16px;
     }
-  
-    .social-links a {
+
+    a {
+      color: rgb(200, 200, 200);
       text-decoration: none;
-      color: #1abc9c;
-      margin: 0 15px;
-      transition: color 0.3s;
-    }
-  
-    .social-links a:hover {
-      color: #16a085;
     }
   </style>

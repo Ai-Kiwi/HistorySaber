@@ -209,13 +209,13 @@
 <style>
     .graph {
         height: 500px;
+        width: 100%;
         margin-bottom: 15px;
     }
 
     @media (max-width: 480px) {
         .graph {
-        height: 350px;
-        
+          height: 300px;
         }
     }
 </style>

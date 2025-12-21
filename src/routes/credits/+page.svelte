@@ -12,6 +12,7 @@
     import { writable } from 'svelte/store';
       import { countries } from '$lib/userData';
     import Seo from '$lib/seo.svelte';
+    import Background from '$lib/background.svelte';
   
 
   </script>
@@ -21,8 +22,10 @@
   description="Meet the team and contributors behind HistorySaber who made it possible."
   url="https://historysaber.com/leaderboard"
 />
-  
-<main>
+
+<Background></Background>
+
+<main class="global-main-content-area-window">
     <h1>
         HistorySaber was made possible thanks to the following people
     </h1>
@@ -70,6 +73,9 @@
   
   
 <style>
+    main {
+        padding: 25px;
+    }
     .feedback-people {
         display: flex;
         margin: 0px 15px 50px 15px;

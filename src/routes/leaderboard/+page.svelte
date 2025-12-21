@@ -13,6 +13,7 @@
   import type { PageProps } from './$types';
     import DateSelect from '$lib/dateSelect.svelte';
     import Seo from '$lib/seo.svelte';
+    import Background from '$lib/background.svelte';
   let { data }: PageProps = $props();
   let has_loaded = false
 
@@ -128,9 +129,11 @@
   url="https://historysaber.com/leaderboard"
 />
 
-<main>
+<Background></Background>
 
-    <h1>Scoresaber past leaderboard</h1>
+<main class="global-main-content-area-window">
+
+    <h1 class="page-header">Scoresaber past leaderboard</h1>
     <h2 class="date_text">{current_date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</h2>
     <DateSelect 
       start_date={start_date} 
@@ -163,9 +166,11 @@
         {/each}
       </div>
     {:else}
-    <h2>
-      No users to display on this page
-    </h2>
+    <div class="no-users-text">
+      <h2>
+        No users to display on this page
+      </h2>
+    </div>
     {/if}
     </div>
 
@@ -182,24 +187,31 @@
 
 
 <style>
+  main {
+    margin-top: 80px;
+    margin-bottom: 100px;
+    max-width: 1000px;
+    padding: 25px;
+    width: 100%;
+  }
+
   .user-list{
     display: flex;
     flex-direction: column;
     gap: 5px;
   }
 
-  h1 {
-    text-align: center;
-    font-size: 2.5rem;
-  }
-
-  h2 {
+  h1, h2 {
     text-align: center;
   }
 
   .country-select {
     margin: 15px;
     border-radius: 15px;
+  }
+
+  .no-users-text {
+    height: 2000px;
   }
 
   .date_text {
