@@ -6,6 +6,7 @@
 
     const links = [
       { name: 'Home', href: '/' },
+      { name: 'About', href: '/about' },
       { name: 'All Scores', href: '/all-scores' },
       { name: 'Search', href: '/search' },
       { name: 'Leaderboard', href: '/leaderboard' },
