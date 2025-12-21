@@ -90,7 +90,7 @@
         height: 25px;
         border-radius: 5px;
         font-size: 0.9375rem;
-        background-color: rgb(200, 200, 200);
+        background: linear-gradient(120deg, rgb(200, 200, 200) 0%, rgb(150, 150, 150) 100%);
         color: black;
         padding: 0px 5px 0px 5px;
         width: 50px;
@@ -102,12 +102,12 @@
         height: 25px;
         border-radius: 5px;
         font-size: 0.9375rem;
-        background-color: rgb(80, 80, 80);
-        color: black;
+        color: rgb(200, 200, 200);
         padding: 0px 5px 0px 5px;
-        width: 50px;
         text-align: center;
         margin-right: 5px;
+        font-size: 1rem;
+        font-weight: bold;
     }
 
     .country-rank{
@@ -115,7 +115,7 @@
         text-align: center;
         border-radius: 5px;
         font-size: 0.9375rem;
-        background-color: rgb(125, 125, 125);
+        background: linear-gradient(120deg, rgb(95, 95, 95) 0%, rgb(125, 125, 125) 100%);
         padding: 0px 5px 0px 5px;
         display: flex;
         color: white;
@@ -123,6 +123,7 @@
         text-decoration: none;
         flex-direction: row;
         justify-content: center;
+        
     }
     a {
         text-decoration: none;
@@ -143,7 +144,8 @@
         text-align: center;
         border-radius: 5px;
         font-size: 0.9375rem;
-        background-color: rgb(54, 101, 212);     
+        background: linear-gradient(120deg, rgb(54, 101, 212) 0%, rgb(48, 69, 190) 100%);
+        box-shadow: 0px 0px 3px rgba(54, 101, 212, 1);     
         padding: 0px 5px 0px 5px;
         margin: 5px;
         margin-left: auto;
@@ -174,12 +176,6 @@
 
     .extra-text-info {
         display: none;
-    }
-
-    @media (hover: hover) and (pointer: fine) {
-        .user-bar {
-            backdrop-filter: blur(15px) saturate(130%);
-        }
     }
 
     @media (max-width: 520px) {
@@ -234,7 +230,7 @@
         }
     }
 
-    @media (min-width: 725px) {
+    @media (min-width: 800px) {
         .user-bar {
             display: flex;
             flex-grow: wrap;

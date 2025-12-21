@@ -1,5 +1,6 @@
 <script>
-    import Seo from "$lib/seo.svelte";
+    import Background from "$lib/background.svelte";
+import Seo from "$lib/seo.svelte";
 
 
 </script>
@@ -10,7 +11,9 @@
   url="https://historysaber.com/assets"
 />
 
-<main>
+<Background></Background>
+
+<main class="global-main-content-area-window ">
     <h1>Assets used for our website</h1>
     <h3>High quality versions, for puting on websites recommend compressing</h3>
     <img src="/images/big-logo.png" alt="" class="share-image">
@@ -18,6 +21,13 @@
 </main>
 
 <style>
+    main {
+      margin-top: 80px;
+      margin-bottom: 100px;
+      max-width: 900px;
+      padding: 25px;
+    }
+    
     .share-image {
         width: auto;
         max-height: 150px;

@@ -6,7 +6,6 @@
 
     const links = [
       { name: 'Home', href: '/' },
-      { name: 'Api', href: '/api' },
       { name: 'All Scores', href: '/all-scores' },
       { name: 'Search', href: '/search' },
       { name: 'Leaderboard', href: '/leaderboard' },
@@ -36,7 +35,7 @@
     {#if Show_pages == true}
       <ul>
         {#each links as link}
-          <button class="logo-button" onclick={() => {
+          <button class="logo-button" style="border-bottom: 1px white solid;" onclick={() => {
             Show_pages = !Show_pages
             if (window.innerWidth > 600) {
               Show_pages = true
@@ -57,8 +56,6 @@
     }
   
     nav {
-      background-color: rgba(0, 0, 0, 0.75);
-      backdrop-filter: blur(25px);
       color: #fff;
       padding: 15px 20px;
       position: fixed;
@@ -69,7 +66,6 @@
     }
   
     .nav-container {
-      max-width: 1100px;
       margin: 0 auto;
       display: flex;
       align-items: start;
@@ -77,6 +73,16 @@
       flex-wrap: wrap;
       overflow-x: hidden; /* Prevents horizontal overflow */
       padding: 0 10px; /* Prevents too much space on the sides */
+    }
+
+    .logo-button {
+      padding: 0px;
+      margin: 0px;
+      background-color: transparent;
+      border: 0px;
+      cursor: pointer;
+      
+      padding-bottom: 2px;
     }
   
     .logo {
@@ -91,6 +97,7 @@
       transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 3);
       animation: logoPulse 3s ease-in-out infinite;
       filter: drop-shadow(0px 0px 0px #ffffff);
+      border: none;
     }
     .logo:hover {
       filter: drop-shadow(0px 0px 3px #ffffff82); 
@@ -121,14 +128,6 @@
   
     li a:hover {
       text-shadow: 0px 0px 4px #ecf0f1;
-    }
-
-    .logo-button {
-      padding: 0px;
-      margin: 0px;
-      background-color: transparent;
-      border: 0px;
-      cursor: pointer;
     }
     
     @media (max-width: 600px) {

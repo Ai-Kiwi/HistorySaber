@@ -6,6 +6,7 @@
   import Seo from '$lib/seo.svelte';
   import type { Score } from '$lib/types';
   import OldScoresMissingWarning from '$lib/oldScoresMissingWarning.svelte';
+    import Background from '$lib/background.svelte';
   
   let hasLoaded = false
   let loading_scores = $state(false)
@@ -57,9 +58,11 @@
 
 </script>
   
-<main>
+<Background></Background>
 
-  <h1>All Scores</h1>
+<main class="global-main-content-area-window ">
+
+  <h1 class="page-header">All Scores</h1>
 
 
   <Pagination current_page_selected={score_page_selected} pageChanged={(page: number) => {score_page_selected = page; fetchScores()}} pageSizeChanged={(size : number) => {score_page_size = size; fetchScores()}} current_page_size={score_page_size.toString()}></Pagination>
@@ -108,6 +111,17 @@
 />
 
 <style>
+  main {
+    margin-top: 80px;
+    margin-bottom: 100px;
+    max-width: 900px;
+    padding: 25px;
+  }
+
+  h1 {
+    text-align: center;
+  }
+
   h2, h1 {
     text-align: center;
   }

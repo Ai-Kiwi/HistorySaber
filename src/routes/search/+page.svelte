@@ -1,4 +1,5 @@
 <script lang="ts">
+    import Background from "$lib/background.svelte";
     import Pagination from "$lib/pagination.svelte";
     import Seo from "$lib/seo.svelte";
     import type { UserType } from "$lib/types";
@@ -54,8 +55,10 @@
   url="https://historysaber.com/search"
 />
 
-<main>
-    <h1>Search</h1>
+<Background></Background>
+
+<main class="global-main-content-area-window">
+    <h1 class="page-header">Search</h1>
 
     <input class="search-text" placeholder="username" bind:value={user_text_searching} on:input={fetchSearch}>
 
@@ -85,19 +88,27 @@
 </main>
 
 <style>
-    .search-list {
-        display: flex;
-        flex-direction: column;
-        gap: 5px;
-    }
+  main {
+    margin-top: 80px;
+    margin-bottom: 100px;
+    max-width: 900px;
+    padding: 25px;
+    width: 100%;
+  }
 
-    h1 {
-        text-align: center;
-        font-size: 2.5rem;
-    }
-    h2 {
-        text-align: center;
-    }
+  .search-list {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+  }
+
+  h1 {
+      text-align: center;
+      font-size: 2.5rem;
+  }
+  h2 {
+      text-align: center;
+  }
 
   .search-text {
     background-color: black;

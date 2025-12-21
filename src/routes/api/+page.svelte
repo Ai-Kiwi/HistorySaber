@@ -1,9 +1,12 @@
 <script>
-    import Seo from "$lib/seo.svelte";
+    import Background from "$lib/background.svelte";
+import Seo from "$lib/seo.svelte";
 
     // If you want to load this dynamically or scroll to sections, add logic here
   </script>
   
+<Background></Background>
+
 <Seo
   title="API Info - HistorySaber"
   description="Explore HistorySaber's API and learn how to access historical Beat Saber data programmatically."
@@ -12,10 +15,10 @@
 
   <style>
     main {
+      margin-top: 80px;
+      margin-bottom: 100px;
       max-width: 900px;
-      margin: 2rem auto;
-      padding: 2rem;
-      font-family: system-ui, sans-serif;
+      padding: 25px;
     }
   
     h1 {
@@ -85,7 +88,7 @@
     }
   </style>
   
-  <main>
+  <main class="global-main-content-area-window ">
     <h1>📊 API Documentation</h1>
   
     <section>
