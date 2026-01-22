@@ -25,6 +25,7 @@
 {#if compact == true}
     {@render children()}
 {:else}
+  <script async defer data-website-id="61d67539-1641-4e28-893c-3ddda6641e5f" src="/analytics.js"></script>  
 <main>
     
     
