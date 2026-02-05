@@ -110,7 +110,7 @@ export async function fetchAllScoresDuplicatedPaged(page : number, page_size : n
         FROM scores s
         JOIN map_leaderboard ml ON s.leaderboard_id = ml.leaderboard_id
         JOIN map m ON ml.map_hash = m.map_hash
-        JOIN latest_ratings r ON s.leaderboard_id = r.leaderboard_id
+        LEFT JOIN latest_ratings r ON s.leaderboard_id = r.leaderboard_id
         ORDER BY s.time DESC
         LIMIT $1 OFFSET $2;
         `,
