@@ -5,11 +5,38 @@ html, body {
 } 
 
 .global-main-content-area-window {
+    position: relative;
     background-color: green;
     border-radius: 32px;
-    border: 2px rgb(38, 5, 187) solid;
+   
     background-color: rgba(10, 10, 10,0.75);
     box-shadow: 0px 0px 15px rgba(0, 75, 204, 0.616);
+}
+
+.global-main-content-area-window::before {
+    content: "";
+    position: absolute;
+    background: linear-gradient(
+      90deg,
+      rgb(4, 89, 159) 25%,
+      rgb(9, 144, 255) 50%,
+      rgb(4, 89, 159) 75%
+    );
+    padding: 3px;
+    inset: 0;
+    background-size: 200% 100%;
+    border-radius: inherit;
+    -webkit-mask: 
+      linear-gradient(#fff 0 0) content-box, 
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: destination-out;
+    mask-composite: exclude;
+    animation: pulse-charge 1.5s linear infinite;
+}
+
+@keyframes pulse-charge {
+    0% { background-position: 0 0; }
+    100% { background-position: 200% 200%; }
 }
 
 .page-header {
