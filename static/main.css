@@ -22,6 +22,7 @@ html, body {
       rgb(9, 144, 255) 50%,
       rgb(4, 89, 159) 75%
     );
+    pointer-events: none;
     padding: 3px;
     inset: 0;
     background-size: 200% 100%;
