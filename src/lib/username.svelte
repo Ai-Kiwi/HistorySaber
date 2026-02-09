@@ -19,11 +19,9 @@
 </script>
 
 
-<main>
-    <div class="username {color}-username">
-        {username}
-    </div>
-</main>
+<div class="username {color}-username">
+    {username}
+</div>
 
 
 <style>
@@ -83,7 +81,7 @@
 
     .username {
         font-weight: bold;
-        
+        display: inline-block;
         color: transparent;
         margin: 5px;
         position: relative;

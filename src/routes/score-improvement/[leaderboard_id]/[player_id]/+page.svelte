@@ -5,6 +5,7 @@
     import ScoreDisplay from '$lib/scoreDisplay.svelte';
     import Seo from '$lib/seo.svelte';
     import type { Score } from '$lib/types.js';
+    import Username from '$lib/username.svelte';
     import PastTopScoresGraph from '../../../map/[leaderboard_id]/graphs/PastTopScoresGraph.svelte';
     const { data } = $props()
 
@@ -25,7 +26,7 @@
   <PastTopScoresGraph scores={data.scores}></PastTopScoresGraph>
 {:else}
 <main class="global-main-content-area-window">
-    <h1><span class="name">{data.player_data.name}</span> playing <span class="name">{data.map_data.song_name}</span> on <span class="name">{data.map_data.difficultyraw}</span> top score history</h1>
+    <h1><Username username="{data.player_data.name}" rank="{data.player_data.rank}" user_id="{data.player_data.player_id}"></Username> playing <span class="name">{data.map_data.song_name}</span> on <span class="name">{data.map_data.difficultyraw}</span> top score history</h1>
   <OldScoresMissingWarning NOTICE_ID="user-score-improvement-missing-scores"></OldScoresMissingWarning>
   <PastTopScoresGraph scores={data.scores}></PastTopScoresGraph>
 
