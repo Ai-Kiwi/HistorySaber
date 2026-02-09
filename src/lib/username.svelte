@@ -13,7 +13,9 @@
         color = "silver"
     }else if (rank < 101) {
         color = "bronze"
-    }        
+    }else if (rank < 501) {
+        color = "glint"
+    }          
 
 
 </script>
@@ -76,6 +78,15 @@
             rgb(172, 0, 219) 25%,
             rgb(0, 242, 255) 50%,
             rgb(172, 0, 219) 75%
+        );
+    }
+
+    .glint-username {
+        background: linear-gradient(
+            135deg,
+            rgb(255, 255, 255) 55%,
+            rgb(154, 250, 255) 65%,
+            rgb(255, 255, 255) 75%
         );
     }
 
