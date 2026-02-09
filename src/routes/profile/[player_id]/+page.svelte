@@ -17,6 +17,7 @@
   import DataMissingWarning from '$lib/dataMissingWarning.svelte';
     import Seo from '$lib/seo.svelte';
     import Background from '$lib/background.svelte';
+    import Username from '$lib/username.svelte';
   let { data }: PageProps = $props();
   let hasLoaded = false
 
@@ -362,7 +363,9 @@
     <div class="basic-info-row">
       <img src="https://cdn.scoresaber.com/avatars/{data.player_data.player_id}.jpg" alt="Profile picture of {data.player_data.name}" class="profile-picture" aria-hidden="true">
 
-      <div class="username">{user_data.name}</div>
+      <div class="username">
+        <Username username="{user_data.name}" rank="{user_data.rank}" user_id="{user_data.player_id}"></Username>
+      </div>
     </div>
   {/if}
 

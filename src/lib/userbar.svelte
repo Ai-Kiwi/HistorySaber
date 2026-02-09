@@ -4,6 +4,7 @@
     export let relative_number: number;
 
     import { countries } from '$lib/userData'
+    import Username from './username.svelte';
     const formatted_date = new Date(user.snapshot_date).toISOString().split("T")[0].replace(/-/g, '-')
 
     //    <a href="/country-ranks/{formattedDte}/{user.country}/1">
@@ -31,9 +32,7 @@
     <div class="username-and-pfp">
         <img src="https://cdn.scoresaber.com/avatars/{user.player_id}.jpg" alt="Profile picture of {user.name}" class="profile-picture" aria-hidden="true" style="margin: auto 0px;">
 
-        <div class=username>
-            {user.name}
-        </div>
+        <Username username="{user.name}" user_id="{user.player_id}" rank="{user.rank}"></Username>
     </div>
 
     <div class="extra-text-info">{ Math.round(user.average_ranked_accuracy * 1000) / 1000 }</div>    
@@ -132,12 +131,8 @@
         height: 25px;
         padding: 0px 0px 0px 2px;
     }
-    .username {
-        font-weight: bold;
-        font-size: 0.9375rem;
-        color: rgb(250, 250, 250);
-        margin: 5px;
-    }
+
+
     .point-score{
         height: 25px;
         width: 90px;
