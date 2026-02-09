@@ -86,7 +86,7 @@
         margin: 5px;
         position: relative;
         background-color: white;
-        animation: pulse-charge 1s linear infinite;
+        animation: pulse-charge 3s linear infinite;
         background-clip: text;
         background-size: 200% 100%;
     }
