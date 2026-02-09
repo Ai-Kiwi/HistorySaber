@@ -148,7 +148,10 @@
     ></Pagination>
       <div class="country-select">
         <Multiselect style="--sms-options-bg: black; border-radius: 10px; background-color: black"
-        on:change={fetchData}
+        onchange={({ type, option, options }) => {
+          console.log("e")
+          fetchData()
+        }}
         bind:value={selected_countries}
         options={selectable_countries}
         placeholder="Choose countries"
