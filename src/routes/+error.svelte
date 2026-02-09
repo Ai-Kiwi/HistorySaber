@@ -1,5 +1,6 @@
 <script>
 	import { page } from '$app/state';
+    import Background from '$lib/background.svelte';
     import { error } from '@sveltejs/kit';
 
 
@@ -15,17 +16,35 @@
     }else{
         if (page.status == 404) {
             message = "Invalid Page"
-        subtext = "The page requested can not be found."
+            subtext = "The page requested can not be found."
         } 
     }
 
 
 </script>
 
-<h1>{message}</h1>
-<h3>{subtext}</h3>
+<Background></Background>
+
+<main class="global-main-content-area-window">
+    <h1>{message}</h1>
+    <h3>{subtext}</h3>
+    <img src="/images/large-cubes.avif" alt="">
+</main>
 
 <style>
+    img {
+        width: 50vh;
+        margin-bottom: 1vh;
+    }
+
+    main {
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
     h1 {
         text-align: center;
     }
