@@ -147,7 +147,7 @@
       current_page_size={""}
     ></Pagination>
       <div class="country-select">
-        <Multiselect style="--sms-options-bg: black; border-radius: 10px"
+        <Multiselect style="--sms-options-bg: black; border-radius: 10px; background-color: black"
         on:change={fetchData}
         bind:value={selected_countries}
         options={selectable_countries}
