@@ -240,11 +240,12 @@ export async function searchForUser(text : string, page : number, page_size : nu
                 WHERE name % $1
                 ORDER BY player_id, snapshot_date DESC
             ) latest
+            WHERE name ILIKE $4 OR similarity(name, $1) > 0.4
             ORDER BY score DESC, rank ASC
             OFFSET $3
             LIMIT $2;
         `,
-        values: [`%${text}%`, page_size, offset],
+        values: [`%${text}%`, page_size, offset, `${text}%`],
     };
 
     const response = await client.query(query);
