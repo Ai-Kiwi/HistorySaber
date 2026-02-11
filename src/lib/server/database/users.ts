@@ -226,20 +226,15 @@ export async function fetchPlayerScoresOnMap(player_id : string, leaderboard_id 
 
     return scores;
 }
-
+ 
 export async function searchForUser(text : string, page : number, page_size : number) {
     const offset = (page - 1) * page_size;
 
     const query = {
-        name: 'fetch-player-latest-matching-page',
+        name: 'search-player-name',
         text: `
             SELECT *, similarity(name, $1) AS score
-            FROM (
-                SELECT DISTINCT ON (player_id) *
-                FROM player_history
-                WHERE name % $1
-                ORDER BY player_id, snapshot_date DESC
-            ) latest
+            FROM public.player_current
             WHERE name ILIKE $4 OR similarity(name, $1) > 0.4
             ORDER BY score DESC, rank ASC
             OFFSET $3

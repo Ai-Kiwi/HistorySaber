@@ -27,8 +27,10 @@ export async function GET({ url }) {
       if (page_size < 1 || page_size > 100) {
         page_size = 50
       }
-  
+      
+      console.log("getting response")
       const users = await searchForUser(text,page,page_size)
+      console.log("response sent")
       return new Response(JSON.stringify(users), {
         headers: { 'Content-Type': 'application/json' },
         status: 200
