@@ -13,7 +13,7 @@
   let user_text_searching = $state("")
   let user_page_selected = $state(1)
   let search_results: any[]  = $state([])
-  let search_content = "user";
+  let search_content = $state("user");
 
   async function fetchSearch() {
     if (loading_scores == true) {
@@ -84,6 +84,10 @@
                   Map
               </label>
             {/each}
+          {:else}
+              <h2>
+                Not a Valid search content selected
+              </h2>
           {/if}
         </div>
       {:else}
