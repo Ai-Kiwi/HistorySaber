@@ -12,7 +12,8 @@
   let loading_outdated = false
   let user_text_searching = $state("")
   let user_page_selected = $state(1)
-  let search_users: UserType[]  = $state([])
+  let search_results: any[]  = $state([])
+  let search_content = "user";
 
   async function fetchSearch() {
     if (loading_scores == true) {
@@ -25,6 +26,7 @@
       const params = new URLSearchParams({ 
         page: user_page_selected.toString(), 
         text: user_text_searching, 
+        content: search_content,
       });
       const res = await fetch(`/api/search?${params.toString()}`);
       if (!res.ok) {
@@ -33,8 +35,8 @@
         return;
       }
 
-      const user_data = await res.json();
-      search_users = user_data
+      const result_data = await res.json();
+      search_results = result_data
 
     }catch(e){
       console.log(`failed fetching data ${e}`)
@@ -66,19 +68,28 @@
 
 
     <div class="{loading_scores ? 'shimmer' : ''}">
-        {#if search_users.length > 0}
+      {#if search_results.length > 0}
         <div class="search-list">
-        <UserBarLabels></UserBarLabels>
-          {#each search_users as user, i (user.player_id)}
-            <label animate:flip={{ duration: 500 }}>
-              <Userbar relative_number={i + 1 + ((user_page_selected - 1) * 50)} user={user}></Userbar>
-            </label>
-          {/each}
+          {#if search_content == "user"}
+            <UserBarLabels></UserBarLabels>
+            {#each search_results as user, i (user.player_id)}
+                <label animate:flip={{ duration: 500 }}>
+                  <Userbar relative_number={i + 1 + ((user_page_selected - 1) * 50)} user={user}></Userbar>
+                </label>
+            {/each}
+          {:else if search_content == "map"}
+            {#each search_results as map, i (map.leaderboard_id)}
+              <label animate:flip={{ duration: 500 }}>
+                {map}
+                  Map
+              </label>
+            {/each}
+          {/if}
         </div>
       {:else}
-      <h2>
-        No search results
-      </h2>
+        <h2>
+          No search results
+        </h2>
       {/if}
       </div>
 
@@ -97,9 +108,9 @@
   }
 
   .search-list {
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
   }
 
   h1 {

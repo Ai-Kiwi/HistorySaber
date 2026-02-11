@@ -56,6 +56,66 @@ export async function getLeaderboardInfo(leaderboard_id : string, date : Date) {
 }
 
 
+export async function searchForMapLeaderboard(text : string, page : number, page_size : number) {
+    const offset = (page - 1) * page_size;
+
+    const query = {
+        name: 'fetch-map-leaderboards-search-page',
+        text: `
+            WITH latest_ratings AS (
+                SELECT DISTINCT ON (r.leaderboard_id)
+                    r.leaderboard_id,
+                    r.stars,
+                    r.updated_at
+                FROM leaderboard_rating_update r
+                ORDER BY r.leaderboard_id, r.updated_at DESC
+            )
+        SELECT 
+            COALESCE(r.stars, 0) AS stars,
+            ml.map_hash,
+            ml.difficulty,
+            ml.difficultyraw,
+            ml.maxscore,
+            m.song_name,
+            m.song_sub_name,
+            m.song_author_name,
+            m.level_author_name,
+            (similarity(m.song_name, $1) * 0.5 + 
+            similarity(m.song_sub_name, $1) * 0.2 +
+            similarity(m.song_author_name, $1) * 0.15 +
+            similarity(m.level_author_name, $1) * 0.15) AS search_score
+        FROM map_leaderboard AS ml
+        LEFT JOIN latest_ratings r ON ml.leaderboard_id = r.leaderboard_id
+        JOIN map m ON ml.map_hash = m.map_hash
+        ORDER BY search_score DESC
+        OFFSET $3
+        LIMIT $2;
+        `,
+        values: [`%${text}%`, page_size, offset],
+    };
+
+
+    const response = await client.query(query);
+
+    let users: MapLeaderboard[] = response.rows.map((row: any) => {
+        return {
+            leaderboard_id: row.leaderboard_id,
+            stars: row.stars,
+            map_hash: row.map_hash,
+            difficulty: row.difficulty,
+            difficultyraw: row.difficultyraw,
+            maxscore: row.maxscore,
+            song_name: row.song_name,
+            song_sub_name: row.song_sub_name,
+            song_author_name: row.song_author_name,
+            level_author_name: row.song_author_name,
+        }
+    })
+
+    return users
+}
+
+
 export async function getLeaderboardRankHistory(leaderboard_id : string) {
     if (isNaN(Number(leaderboard_id))) {
         return undefined
