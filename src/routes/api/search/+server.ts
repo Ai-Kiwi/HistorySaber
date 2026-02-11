@@ -7,7 +7,7 @@ export async function GET({ url }) {
     const page = parseInt(url.searchParams.get('page') || '1');
     const text = url.searchParams.get('text') || '';
 
-    const content = url.searchParams.get('content') || '';
+    const content = url.searchParams.get('content') || 'user';
 
     if (content == 'map') {
       //map
