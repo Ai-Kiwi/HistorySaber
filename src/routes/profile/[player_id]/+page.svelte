@@ -1,5 +1,6 @@
 <script lang="ts">    
-  import {Chart} from 'chart.js' 
+  import ChartJs from 'chart.js'
+  const {Chart} = ChartJs;
   import type { PageProps } from './$types';
   import { formatDate } from '$lib/utils';
   import Navbar from '$lib/navbar.svelte';
