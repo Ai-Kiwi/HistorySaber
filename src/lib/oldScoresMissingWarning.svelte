@@ -1,11 +1,14 @@
 <script lang="ts">
 	let dismissed = $state(false);
   import { browser } from "$app/environment"
+    import { onMount } from "svelte";
   const { NOTICE_ID } = $props<{ NOTICE_ID: string }>();
 
-  if (typeof localStorage !== 'undefined') {
-    dismissed = localStorage.getItem(`oldScoresMissingWarningDismissed-${NOTICE_ID}`) === 'true';
-  }
+  onMount(() => {
+    if (typeof localStorage !== 'undefined') {
+      dismissed = localStorage.getItem(`oldScoresMissingWarningDismissed-${NOTICE_ID}`) === 'true';
+    }
+  })
 
   function dismiss() {
     if(!browser)return;

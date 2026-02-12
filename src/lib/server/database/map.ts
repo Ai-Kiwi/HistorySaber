@@ -62,38 +62,52 @@ export async function searchForMapLeaderboard(text : string, page : number, page
     const query = {
         name: 'fetch-map-leaderboards-search-page',
         text: `
-            WITH latest_ratings AS (
-                SELECT DISTINCT ON (r.leaderboard_id)
-                    r.leaderboard_id,
-                    r.stars,
-                    r.updated_at
-                FROM leaderboard_rating_update r
-                ORDER BY r.leaderboard_id, r.updated_at DESC
-            )
-        SELECT 
+        WITH latest_ratings AS (
+            SELECT DISTINCT ON (r.leaderboard_id)
+                r.leaderboard_id,
+                r.stars,
+                r.updated_at
+            FROM leaderboard_rating_update r
+            ORDER BY r.leaderboard_id, r.updated_at DESC
+        ),
+        filtered_maps AS (
+            SELECT DISTINCT ON (ml.map_hash)
+                m.map_hash,
+                m.song_name,
+                m.song_sub_name,
+                m.song_author_name,
+                m.level_author_name,
+                (similarity(m.song_name, $1) * 1 + 
+                similarity(m.song_sub_name, $1) * 0.4 +
+                similarity(m.song_author_name, $1) * 0.3 +
+                similarity(m.level_author_name, $1) * 0.3) AS search_score
+            FROM map_leaderboard ml
+            JOIN map m ON ml.map_hash = m.map_hash
+            WHERE m.song_name % $1 OR m.song_sub_name % $1 OR m.song_author_name % $1 OR m.level_author_name % $1
+        )
+        SELECT
+            ml.leaderboard_id,
             COALESCE(r.stars, 0) AS stars,
             ml.map_hash,
             ml.difficulty,
             ml.difficultyraw,
             ml.maxscore,
-            m.song_name,
-            m.song_sub_name,
-            m.song_author_name,
-            m.level_author_name,
-            (similarity(m.song_name, $1) * 0.5 + 
-            similarity(m.song_sub_name, $1) * 0.2 +
-            similarity(m.song_author_name, $1) * 0.15 +
-            similarity(m.level_author_name, $1) * 0.15) AS search_score
-        FROM map_leaderboard AS ml
+            fm.song_name,
+            fm.song_sub_name,
+            fm.song_author_name,
+            fm.level_author_name,
+            (fm.search_score + (COALESCE(r.stars, 0) / 50)) AS search_score
+        FROM map_leaderboard ml
+        JOIN filtered_maps fm ON ml.map_hash = fm.map_hash
         LEFT JOIN latest_ratings r ON ml.leaderboard_id = r.leaderboard_id
-        JOIN map m ON ml.map_hash = m.map_hash
-        ORDER BY search_score DESC
+        ORDER BY search_score DESC, stars DESC
         OFFSET $3
         LIMIT $2;
         `,
         values: [`%${text}%`, page_size, offset],
     };
-
+    //later can do 
+    // 
 
     const response = await client.query(query);
 
@@ -108,7 +122,7 @@ export async function searchForMapLeaderboard(text : string, page : number, page
             song_name: row.song_name,
             song_sub_name: row.song_sub_name,
             song_author_name: row.song_author_name,
-            level_author_name: row.song_author_name,
+            level_author_name: row.level_author_name,
         }
     })
 
