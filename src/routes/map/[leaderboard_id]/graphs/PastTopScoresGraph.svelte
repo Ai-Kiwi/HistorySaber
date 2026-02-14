@@ -3,8 +3,7 @@
 
     const data = $props<{ scores: Score[] }>();
 
-    import ChartJs from 'chart.js'
-    const {Chart} = ChartJs;
+    import {Chart} from 'chart.js'
 
     const chartRender = (node: any, options: any) => {
         new Chart (node, options)
