@@ -3,8 +3,9 @@
 
     const data = $props<{ ranks: MapLeaderboardStar[] }>();
 
-    import {Chart} from 'chart.js'
-
+    import pkg from 'chart.js';
+    const {Chart} = pkg;
+    
     const chartRender = (node: any, options: any) => {
         new Chart (node, options)
     }
