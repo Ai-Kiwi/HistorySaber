@@ -51,10 +51,4 @@
     border: 0px;
     cursor: pointer;
   }
-
-  @media (hover: hover) and (pointer: fine) {
-    .user-bar {
-        backdrop-filter: blur(15px) saturate(130%);
-    }
-  }
 </style>

@@ -620,7 +620,6 @@
 
   @media (hover: hover) and (pointer: fine) {
     .graph {
-      backdrop-filter: blur(15px) saturate(130%);
       border-radius: 15px;
     }
   }

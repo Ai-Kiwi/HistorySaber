@@ -228,7 +228,6 @@
         font-size: clamp(1rem,1.2vw,1.3rem);
         box-shadow: 0px 0px 15px rgba(4, 4, 142, 0.549);
         background-color: rgba(0, 0, 0, 0.25);
-        backdrop-filter: blur(15px);
         display: flex;
         flex-direction: column;
         justify-content: center;

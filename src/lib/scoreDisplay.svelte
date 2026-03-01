@@ -304,16 +304,6 @@
         flex-direction: row;
     }
 
-    @media (hover: hover) and (pointer: fine) {
-        .main-score {
-            backdrop-filter: blur(15px) saturate(130%);
-        }
-
-        .clickable-button {
-            backdrop-filter: blur(15px) saturate(130%);
-        }
-    }
-
     @media (max-width: 650px) {
 
         .icon-and-text {
