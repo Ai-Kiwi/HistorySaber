@@ -28,7 +28,6 @@
         radial-gradient(circle at right bottom,rgba(10, 45, 80, 1) 0%, rgba(15, 15, 15, 0.25) 75%, rgba(15, 15, 15, 0) 100%),
         radial-gradient(circle at left bottom,rgba(80, 10, 10, 1) 0%, rgba(15, 15, 15, 0.25) 75%, rgba(15, 15, 15, 0) 100%);
         background-blend-mode: color;
-        backdrop-filter: blur(2.5px);
     }
 
     .background-mascots {
@@ -55,9 +54,7 @@
         top: 50%;
         width: 25vw;
         padding: 5vw;
-        transform: translateY(-50%);
-        filter: blur(15px);
-        
+        transform: translateY(-50%);        
     }
 
     .left-mascot {
