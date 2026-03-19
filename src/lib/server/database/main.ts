@@ -26,7 +26,7 @@ DATABASE_POOL.on('remove', () => {
 });
 
 export const DATABASE_CACHE = new LRUCache({
-  max: 500,
+  max: 5000,
   ttl: 1000 * 60 * 60 * 24, //24 hours before item removes from cache. This means 1 day
   allowStale: false,
   updateAgeOnGet: true,
