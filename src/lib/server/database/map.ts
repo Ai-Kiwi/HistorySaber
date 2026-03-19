@@ -1,6 +1,6 @@
 import type { MapLeaderboard, MapLeaderboardStar, Score } from "$lib/types"
 import { calculatePP } from "../ppCalculator"
-import { client } from "./main"
+import { DATABASE_POOL } from "./main"
 
 export async function getLeaderboardInfo(leaderboard_id : string, date : Date) {
     if (isNaN(Number(leaderboard_id))) {
@@ -36,7 +36,7 @@ export async function getLeaderboardInfo(leaderboard_id : string, date : Date) {
         `,
         values: [leaderboard_id,date,],
     }
-    const response = await client.query(query)
+    const response = await DATABASE_POOL.query(query)
     if (response.rowCount == 0) {
         return undefined
     }
@@ -109,7 +109,7 @@ export async function searchForMapLeaderboard(text : string, page : number, page
     //later can do 
     // 
 
-    const response = await client.query(query);
+    const response = await DATABASE_POOL.query(query);
 
     let users: MapLeaderboard[] = response.rows.map((row: any) => {
         return {
@@ -144,7 +144,7 @@ export async function getLeaderboardRankHistory(leaderboard_id : string) {
         `,
         values: [leaderboard_id,],
     }
-    const response = await client.query(query)
+    const response = await DATABASE_POOL.query(query)
     let ranks: MapLeaderboardStar[] = response.rows.map((row: any) => {
 
         return {
@@ -226,7 +226,7 @@ export async function fetchPastTopScoresOnMap(leaderboard_id : string) {
     }
 
 
-    const res = await client.query(query);
+    const res = await DATABASE_POOL.query(query);
     let scores: Score[] = res.rows.map((row: any) => {
         let accuracy = (row.score / row.maxscore) * 100.0
         //accuracy = Math.round(accuracy * 100) / 100

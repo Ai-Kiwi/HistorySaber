@@ -1,6 +1,6 @@
 import type { Score } from "$lib/types"
 import { calculatePP } from "../ppCalculator"
-import { client } from "./main"
+import { DATABASE_POOL } from "./main"
 
 export async function fetchPlayerRankedScores(player_id : string, date : Date) {
     if (isNaN(Number(player_id))) {
@@ -59,7 +59,7 @@ export async function fetchPlayerRankedScores(player_id : string, date : Date) {
         `,
         values: [player_id,date,],
     }
-    const response = await client.query(query);
+    const response = await DATABASE_POOL.query(query);
     const scores: Score[] = response.rows.map((row: any) => {
         let accuracy = (row.score / row.maxscore) * 100.0
         if (row.maxscore == 0) {
@@ -159,7 +159,7 @@ export async function fetchAllPlayerScores(player_id : string, date : Date) {
         values: [player_id,date,],
     }
 
-    const response = await client.query(query);
+    const response = await DATABASE_POOL.query(query);
     const scores: Score[] = response.rows.map((row: any) => {
         let accuracy = (row.score / row.maxscore) * 100.0
         if (row.maxscore == 0) {
@@ -285,7 +285,7 @@ export async function fetchAllPlayerScoresDuplicatedPaged(player_id : string, pa
         values: [player_id,page_size,(page - 1) * page_size,],
     }
 
-    const response = await client.query(query);
+    const response = await DATABASE_POOL.query(query);
     const scores: Score[] = response.rows.map((row: any) => {
         let accuracy = (row.score / row.maxscore) * 100.0
         if (row.maxscore == 0) {

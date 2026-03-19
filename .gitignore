@@ -24,3 +24,5 @@ vite.config.ts.timestamp-*
 
 static/input.mp4
 test
+
+push_build.sh
