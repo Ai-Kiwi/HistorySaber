@@ -1,5 +1,5 @@
 import type { PlayerImprovementType, UserType } from "$lib/types";
-import { client } from "./main";
+import { DATABASE_POOL } from "./main";
 
 export async function getMostImprovedPlayers() {
     //console.log(`getting database leaderboard data page ${page}, date ${date}`)
@@ -55,7 +55,7 @@ export async function getMostImprovedPlayers() {
         //`
         //SELECT * FROM user WHERE id = $1',
     }
-    const response = await client.query(query)
+    const response = await DATABASE_POOL.query(query)
     //console.log(res.rows)
 
     const returning_users: PlayerImprovementType[] = response.rows.map((row: any) => ({
