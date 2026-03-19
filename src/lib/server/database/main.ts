@@ -9,6 +9,7 @@ const { Client, Pool } = pg
 export const DATABASE_POOL = new Pool({
   connectionString: DATABASE_URL,
   max: 5,
+  min: 0,
   idleTimeoutMillis: 30000,
 });
 

@@ -293,11 +293,6 @@ export async function searchForUser(text : string, page : number, page_size : nu
 }
 
 export async function fetchListOfAllPlayers() {
-    if (DATABASE_CACHE.has(`fetchListOfAllPlayers`)) {
-        return DATABASE_CACHE.get(`fetchListOfAllPlayers`)
-    }else if (DISPLAY_CACHE_MISS) {
-        console.log(`cache miss fetchListOfAllPlayers`)
-    }
     const query = {
         name: 'fetch-all-player-list',
         text: `
@@ -312,6 +307,5 @@ export async function fetchListOfAllPlayers() {
     let players = res.rows.map((row: any) => {
         return row.player_id
     })
-    DATABASE_CACHE.set(`fetchListOfAllPlayers`, players)
     return players;
 }

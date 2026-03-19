@@ -164,11 +164,6 @@ export async function getCountryLeaderboardPage(page : number,date : String, cou
 }
 
 export async function fetchListOfAllLeaderboards() {
-    if (DATABASE_CACHE.has(`fetchListOfAllLeaderboards`)) {
-        return DATABASE_CACHE.get(`fetchListOfAllLeaderboards`)
-    }else if (DISPLAY_CACHE_MISS) {
-        console.log(`cache miss fetchListOfAllLeaderboards`)
-    }
     const query = {
         name: 'fetch-all-leaderboard-list',
         text: `
@@ -183,6 +178,5 @@ export async function fetchListOfAllLeaderboards() {
     let leaderboards = res.rows.map((row: any) => {
         return row.leaderboard_id
     })
-    DATABASE_CACHE.set(`fetchListOfAllLeaderboards`,leaderboards)
     return leaderboards;
 }
