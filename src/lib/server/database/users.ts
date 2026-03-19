@@ -1,7 +1,7 @@
 import type { Score, UserType } from "$lib/types"
 import { getDateWithoutTime } from "$lib/utils"
 import { calculatePP } from "../ppCalculator"
-import { client } from "./main"
+import { DATABASE_POOL } from "./main"
 
 export async function getPlayerPastPpValues(player_id: String,limit : number) {
     if (isNaN(Number(player_id))) {
@@ -26,7 +26,7 @@ export async function getPlayerPastPpValues(player_id: String,limit : number) {
         //`
         //SELECT * FROM user WHERE id = $1',
     }
-    const response = await client.query(query)
+    const response = await DATABASE_POOL.query(query)
 
     let pp_values : (Number | null)[] = []
     let rank_values : (Number | null)[] = []
@@ -101,7 +101,7 @@ export async function getPlayerInfo(player_id: String) {
         `,
         values: [player_id,],
     }
-    const response = await client.query(query)
+    const response = await DATABASE_POOL.query(query)
     if (response.rowCount == 0) {
         return undefined
     }
@@ -186,7 +186,7 @@ export async function fetchPlayerScoresOnMap(player_id : string, leaderboard_id 
     }
 
 
-    const res = await client.query(query);
+    const res = await DATABASE_POOL.query(query);
     let scores: Score[] = res.rows.map((row: any) => {
         let accuracy = (row.score / row.maxscore) * 100.0
         //accuracy = Math.round(accuracy * 100) / 100
@@ -243,7 +243,7 @@ export async function searchForUser(text : string, page : number, page_size : nu
         values: [`%${text}%`, page_size, offset, `${text}%`],
     };
 
-    const response = await client.query(query);
+    const response = await DATABASE_POOL.query(query);
     const rows = response.rows;
 
     let users: UserType[] = response.rows.map((row: any) => {
@@ -281,7 +281,7 @@ export async function fetchListOfAllPlayers() {
     }
 
 
-    const res = await client.query(query);
+    const res = await DATABASE_POOL.query(query);
     let players = res.rows.map((row: any) => {
         return row.player_id
     })

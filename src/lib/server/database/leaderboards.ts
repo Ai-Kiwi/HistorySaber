@@ -1,5 +1,5 @@
 import type { MapLeaderboard, UserType } from "$lib/types";
-import { client } from "./main";
+import { DATABASE_POOL } from "./main";
 
 export async function getLeaderboardPage(page : number,date : String, page_size : number) {
     //console.log(`getting database leaderboard data page ${page}, date ${date}`)
@@ -23,7 +23,7 @@ export async function getLeaderboardPage(page : number,date : String, page_size 
         //`
         //SELECT * FROM user WHERE id = $1',
     }
-    const res = await client.query(query)
+    const res = await DATABASE_POOL.query(query)
     //console.log(res.rows)
 
     const returning_users: UserType[] = res.rows.map((row: any) => ({
@@ -81,7 +81,7 @@ export async function getOtherLeaderboardDifficulties(map_hash : String) {
         `,
         values: [map_hash],
     }
-    const res = await client.query(query)
+    const res = await DATABASE_POOL.query(query)
     //console.log(res.rows)
 
     const returning_leaderboards: MapLeaderboard[] = res.rows.map((row: any) => ({
@@ -122,7 +122,7 @@ export async function getCountryLeaderboardPage(page : number,date : String, cou
         //`
         //SELECT * FROM user WHERE id = $1',
     }
-    const res = await client.query(query)
+    const res = await DATABASE_POOL.query(query)
     //console.log(res.rows)
 
     const returning_users: UserType[] = res.rows.map((row: any) => ({
@@ -157,7 +157,7 @@ export async function fetchListOfAllLeaderboards() {
     }
 
 
-    const res = await client.query(query);
+    const res = await DATABASE_POOL.query(query);
     let leaderboards = res.rows.map((row: any) => {
         return row.leaderboard_id
     })

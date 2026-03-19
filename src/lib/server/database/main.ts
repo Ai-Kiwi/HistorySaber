@@ -3,12 +3,23 @@ import type { Score } from '$lib/types';
 import { formatNumberShort } from '$lib/utils';
 import pg from 'pg'
 import { calculatePP } from '../ppCalculator';
-const { Client } = pg
-export const client = new Client(DATABASE_URL)
-await client.connect()
+const { Client, Pool } = pg
+
+export const DATABASE_POOL = new Pool({
+  connectionString: DATABASE_URL,
+  max: 5,
+  idleTimeoutMillis: 30000,
+});
 
 console.log("created postgresql connection")
 
+DATABASE_POOL.on('connect', () => {
+  console.log('New database connection created');
+});
+
+DATABASE_POOL.on('remove', () => {
+  console.log('Database connection closed');
+});
 
 export async function fetchAllScoresDuplicatedPaged(page : number, page_size : number): Promise<any[]> {
     //set date to 3 as thats when leaderboards are collected
@@ -59,7 +70,7 @@ export async function fetchAllScoresDuplicatedPaged(page : number, page_size : n
         values: [page_size,(page - 1) * page_size,],
     }
 
-    const response = await client.query(query);
+    const response = await DATABASE_POOL.query(query);
     const scores: Score[] = response.rows.map((row: any) => {
         let accuracy = (row.score / row.maxscore) * 100.0
         if (row.maxscore == 0) {
