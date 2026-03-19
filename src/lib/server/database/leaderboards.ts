@@ -1,7 +1,12 @@
 import type { MapLeaderboard, UserType } from "$lib/types";
-import { DATABASE_POOL } from "./main";
+import { DATABASE_CACHE, DATABASE_POOL, DISPLAY_CACHE_MISS } from "./main";
 
 export async function getLeaderboardPage(page : number,date : String, page_size : number) {
+    if (DATABASE_CACHE.has(`getLeaderboardPage-${page},${date},${page_size}`)) {
+        return DATABASE_CACHE.get(`getLeaderboardPage-${page},${date},${page_size}`)
+    }else if (DISPLAY_CACHE_MISS) {
+        console.log(`cache miss getLeaderboardPage-${page},${date},${page_size}`)
+    }
     //console.log(`getting database leaderboard data page ${page}, date ${date}`)
     const query = {
         // give the query a unique name
@@ -44,11 +49,17 @@ export async function getLeaderboardPage(page : number,date : String, page_size 
         total_play_count: row.total_play_count,
         ranked_play_count: row.ranked_play_count
     }));
+    DATABASE_CACHE.set(`getLeaderboardPage-${page},${date},${page_size}`,returning_users);
     return returning_users
 }
 
 
 export async function getOtherLeaderboardDifficulties(map_hash : String) {
+    if (DATABASE_CACHE.has(`getOtherLeaderboardDifficulties-${map_hash}`)) {
+        return DATABASE_CACHE.get(`getOtherLeaderboardDifficulties-${map_hash}`)
+    }else if (DISPLAY_CACHE_MISS) {
+        console.log(`cache miss getOtherLeaderboardDifficulties-${map_hash}`)
+    }
     //console.log(`getting database leaderboard data page ${page}, date ${date}`)
     const query = {
         // give the query a unique name
@@ -96,12 +107,17 @@ export async function getOtherLeaderboardDifficulties(map_hash : String) {
         song_author_name: row.song_author_name,
         level_author_name: row.song_author_name,
     }));
+    DATABASE_CACHE.set(`getOtherLeaderboardDifficulties-${map_hash}`,returning_leaderboards);
     return returning_leaderboards
 }
 
 
 export async function getCountryLeaderboardPage(page : number,date : String, countrys: String[], page_size : number) {
-
+    if (DATABASE_CACHE.has(`getCountryLeaderboardPage-${page},${date},${countrys},${page_size}`)) {
+        return DATABASE_CACHE.get(`getCountryLeaderboardPage-${page},${date},${countrys},${page_size}`)
+    }else if (DISPLAY_CACHE_MISS) {
+        console.log(`cache miss getCountryLeaderboardPage-${page},${date},${countrys},${page_size}`)
+    }
     const query = {
         // give the query a unique name
         name: 'fetch-country-leaderboard-ranks',
@@ -143,10 +159,16 @@ export async function getCountryLeaderboardPage(page : number,date : String, cou
         total_play_count: row.total_play_count,
         ranked_play_count: row.ranked_play_count
     }));
+    DATABASE_CACHE.set(`getCountryLeaderboardPage-${page},${date},${countrys},${page_size}`,returning_users)
     return returning_users
 }
 
 export async function fetchListOfAllLeaderboards() {
+    if (DATABASE_CACHE.has(`fetchListOfAllLeaderboards`)) {
+        return DATABASE_CACHE.get(`fetchListOfAllLeaderboards`)
+    }else if (DISPLAY_CACHE_MISS) {
+        console.log(`cache miss fetchListOfAllLeaderboards`)
+    }
     const query = {
         name: 'fetch-all-leaderboard-list',
         text: `
@@ -161,6 +183,6 @@ export async function fetchListOfAllLeaderboards() {
     let leaderboards = res.rows.map((row: any) => {
         return row.leaderboard_id
     })
-
+    DATABASE_CACHE.set(`fetchListOfAllLeaderboards`,leaderboards)
     return leaderboards;
 }
