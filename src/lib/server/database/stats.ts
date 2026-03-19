@@ -1,7 +1,12 @@
 import type { PlayerImprovementType, UserType } from "$lib/types";
-import { DATABASE_POOL } from "./main";
+import { DATABASE_CACHE, DATABASE_POOL, DISPLAY_CACHE_MISS } from "./main";
 
 export async function getMostImprovedPlayers() {
+    if (DATABASE_CACHE.has(`getMostImprovedPlayers`)) {
+        return DATABASE_CACHE.get(`getMostImprovedPlayers`)
+    }else if (DISPLAY_CACHE_MISS) {
+        console.log(`cache miss getMostImprovedPlayers`)
+    }
     //console.log(`getting database leaderboard data page ${page}, date ${date}`)
     const query = {
         // give the query a unique name
@@ -65,5 +70,6 @@ export async function getMostImprovedPlayers() {
         new_rank: row.new_rank,
         rank_gain: row.rank_gain,
     }));
+    DATABASE_CACHE.set(`getMostImprovedPlayers`, returning_users)
     return returning_users
 }

@@ -3,6 +3,7 @@ import type { Score } from '$lib/types';
 import { formatNumberShort } from '$lib/utils';
 import pg from 'pg'
 import { calculatePP } from '../ppCalculator';
+import { LRUCache } from 'lru-cache'
 const { Client, Pool } = pg
 
 export const DATABASE_POOL = new Pool({
@@ -10,6 +11,8 @@ export const DATABASE_POOL = new Pool({
   max: 5,
   idleTimeoutMillis: 30000,
 });
+
+export const DISPLAY_CACHE_MISS = false;
 
 console.log("created postgresql connection")
 
@@ -21,7 +24,22 @@ DATABASE_POOL.on('remove', () => {
   console.log('Database connection closed');
 });
 
+export const DATABASE_CACHE = new LRUCache({
+  max: 500,
+  ttl: 1000 * 60 * 60 * 24, //24 hours before item removes from cache. This means 1 day
+  allowStale: false,
+  updateAgeOnGet: true,
+  //updateAgeOnHas: false,
+  //fetchMethod: async (key, staleValue, { options, signal, context }) => {},
+})
+
+
 export async function fetchAllScoresDuplicatedPaged(page : number, page_size : number): Promise<any[]> {
+    if (DATABASE_CACHE.has(`fetchAllScoresDuplicatedPaged`)) {
+        return DATABASE_CACHE.get(`fetchAllScoresDuplicatedPaged`) as any[]
+    }else if (DISPLAY_CACHE_MISS) {
+        console.log(`cache miss fetchAllScoresDuplicatedPaged`)
+    }
     //set date to 3 as thats when leaderboards are collected
     const query = {
         name: 'fetch-all-scores-duplicated',
@@ -110,5 +128,6 @@ export async function fetchAllScoresDuplicatedPaged(page : number, page_size : n
             device_controller_right: row.device_controller_right,
         }
     })
+    DATABASE_CACHE.set(`fetchAllScoresDuplicatedPaged`,scores)
     return scores;
 }
