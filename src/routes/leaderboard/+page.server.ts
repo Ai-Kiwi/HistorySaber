@@ -14,7 +14,7 @@ export const load: PageServerLoad = async ({ params, setHeaders }) => {
     });
 
     if (!cache["leaderboard_info"] || cache["leaderboard_info_date_expire"] < new Date() ) {
-        cache["leaderboard_info"] = await getLeaderboardPage(1, formatDate(new Date()), 50)
+        cache["leaderboard_info"] = await getLeaderboardPage(1, new Date(), 50)
         let date = new Date()
         date.setDate(date.getDate() + 1)
         cache["leaderboard_info_date_expire"] = date

@@ -1,7 +1,8 @@
 import type { MapLeaderboard, UserType } from "$lib/types";
 import { DATABASE_CACHE, DATABASE_POOL, DISPLAY_CACHE_MISS } from "./main";
 
-export async function getLeaderboardPage(page : number,date : String, page_size : number) {
+export async function getLeaderboardPage(page : number,unrounded_date : Date, page_size : number) {
+    const date = new Date(unrounded_date.getFullYear(), unrounded_date.getMonth(), unrounded_date.getDate());
     if (DATABASE_CACHE.has(`getLeaderboardPage-${page},${date},${page_size}`)) {
         return DATABASE_CACHE.get(`getLeaderboardPage-${page},${date},${page_size}`)
     }else if (DISPLAY_CACHE_MISS) {
@@ -112,7 +113,8 @@ export async function getOtherLeaderboardDifficulties(map_hash : String) {
 }
 
 
-export async function getCountryLeaderboardPage(page : number,date : String, countrys: String[], page_size : number) {
+export async function getCountryLeaderboardPage(page : number,unrounded_date : Date, countrys: String[], page_size : number) {
+    const date = new Date(unrounded_date.getFullYear(), unrounded_date.getMonth(), unrounded_date.getDate());
     if (DATABASE_CACHE.has(`getCountryLeaderboardPage-${page},${date},${countrys},${page_size}`)) {
         return DATABASE_CACHE.get(`getCountryLeaderboardPage-${page},${date},${countrys},${page_size}`)
     }else if (DISPLAY_CACHE_MISS) {
