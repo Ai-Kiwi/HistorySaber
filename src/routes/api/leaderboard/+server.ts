@@ -11,14 +11,14 @@ export async function GET({ url }) {
     }
 
     if (country == "") {
-      let users = await getLeaderboardPage(page,date,page_size)
+      let users = await getLeaderboardPage(page,new Date(date),page_size)
       return new Response(JSON.stringify(users), {
         headers: { 'Content-Type': 'application/json' },
         status: 200
       });
     }else{
       let countrys = country.split(",")
-      let users = await getCountryLeaderboardPage(page,date,countrys, page_size)
+      let users = await getCountryLeaderboardPage(page,new Date(date),countrys, page_size)
       return new Response(JSON.stringify(users), {
         headers: { 'Content-Type': 'application/json' },
         status: 200

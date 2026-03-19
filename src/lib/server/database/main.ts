@@ -13,7 +13,7 @@ export const DATABASE_POOL = new Pool({
   idleTimeoutMillis: 30000,
 });
 
-export const DISPLAY_CACHE_MISS = false;
+export const DISPLAY_CACHE_MISS = true;
 
 console.log("created postgresql connection")
 
