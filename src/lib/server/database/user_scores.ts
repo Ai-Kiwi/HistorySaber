@@ -1,10 +1,16 @@
 import type { Score } from "$lib/types"
 import { calculatePP } from "../ppCalculator"
-import { DATABASE_POOL } from "./main"
+import { DATABASE_CACHE, DATABASE_POOL, DISPLAY_CACHE_MISS } from "./main"
 
-export async function fetchPlayerRankedScores(player_id : string, date : Date) {
+export async function fetchPlayerRankedScores(player_id : string, unrounded_date : Date) {
+    const date = new Date(unrounded_date.getFullYear(), unrounded_date.getMonth(), unrounded_date.getDate());
     if (isNaN(Number(player_id))) {
         return undefined
+    }
+    if (DATABASE_CACHE.has(`fetchPlayerRankedScores-${player_id},${date}`)) {
+        return DATABASE_CACHE.get(`fetchPlayerRankedScores-${player_id},${date}`)
+    }else if (DISPLAY_CACHE_MISS) {
+        console.log(`cache miss fetchPlayerRankedScores-${player_id},${date}`)
     }
     //set date to 3 as thats when leaderboards are collected
     const query = {
@@ -98,12 +104,19 @@ export async function fetchPlayerRankedScores(player_id : string, date : Date) {
             device_controller_right: row.device_controller_right,
         }
     })
+    DATABASE_CACHE.set(`fetchPlayerRankedScores-${player_id},${date}`, scores)
     return scores;
 }
 
-export async function fetchAllPlayerScores(player_id : string, date : Date) {
+export async function fetchAllPlayerScores(player_id : string, unrounded_date : Date) {
+    const date = new Date(unrounded_date.getFullYear(), unrounded_date.getMonth(), unrounded_date.getDate());
     if (isNaN(Number(player_id))) {
         return undefined
+    }
+    if (DATABASE_CACHE.has(`fetchAllPlayerScores-${player_id},${date}`)) {
+        return DATABASE_CACHE.get(`fetchAllPlayerScores-${player_id},${date}`)
+    }else if (DISPLAY_CACHE_MISS) {
+        console.log(`cache miss fetchAllPlayerScores-${player_id},${date}`)
     }
     //set date to 3 as thats when leaderboards are collected
     const query = {
@@ -199,10 +212,17 @@ export async function fetchAllPlayerScores(player_id : string, date : Date) {
             device_controller_right: row.device_controller_right,
         }
     })
+    DATABASE_CACHE.set(`fetchAllPlayerScores-${player_id},${date}`,scores)
     return scores;
 }
 
-export async function getPlayerScoresFiltered(player_id : string, date : Date, page : number, page_size : number, sort_by : keyof Score, reverse : boolean, only_ranked : boolean) {
+export async function getPlayerScoresFiltered(player_id : string, unrounded_date : Date, page : number, page_size : number, sort_by : keyof Score, reverse : boolean, only_ranked : boolean) {
+    const date = new Date(unrounded_date.getFullYear(), unrounded_date.getMonth(), unrounded_date.getDate());
+    if (DATABASE_CACHE.has(`getPlayerScoresFiltered-${player_id},${date},${page},${page_size},${sort_by},${reverse},${only_ranked}`)) {
+        return DATABASE_CACHE.get(`getPlayerScoresFiltered-${player_id},${date},${page},${page_size},${sort_by},${reverse},${only_ranked}`)
+    }else if (DISPLAY_CACHE_MISS) {
+        console.log(`cache miss getPlayerScoresFiltered-${player_id},${date},${page},${page_size},${sort_by},${reverse},${only_ranked}`)
+    }
     let scores = only_ranked == true ? await fetchPlayerRankedScores(player_id, date) : await fetchAllPlayerScores(player_id, date)
     if (scores == undefined) {
         return undefined
@@ -222,15 +242,19 @@ export async function getPlayerScoresFiltered(player_id : string, date : Date, p
     }else{
         scores = scores.slice(0,page_size);
     }
-
+    DATABASE_CACHE.set(`getPlayerScoresFiltered-${player_id},${date},${page},${page_size},${sort_by},${reverse},${only_ranked}`, scores)
     return scores;
-
 }
 
 
 export async function fetchAllPlayerScoresDuplicatedPaged(player_id : string, page : number, page_size : number) {
     if (isNaN(Number(player_id))) {
         return undefined
+    }
+    if (DATABASE_CACHE.has(`getPlayerScoresFiltered-${player_id},${page},${page_size}`)) {
+        return DATABASE_CACHE.get(`getPlayerScoresFiltered-${player_id},${page},${page_size}`)
+    }else if (DISPLAY_CACHE_MISS) {
+        console.log(`cache miss getPlayerScoresFiltered-${player_id},${page},${page_size}`)
     }
     //set date to 3 as thats when leaderboards are collected
     const query = {
@@ -325,5 +349,6 @@ export async function fetchAllPlayerScoresDuplicatedPaged(player_id : string, pa
             device_controller_right: row.device_controller_right,
         }
     })
+    DATABASE_CACHE.set(`getPlayerScoresFiltered-${player_id},${page},${page_size}`,scores)
     return scores;
 }

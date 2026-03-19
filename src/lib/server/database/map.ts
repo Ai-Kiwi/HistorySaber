@@ -1,10 +1,16 @@
 import type { MapLeaderboard, MapLeaderboardStar, Score } from "$lib/types"
 import { calculatePP } from "../ppCalculator"
-import { DATABASE_POOL } from "./main"
+import { DATABASE_CACHE, DATABASE_POOL, DISPLAY_CACHE_MISS } from "./main"
 
-export async function getLeaderboardInfo(leaderboard_id : string, date : Date) {
+export async function getLeaderboardInfo(leaderboard_id : string, unrounded_date : Date) {
+    const date = new Date(unrounded_date.getFullYear(), unrounded_date.getMonth(), unrounded_date.getDate());
     if (isNaN(Number(leaderboard_id))) {
         return undefined
+    }
+    if (DATABASE_CACHE.has(`getLeaderboardInfo-${leaderboard_id},${date}`)) {
+        return DATABASE_CACHE.get(`getLeaderboardInfo-${leaderboard_id},${date}`)
+    }else if (DISPLAY_CACHE_MISS) {
+        console.log(`cache miss getLeaderboardInfo-${leaderboard_id},${date}`)
     }
     const query = {
         // give the query a unique name
@@ -52,13 +58,18 @@ export async function getLeaderboardInfo(leaderboard_id : string, date : Date) {
         song_author_name: response.rows[0].song_author_name,
         level_author_name: response.rows[0].song_author_name,
     }
+    DATABASE_CACHE.set(`getLeaderboardInfo-${leaderboard_id},${date}`,leaderboard_data)
     return leaderboard_data
 }
 
 
 export async function searchForMapLeaderboard(text : string, page : number, page_size : number) {
     const offset = (page - 1) * page_size;
-
+    if (DATABASE_CACHE.has(`searchForMapLeaderboard-${text},${page},${page_size}`)) {
+        return DATABASE_CACHE.get(`searchForMapLeaderboard-${text},${page},${page_size}`)
+    }else if (DISPLAY_CACHE_MISS) {
+        console.log(`cache miss searchForMapLeaderboard-${text},${page},${page_size}`)
+    }
     const query = {
         name: 'fetch-map-leaderboards-search-page',
         text: `
@@ -125,7 +136,7 @@ export async function searchForMapLeaderboard(text : string, page : number, page
             level_author_name: row.level_author_name,
         }
     })
-
+    DATABASE_CACHE.set(`searchForMapLeaderboard-${text},${page},${page_size}`,users)
     return users
 }
 
@@ -133,6 +144,11 @@ export async function searchForMapLeaderboard(text : string, page : number, page
 export async function getLeaderboardRankHistory(leaderboard_id : string) {
     if (isNaN(Number(leaderboard_id))) {
         return undefined
+    }
+    if (DATABASE_CACHE.has(`getLeaderboardRankHistory-${leaderboard_id}`)) {
+        return DATABASE_CACHE.get(`getLeaderboardRankHistory-${leaderboard_id}`)
+    }else if (DISPLAY_CACHE_MISS) {
+        console.log(`cache miss getLeaderboardRankHistory-${leaderboard_id}`)
     }
     const query = {
         // give the query a unique name
@@ -155,13 +171,18 @@ export async function getLeaderboardRankHistory(leaderboard_id : string) {
         update_at: row.updated_at
         }
     })
-
+    DATABASE_CACHE.set(`getLeaderboardRankHistory-${leaderboard_id}`,ranks)
     return ranks;
 }
 
 export async function fetchPastTopScoresOnMap(leaderboard_id : string) {
     if (isNaN(Number(leaderboard_id))) {
         return undefined
+    }
+    if (DATABASE_CACHE.has(`fetchPastTopScoresOnMap-${leaderboard_id}`)) {
+        return DATABASE_CACHE.get(`fetchPastTopScoresOnMap-${leaderboard_id}`)
+    }else if (DISPLAY_CACHE_MISS) {
+        console.log(`cache miss fetchPastTopScoresOnMap-${leaderboard_id}`)
     }
     //set date to 3 as thats when leaderboards are collected
     const query = {
@@ -278,6 +299,6 @@ export async function fetchPastTopScoresOnMap(leaderboard_id : string) {
         //console.log(`${score.time.getTime()} ${oldest_date.getTime()}`)
         return score.time.getTime() >= oldest_date.getTime()
     })
-
+    DATABASE_CACHE.set(`fetchPastTopScoresOnMap-${leaderboard_id}`, scores)
     return scores;
 }

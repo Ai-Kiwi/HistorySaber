@@ -1,11 +1,16 @@
 import type { Score, UserType } from "$lib/types"
 import { getDateWithoutTime } from "$lib/utils"
 import { calculatePP } from "../ppCalculator"
-import { DATABASE_POOL } from "./main"
+import { DATABASE_CACHE, DATABASE_POOL, DISPLAY_CACHE_MISS } from "./main"
 
 export async function getPlayerPastPpValues(player_id: String,limit : number) {
     if (isNaN(Number(player_id))) {
         return undefined
+    }
+    if (DATABASE_CACHE.has(`getPlayerPastPpValues-${player_id},${limit}`)) {
+        return DATABASE_CACHE.get(`getPlayerPastPpValues-${player_id},${limit}`)
+    }else if (DISPLAY_CACHE_MISS) {
+        console.log(`cache miss getPlayerPastPpValues-${player_id},${limit}`)
     }
     const query = {
         // give the query a unique name
@@ -71,8 +76,7 @@ export async function getPlayerPastPpValues(player_id: String,limit : number) {
             ranked_play_count_value.push(null)
         }
     }
-
-    return {
+    const result = {
         pp_values : pp_values,
         dates : dates,
         rank_values : rank_values,
@@ -83,12 +87,19 @@ export async function getPlayerPastPpValues(player_id: String,limit : number) {
         total_play_count_value : total_play_count_value,
         ranked_play_count_value : ranked_play_count_value,
     }
+    DATABASE_CACHE.set(`getPlayerPastPpValues-${player_id},${limit}`, result)
+    return result
 }
 
 
 export async function getPlayerInfo(player_id: String) {
     if (isNaN(Number(player_id))) {
         return undefined
+    }
+    if (DATABASE_CACHE.has(`getPlayerInfo-${player_id}`)) {
+        return DATABASE_CACHE.get(`getPlayerInfo-${player_id}`)
+    }else if (DISPLAY_CACHE_MISS) {
+        console.log(`cache miss getPlayerInfo-${player_id}`)
     }
     const query = {
         // give the query a unique name
@@ -124,6 +135,7 @@ export async function getPlayerInfo(player_id: String) {
         total_play_count: response.rows[0].total_play_count,
         ranked_play_count: response.rows[0].ranked_play_count
     }
+    DATABASE_CACHE.set(`getPlayerInfo-${player_id}`, player_data)
     return player_data
 }
 
@@ -131,6 +143,11 @@ export async function getPlayerInfo(player_id: String) {
 export async function fetchPlayerScoresOnMap(player_id : string, leaderboard_id : string) {
     if (isNaN(Number(player_id)) || isNaN(Number(leaderboard_id))) {
         return undefined
+    }
+    if (DATABASE_CACHE.has(`fetchPlayerScoresOnMap-${player_id},${leaderboard_id}`)) {
+        return DATABASE_CACHE.get(`fetchPlayerScoresOnMap-${player_id},${leaderboard_id}`)
+    }else if (DISPLAY_CACHE_MISS) {
+        console.log(`cache miss fetchPlayerScoresOnMap-${player_id},${leaderboard_id}`)
     }
     //set date to 3 as thats when leaderboards are collected
     const query = {
@@ -223,11 +240,16 @@ export async function fetchPlayerScoresOnMap(player_id : string, leaderboard_id 
             device_controller_right: row.device_controller_right,
         }
     })
-
+    DATABASE_CACHE.set(`fetchPlayerScoresOnMap-${player_id},${leaderboard_id}`, scores)
     return scores;
 }
  
 export async function searchForUser(text : string, page : number, page_size : number) {
+    if (DATABASE_CACHE.has(`searchForUser-${text},${page},${page_size}`)) {
+        return DATABASE_CACHE.get(`searchForUser-${text},${page},${page_size}`)
+    }else if (DISPLAY_CACHE_MISS) {
+        console.log(`cache miss searchForUser-${text},${page},${page_size}`)
+    }
     const offset = (page - 1) * page_size;
 
     const query = {
@@ -266,11 +288,16 @@ export async function searchForUser(text : string, page : number, page_size : nu
             ranked_play_count: row.total_play_count,
         }
     })
-
+    DATABASE_CACHE.set(`searchForUser-${text},${page},${page_size}`, users)
     return users
 }
 
 export async function fetchListOfAllPlayers() {
+    if (DATABASE_CACHE.has(`fetchListOfAllPlayers`)) {
+        return DATABASE_CACHE.get(`fetchListOfAllPlayers`)
+    }else if (DISPLAY_CACHE_MISS) {
+        console.log(`cache miss fetchListOfAllPlayers`)
+    }
     const query = {
         name: 'fetch-all-player-list',
         text: `
@@ -285,6 +312,6 @@ export async function fetchListOfAllPlayers() {
     let players = res.rows.map((row: any) => {
         return row.player_id
     })
-
+    DATABASE_CACHE.set(`fetchListOfAllPlayers`, players)
     return players;
 }
