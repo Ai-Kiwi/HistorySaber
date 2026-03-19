@@ -1,5 +1,9 @@
 User-agent: *
 Disallow: /api/
+#disabled in sitemap as well
+Disallow: /map/
+Disallow: /profile/
+Disallow: /score-improvement/
 
 Allow: /
 

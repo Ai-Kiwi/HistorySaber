@@ -9,16 +9,16 @@ export const prerender = false;
 
 export const GET: RequestHandler = async ({ params }) => {
 
-  const leaderboards = await fetchListOfAllLeaderboards();
-  const players = await fetchListOfAllPlayers();
+  //const leaderboards = await fetchListOfAllLeaderboards();
+  //const players = await fetchListOfAllPlayers();
 
   return await sitemap.response({
     origin: 'https://historysaber.com',
     page: params.page,
     paramValues: {
-      '/map/[leaderboard_id]': leaderboards,
-      '/profile/[player_id]' : players,
-      '/score-improvement/[leaderboard_id]/[player_id]' : []
+      //'/map/[leaderboard_id]': leaderboards,
+      //'/profile/[player_id]' : players,
+      //'/score-improvement/[leaderboard_id]/[player_id]' : []
     },
     additionalPaths: [
       //'/foo.pdf',
@@ -26,6 +26,8 @@ export const GET: RequestHandler = async ({ params }) => {
         '/api',
         '/leaderboard',
         '/search',
+        '/about',
+        '/assets',
         '/'
     ],
 
