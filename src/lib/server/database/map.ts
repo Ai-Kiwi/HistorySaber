@@ -1,9 +1,10 @@
 import type { MapLeaderboard, MapLeaderboardStar, Score } from "$lib/types"
+import { makeDateSafeInput } from "$lib/utils"
 import { calculatePP } from "../ppCalculator"
 import { DATABASE_CACHE, DATABASE_POOL, DISPLAY_CACHE_MISS } from "./main"
 
 export async function getLeaderboardInfo(leaderboard_id : string, unrounded_date : Date) {
-    const date = new Date(unrounded_date.getFullYear(), unrounded_date.getMonth(), unrounded_date.getDate());
+    const date = makeDateSafeInput(unrounded_date)
     if (isNaN(Number(leaderboard_id))) {
         return undefined
     }
@@ -136,7 +137,9 @@ export async function searchForMapLeaderboard(text : string, page : number, page
             level_author_name: row.level_author_name,
         }
     })
-    DATABASE_CACHE.set(`searchForMapLeaderboard-${text},${page},${page_size}`,users)
+    DATABASE_CACHE.set(`searchForMapLeaderboard-${text},${page},${page_size}`,users, {
+        ttl : 1000 * 60 * 60 * 24 * 7 // 1 week
+    })
     return users
 }
 
@@ -171,7 +174,11 @@ export async function getLeaderboardRankHistory(leaderboard_id : string) {
         update_at: row.updated_at
         }
     })
-    DATABASE_CACHE.set(`getLeaderboardRankHistory-${leaderboard_id}`,ranks)
+    if (ranks.length > 0) {
+        DATABASE_CACHE.set(`getLeaderboardRankHistory-${leaderboard_id}`,ranks, {
+            ttl : 1000 * 60 * 60 * 24 //1 day
+        })
+    }
     return ranks;
 }
 
@@ -299,6 +306,10 @@ export async function fetchPastTopScoresOnMap(leaderboard_id : string) {
         //console.log(`${score.time.getTime()} ${oldest_date.getTime()}`)
         return score.time.getTime() >= oldest_date.getTime()
     })
-    DATABASE_CACHE.set(`fetchPastTopScoresOnMap-${leaderboard_id}`, scores)
+    if (scores.length > 0) {
+        DATABASE_CACHE.set(`fetchPastTopScoresOnMap-${leaderboard_id}`, scores, {
+            ttl : 1000 * 60 * 60 * 24 //1 day
+        })
+    }
     return scores;
 }

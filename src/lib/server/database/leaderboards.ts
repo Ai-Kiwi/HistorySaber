@@ -1,8 +1,9 @@
 import type { MapLeaderboard, UserType } from "$lib/types";
+import { makeDateSafeInput } from "$lib/utils";
 import { DATABASE_CACHE, DATABASE_POOL, DISPLAY_CACHE_MISS } from "./main";
 
 export async function getLeaderboardPage(page : number,unrounded_date : Date, page_size : number) {
-    const date = new Date(unrounded_date.getFullYear(), unrounded_date.getMonth(), unrounded_date.getDate());
+    const date = makeDateSafeInput(unrounded_date)
     if (DATABASE_CACHE.has(`getLeaderboardPage-${page},${date},${page_size}`)) {
         return DATABASE_CACHE.get(`getLeaderboardPage-${page},${date},${page_size}`)
     }else if (DISPLAY_CACHE_MISS) {
@@ -50,7 +51,9 @@ export async function getLeaderboardPage(page : number,unrounded_date : Date, pa
         total_play_count: row.total_play_count,
         ranked_play_count: row.ranked_play_count
     }));
-    DATABASE_CACHE.set(`getLeaderboardPage-${page},${date},${page_size}`,returning_users);
+    if (returning_users.length > 0) {
+        DATABASE_CACHE.set(`getLeaderboardPage-${page},${date},${page_size}`,returning_users);
+    }
     return returning_users
 }
 
@@ -108,13 +111,15 @@ export async function getOtherLeaderboardDifficulties(map_hash : String) {
         song_author_name: row.song_author_name,
         level_author_name: row.song_author_name,
     }));
-    DATABASE_CACHE.set(`getOtherLeaderboardDifficulties-${map_hash}`,returning_leaderboards);
+    if (returning_leaderboards.length > 0) {
+        DATABASE_CACHE.set(`getOtherLeaderboardDifficulties-${map_hash}`,returning_leaderboards);
+    }
     return returning_leaderboards
 }
 
 
 export async function getCountryLeaderboardPage(page : number,unrounded_date : Date, countrys: String[], page_size : number) {
-    const date = new Date(unrounded_date.getFullYear(), unrounded_date.getMonth(), unrounded_date.getDate());
+    const date = makeDateSafeInput(unrounded_date)
     if (DATABASE_CACHE.has(`getCountryLeaderboardPage-${page},${date},${countrys},${page_size}`)) {
         return DATABASE_CACHE.get(`getCountryLeaderboardPage-${page},${date},${countrys},${page_size}`)
     }else if (DISPLAY_CACHE_MISS) {
@@ -161,7 +166,9 @@ export async function getCountryLeaderboardPage(page : number,unrounded_date : D
         total_play_count: row.total_play_count,
         ranked_play_count: row.ranked_play_count
     }));
-    DATABASE_CACHE.set(`getCountryLeaderboardPage-${page},${date},${countrys},${page_size}`,returning_users)
+    if (returning_users.length > 0) {
+        DATABASE_CACHE.set(`getCountryLeaderboardPage-${page},${date},${countrys},${page_size}`,returning_users)
+    }
     return returning_users
 }
 

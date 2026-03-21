@@ -70,6 +70,8 @@ export async function getMostImprovedPlayers() {
         new_rank: row.new_rank,
         rank_gain: row.rank_gain,
     }));
-    DATABASE_CACHE.set(`getMostImprovedPlayers`, returning_users)
+    DATABASE_CACHE.set(`getMostImprovedPlayers`, returning_users,{
+        ttl : 1000 * 60 * 60 * 24 * 7 //1 week
+    })
     return returning_users
 }

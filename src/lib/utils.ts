@@ -6,6 +6,19 @@ export function formatDate(date: Date): string {
     return `${year}-${month}-${day}`;
 }
 
+export function makeDateSafeInput(unrounded_date : Date) {
+  const now = new Date();
+  now.setHours(23, 59, 59, 999);
+
+  const input = new Date(unrounded_date);
+  input.setHours(23, 59, 59, 999);
+  if (now.getTime() > input.getTime()) {
+    return input
+  }else{
+    return now
+  }
+}
+
 export function haveSameValues(arr1: any[], arr2: any[]) {
     if (arr1.length !== arr2.length) return false;
   
