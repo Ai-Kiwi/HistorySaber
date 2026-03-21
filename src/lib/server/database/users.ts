@@ -87,7 +87,9 @@ export async function getPlayerPastPpValues(player_id: String,limit : number) {
         total_play_count_value : total_play_count_value,
         ranked_play_count_value : ranked_play_count_value,
     }
-    DATABASE_CACHE.set(`getPlayerPastPpValues-${player_id},${limit}`, result)
+    DATABASE_CACHE.set(`getPlayerPastPpValues-${player_id},${limit}`, result, {
+        ttl : 1000 * 60 * 60 * 24 // 1 day
+    })
     return result
 }
 
@@ -135,7 +137,9 @@ export async function getPlayerInfo(player_id: String) {
         total_play_count: response.rows[0].total_play_count,
         ranked_play_count: response.rows[0].ranked_play_count
     }
-    DATABASE_CACHE.set(`getPlayerInfo-${player_id}`, player_data)
+    DATABASE_CACHE.set(`getPlayerInfo-${player_id}`, player_data, {
+        ttl : 100 * 60 * 60 * 24 //1 day
+    })
     return player_data
 }
 
@@ -240,7 +244,11 @@ export async function fetchPlayerScoresOnMap(player_id : string, leaderboard_id 
             device_controller_right: row.device_controller_right,
         }
     })
-    DATABASE_CACHE.set(`fetchPlayerScoresOnMap-${player_id},${leaderboard_id}`, scores)
+    if (scores.length > 0) {
+        DATABASE_CACHE.set(`fetchPlayerScoresOnMap-${player_id},${leaderboard_id}`, scores, {
+            ttl : 100 * 60 * 60 * 24 //1 day
+        })
+    }
     return scores;
 }
  
@@ -288,11 +296,13 @@ export async function searchForUser(text : string, page : number, page_size : nu
             ranked_play_count: row.total_play_count,
         }
     })
-    DATABASE_CACHE.set(`searchForUser-${text},${page},${page_size}`, users)
+    DATABASE_CACHE.set(`searchForUser-${text},${page},${page_size}`, users, {
+        ttl : 1000 * 60 * 60 * 24 * 7 //1 week
+    })
     return users
 }
 
-export async function fetchListOfAllPlayers() {
+export async function fetchListOfAllPlayers() {    
     const query = {
         name: 'fetch-all-player-list',
         text: `
