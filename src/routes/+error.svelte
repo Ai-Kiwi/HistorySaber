@@ -29,6 +29,7 @@
     <h1>{message}</h1>
     <h3>{subtext}</h3>
     <img src="/images/large-cubes.avif" alt="">
+    <h5>It is also possible this may be bot protection. Please try reloading the page</h5>
 </main>
 
 <style>
