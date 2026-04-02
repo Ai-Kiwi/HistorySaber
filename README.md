@@ -5,13 +5,14 @@ Track historical ScoreSaber rankings, player scores, and top player performance 
 HistorySaber is a tool for exploring historical data from ScoreSaber, the global Beat Saber ranking platform. It lets you dive deep into how players’ rankings, performance points (pp), and top scores have evolved — features not currently offered in depth by ScoreSaber itself.
 
 <p float="center">
-  <img src="https://github.com/user-attachments/assets/f3f4935d-4e3e-4756-9138-fd194f7a3785" width="400" />
-  <img src="https://github.com/user-attachments/assets/0dd435c9-221c-4576-9ce8-455663c9bff4" width="400" />
-  <img src="https://github.com/user-attachments/assets/02c9558e-441c-472a-8836-26e7a0cfc9e2" width="400" />
-  <img src="https://github.com/user-attachments/assets/c8e50486-73dd-462c-b27e-cef604312217" width="400" />
-  <img src="https://github.com/user-attachments/assets/1e2a4ed1-ec29-4f33-a401-e6039b7d48e0" width="400" />
-  <img src="https://github.com/user-attachments/assets/21a951ae-6dac-4115-a9a8-b1acdc5eae13" width="400" />
-  <img src="https://github.com/user-attachments/assets/779b22d1-0712-40f0-80a6-95e10ff58198" width="400" />
+<img src="https://github.com/user-attachments/assets/721f1dc1-0dce-4fac-9777-6c28cde12135" width="400" />
+<img src="https://github.com/user-attachments/assets/ac6fbd92-afdb-488b-a48a-882cb023dcdf" width="400" />
+<img src="https://github.com/user-attachments/assets/22d95945-87a9-437a-9fbc-44be453c1fb7" width="400" />
+<img src="https://github.com/user-attachments/assets/701459f8-9f39-4da1-80bd-c8c9bfc3d8a0" width="400" />
+<img src="https://github.com/user-attachments/assets/414e1834-c7b9-48e4-9080-56ac1ef240b1" width="400" />
+<img src="https://github.com/user-attachments/assets/3f327b93-a157-4997-a7a9-e824d921a0c9" width="400" />
+<img src="https://github.com/user-attachments/assets/042fe35b-8ac1-434e-8087-91ab7f7e0151" width="400" />
+<img src="https://github.com/user-attachments/assets/21776c3c-6055-49f7-81d5-7aa9da87402c" width="400" />
 </p>
 
 
