@@ -1,3 +1,6 @@
+# Historysaber Shutdown Notice
+Historysaber ran from 3rd March 2025 to 4th March 2026; during this time, it captured daily leaderboard data for every active user, including info like their point values. From April onwards, it captured all scores for all active players, including keeping old data for dates and not overriding new data. Originally, this was hosted on my own computer with a custom PostgreSQL installation; however, it later had to be moved to a cloud host after the server suffered a drive failure. During this time over 60 million scores were recorded and over a years worth of player data accounting for over 11GB of data, if you are intressted in having this data contact me at contact@aikiwi.dev. 
+
 ![Website Logo](https://historysaber.com/images/medium-logo.png)
 
 Track historical ScoreSaber rankings, player scores, and top player performance over time.
